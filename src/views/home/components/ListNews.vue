@@ -94,6 +94,7 @@ export default {
             color:#7b95b8
             text-align left 
             line-height px2rem(28)
+            font-size px2rem(22)
           p:last-child
             font-size px2rem(18)
             :first-child
