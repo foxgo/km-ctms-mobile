@@ -9,21 +9,31 @@
 	    v-model="personSheetVisible"
 	    cancel-text="新增家庭成员">
 	  </mt-actionsheet>
+    <!--<picker :slot-data="yearSlot" :selected-value="person.Gender" text-name="ItemName" value-name="ItemCode" @change="onChange"/>-->
   </div>
 </template>
 
 /* ▲ ▼ */ 
 <script>
+import Picker from '@/components/Picker'
 import { Toast,Actionsheet } from 'mint-ui'
-import { getSwitchFamilyMember } from '@/api/person'
+import { getFamilyMemberList,getSwitchFamilyMember } from '@/api/person'
 export default {
   name: 'HealthRecord',
+  components: { Picker },
   data() {
     return {
     	name:"梁小明",
     	infoDegree:"80%",
     	personActions: [],
       personSheetVisible: false,
+
+      yearSlot: [{
+        flex: 1,
+        values: [],
+        className: 'slot1',
+        defaultIndex: 0
+      }],
     }
   },
   mounted() {
@@ -52,7 +62,10 @@ export default {
     },
     Cancel(){
       alert("取消")
-    }
+    },
+    onChange: function(value) {
+      // this.person.Gender = value.ItemCode
+    },
   }
 }
 </script>

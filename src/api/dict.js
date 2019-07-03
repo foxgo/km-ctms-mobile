@@ -7,3 +7,12 @@ export function fetchMap(query) {
     params: query
   })
 }
+
+//首页咨询列表
+export function getHomeNewsWithImg(count) {
+  return request({
+    url: '/api/News/GetHomeNewsWithImg',
+    method: 'get',
+    params: { 'count':count }
+  })
+}
