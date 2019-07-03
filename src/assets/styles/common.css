@@ -1,0 +1,23 @@
+.submit-btn {
+  width: 92%;
+  height: 1.066666666666667rem;
+  border-radius: 0.533333333333rem;
+  border: none;
+  background-color: #008dfd;
+  color: #fff;
+  margin-top:20px;
+  margin-bottom:20px;
+  font-size: 0.4266666666666667rem;
+}
+.reportContent>ul>.colorNormal>i{background-color:#00cbe9}
+.reportContent>ul>.color2>i{background-color:#ffff86}
+.reportContent>ul>.color3>i{background-color:#ffc635}
+.reportContent>ul>.color4>i{background-color:#fe8b31}
+.reportContent>ul>.color5>i{background-color:#ff3b3b}
+.reportContent>ul>.color6>i{background-color:#50f3f3}
+.log_detailed>ul>li>.colorNormal{color:#00cbe9}
+.log_detailed>ul>li>.color2{color:#ffff86}
+.log_detailed>ul>li>.color3{color:#ffc635}
+.log_detailed>ul>li>.color4{color:#fe8b31}
+.log_detailed>ul>li>.color5{color:#ff3b3b}
+.log_detailed>ul>li>.color6{color:#50f3f3}
