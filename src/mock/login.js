@@ -14,19 +14,13 @@ const userMap = {
     introduction: '我是编辑',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
-  },
-  '847bcd6b61e04771bbf598eceb2e7d9c': {
-    roles: ['editor'],
-    token: '847bcd6b61e04771bbf598eceb2e7d9c',
-    introduction: '我是编辑',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
   }
 }
 
 export default {
   loginByUsername: config => {
     const { username } = JSON.parse(config.body)
+    console.error('config ===' + config)
     return userMap[username]
   },
   getUserInfo: config => {

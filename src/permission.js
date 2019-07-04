@@ -3,7 +3,12 @@ import store from './store'
 import { Toast } from 'mint-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/auth' // getToken from cookie
+import { getToken, setToken } from '@/utils/auth' // getToken from cookie
+
+// 配置开发环境临时token
+if (process.env.IS_MOCK) {
+  setToken('cdea40b5046a4335869970f18e848878')
+}
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
