@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取个人档案和问卷完整度
+// 获取该家庭成员的个人档案和问卷完整度
 export function getHealthArchivesInfo() {
   return request({
     method: 'get',
@@ -8,7 +8,7 @@ export function getHealthArchivesInfo() {
   })
 }
 
-// 判断个人档案完整度
+// 判断该家庭成员的个人档案完整度
 export function checkMenberNecessaryInfo(personData) {
   if (personData.UserName.length === 0 || parseInt(personData.Sex) === 9 || personData.Birthday.length === 0 || personData.Birthday === '0001-01-01 00:00:00' ) {
     return false
@@ -25,14 +25,14 @@ export function getQuestionSelections(data) {
   })
 }
 
-// 获取个人基础档案
+// 获取该家庭成员的个人基础信息
 export function getBasicHealthArchivesInfo() {
   return request({
     method: 'get',
     url: '/api/Person/GetPersonInfo'
   })
 }
-// 上传个人基础档案
+// 上传该家庭成员的个人基础档案
 export function postBasicHealthArchivesInfo(data) {
   return request({
     method: 'post',
@@ -41,7 +41,7 @@ export function postBasicHealthArchivesInfo(data) {
   })
 }
 
-// 获取生活习惯调查问卷填写完整度
+// 获取该家庭成员的生活习惯调查问卷填写完整度
 export function getLifeHabitsInfo() {
   return request({
     method: 'get',
@@ -49,14 +49,14 @@ export function getLifeHabitsInfo() {
   })
 }
 
-// 获取饮食习惯
+// 获取该家庭成员的饮食习惯
 export function getPersonEatHabit() {
   return request({
     method: 'get',
     url: '/api/LifeStyle/GetPersonEatHabit'
   })
 }
-// 上传饮食习惯
+// 上传该家庭成员的饮食习惯
 export function postPersonEatHabit(data) {
   return request({
     method: 'post',
@@ -65,14 +65,14 @@ export function postPersonEatHabit(data) {
   })
 }
 
-// 获取体力活动和运动信息
+// 获取该家庭成员的体力活动和运动信息
 export function getPersonSport() {
   return request({
     method: 'get',
     url: '/api/LifeStyle/GetPersonSport'
   })
 }
-// 上传体力活动和运动信息
+// 上传该家庭成员的体力活动和运动信息
 export function postPersonSport(data) {
   return request({
     method: 'post',
@@ -81,14 +81,14 @@ export function postPersonSport(data) {
   })
 }
 
-// 获取吸烟饮酒信息
+// 获取该家庭成员的吸烟饮酒信息
 export function getPersonSmokeDrink() {
   return request({
     method: 'get',
     url: '/api/LifeStyle/GetPersonSmokeDrink'
   })
 }
-// 上传吸烟饮酒信息
+// 上传该家庭成员的吸烟饮酒信息
 export function postPersonSmokeDrink(data) {
   return request({
     method: 'post',
@@ -97,7 +97,7 @@ export function postPersonSmokeDrink(data) {
   })
 }
 
-// 获取疾病类型
+// 获取该家庭成员的疾病类型
 export function getHealthTypes() {
   return request({
     method: 'get',
@@ -105,14 +105,14 @@ export function getHealthTypes() {
   })
 }
 
-// 获取健康史信息
+// 获取该家庭成员的健康史信息
 export function getHealthHistory() {
   return request({
     method: 'get',
     url: '/api/HealthHistory'
   })
 }
-// 上传健康史信息
+// 上传该家庭成员的健康史信息
 export function postHealthHistory(data) {
   return request({
     method: 'post',

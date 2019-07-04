@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { getHomeNewsWithImg } from "@/api/dict"
 export default {
   name: 'ListNews',
   data() {
@@ -30,7 +31,9 @@ export default {
     }
   },
   mounted() {
-    
+    getHomeNewsWithImg(3).then(response => {
+      this.news = response.data.ReturnData;
+    })
   },
   methods: {
   	refreshNews(){

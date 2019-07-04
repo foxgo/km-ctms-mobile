@@ -1,13 +1,13 @@
 <template>
   <div class="health-record">
-    <img v-bind:src="require('@/assets/images/home/profile.png')"></img>
-    <div class="toggle" @click="togglePerson()">{{name}} ▼</div> 
+    <img v-bind:src="actionSheetData.headImageUrl"></img>
+    <div class="toggle" @click="togglePerson()">{{actionSheetData.name}} ▼</div> 
     <div class="space"></div>
     <div class="health-info" @click="pushPage()">健康档案</div>
     <mt-actionsheet 
-	    :actions="personActions"
-	    v-model="personSheetVisible"
-	    cancel-text="新增家庭成员">
+	    :actions="actionSheetData.actionsDataSource"
+	    v-model="actionSheetData.actionSheetVisible"
+	    cancel-text="取消">
 	  </mt-actionsheet>
     <!--<picker :slot-data="yearSlot" :selected-value="person.Gender" text-name="ItemName" value-name="ItemCode" @change="onChange"/>-->
   </div>
@@ -16,17 +16,20 @@
 /* ▲ ▼ */ 
 <script>
 import Picker from '@/components/Picker'
-import { Toast,Actionsheet } from 'mint-ui'
-import { getFamilyMemberList,getSwitchFamilyMember } from '@/api/person'
+import { Toast, Actionsheet } from 'mint-ui'
+import { getFamilyMemberList, getSwitchFamilyMember } from '@/api/person'
+import { getBasicHealthArchivesInfo } from '@/api/healthArchives'
 export default {
   name: 'HealthRecord',
   components: { Picker },
   data() {
     return {
-    	name:"梁小明",
-    	infoDegree:"80%",
-    	personActions: [],
-      personSheetVisible: false,
+    	actionSheetData: {
+        name:"梁小明",
+    	  actionsDataSource: [],
+        actionSheetVisible: false,
+        headImageUrl: require('@/assets/images/home/profile.png'),
+      },
 
       yearSlot: [{
         flex: 1,
@@ -40,16 +43,26 @@ export default {
     
   },
   methods: {
+    
     pushPage() {
       this.$router.push({ path: '/healthArchives' })
     },
+
     togglePerson(){
-    	let that = this;
-    	getSwitchFamilyMember(27299).then(response => {
+      let that = this;
+      getFamilyMemberList().then(response => {
         if (response.data.IsSuccess) {
-          this.personActions = [];
-	      	this.personActions.push(response.data.ReturnData);
-	      	this.personSheetVisible = true;
+          that.actionSheetData.actionsDataSource = [];
+
+         // 遍历ReturnData，按格式处理好数据后sheet才能显示
+          var memberList = response.data.ReturnData
+          memberList.map(member => 
+            that.actionSheetData.actionsDataSource.push(
+              {name: member.Name, memberID: member.MemberID, method: this.actionSheetClicked}
+            )
+          )
+          that.actionSheetData.actionSheetVisible = true;
+          // console.log('that.actionSheetData.actionsDataSource == '+ that.actionSheetData.actionsDataSource)
         }else {
           Toast(response.data.ReturnMessage);
         }
@@ -57,15 +70,32 @@ export default {
         Toast(error);
       })
     },
-    selectperson(value){
-    	this.name = value.name;
+
+    actionSheetClicked(member,index) {
+      // console.log('member == '+ JSON.stringify(member)  + ' index == '+index)
+      let that = this;
+      getSwitchFamilyMember(member.memberID).then(response => {
+        if (response.data.IsSuccess) {
+          console.log('切换成员成功')
+          // 更换头像和名称
+          that.actionSheetData.name = member.name
+          // that.actionSheetData.headImageUrl = 
+
+          // // 获取该家庭成员的基础档案
+          // getBasicHealthArchivesInfo().then(_response => {
+          //   let archiveData = _response.data.ReturnData
+
+          // }).catch(error => {
+          //   Toast(error);
+          // })
+        }else {
+          Toast(response.data.ReturnMessage);
+        }
+      }).catch(error => {
+        Toast(error);
+      })
     },
-    Cancel(){
-      alert("取消")
-    },
-    onChange: function(value) {
-      // this.person.Gender = value.ItemCode
-    },
+   
   }
 }
 </script>
