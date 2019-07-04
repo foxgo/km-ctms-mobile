@@ -1,0 +1,572 @@
+.clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.fl {
+    float: left !important;
+}
+
+.fr {
+    float: right !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+.dis-table {
+    display: table;
+    width: 100%;
+}
+
+.dis-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.block {
+    display: block !important;
+}
+
+.vertical-middle {
+    vertical-align: middle !important;
+}
+
+.vertical-top {
+    vertical-align: top !important;
+}
+
+.pad {
+    padding: $padding-base !important;
+}
+
+.pad-0 {
+    padding: 0 !important;
+}
+
+.pad-sm {
+    padding: $padding-small !important;
+}
+
+.pad-md {
+    padding: $padding-medium !important;
+}
+
+.pad-lg {
+    padding: $padding-large !important;
+}
+
+pad-xl {
+    padding: $padding-xl !important;
+}
+
+.pad-xxl {
+    padding: $padding-xxl !important;
+}
+
+.pad-t {
+    padding-top: $padding-base !important;
+}
+
+.pad-t-0 {
+    padding-top: 0 !important;
+}
+
+.pad-t-sm {
+    padding-top: $padding-small !important;
+}
+
+.pad-t-md {
+    padding-top: $padding-medium !important;
+}
+
+.pad-t-lg {
+    padding-top: $padding-large !important;
+}
+
+pad-t-xl {
+    padding-top: $padding-xl !important;
+}
+
+.pad-t-xxl {
+    padding-top: $padding-xxl !important;
+}
+
+.pad-r {
+    padding-right: $padding-base !important;
+}
+
+.pad-r-0 {
+    padding-right: 0 !important;
+}
+
+.pad-r-sm {
+    padding-right: $padding-small !important;
+}
+
+.pad-r-md {
+    padding-right: $padding-medium !important;
+}
+
+.pad-r-lg {
+    padding-right: $padding-large !important;
+}
+
+pad-r-xl {
+    padding-right: $padding-xl !important;
+}
+
+.pad-r-xxl {
+    padding-right: $padding-xxl !important;
+}
+
+.pad-b {
+    padding-bottom: $padding-base !important;
+}
+
+.pad-b-0 {
+    padding-bottom: 0 !important;
+}
+
+.pad-b-sm {
+    padding-bottom: $padding-small !important;
+}
+
+.pad-b-md {
+    padding-bottom: $padding-medium !important;
+}
+
+.pad-b-lg {
+    padding-bottom: $padding-large !important;
+}
+
+pad-b-xl {
+    padding-bottom: $padding-xl !important;
+}
+
+.pad-b-xxl {
+    padding-bottom: $padding-xxl !important;
+}
+
+.pad-l {
+    padding-left: $padding-base !important;
+}
+
+.pad-l-0 {
+    padding-left: 0 !important;
+}
+
+.pad-l-sm {
+    padding-left: $padding-small !important;
+}
+
+.pad-l-md {
+    padding-left: $padding-medium !important;
+}
+
+.pad-l-lg {
+    padding-left: $padding-large !important;
+}
+
+pad-l-xl {
+    padding-left: $padding-xl !important;
+}
+
+.pad-l-xxl {
+    padding-left: $padding-xxl !important;
+}
+
+.mrg {
+    margin: $padding-base !important;
+}
+
+.mrg-0 {
+    margin: 0 !important;
+}
+
+.mrg-sm {
+    margin: $padding-small !important;
+}
+
+.mrg-md {
+    margin: $padding-medium !important;
+}
+
+.mrg-lg {
+    margin: $padding-large !important;
+}
+
+.mrg-xl {
+    margin: $padding-xl !important;
+}
+
+.mrg-xxl {
+    margin: $padding-xxl !important;
+}
+
+.mrg-t {
+    margin-top: $padding-base !important;
+}
+
+.mrg-t-0 {
+    margin-top: 0 !important;
+}
+
+.mrg-t-sm {
+    margin-top: $padding-small !important;
+}
+
+.mrg-t-md {
+    margin-top: $padding-medium !important;
+}
+
+.mrg-t-lg {
+    margin-top: $padding-large !important;
+}
+
+.mrg-t-xl {
+    margin-top: $padding-xl !important;
+}
+
+.mrg-t-xxl {
+    margin-top: $padding-xxl !important;
+}
+
+.mrg-r {
+    margin-right: $padding-base !important;
+}
+
+.mrg-r-0 {
+    margin-right: 0 !important;
+}
+
+.mrg-r-sm {
+    margin-right: $padding-small !important;
+}
+
+.mrg-r-md {
+    margin-right: $padding-medium !important;
+}
+
+.mrg-r-lg {
+    margin-right: $padding-large !important;
+}
+
+.mrg-r-xl {
+    margin-right: $padding-xl !important;
+}
+
+.mrg-r-xxl {
+    margin-right: $padding-xxl !important;
+}
+
+.mrg-b {
+    margin-bottom: $padding-base !important;
+}
+
+.mrg-b-0 {
+    margin-bottom: 0 !important;
+}
+
+.mrg-b-sm {
+    margin-bottom: $padding-small !important;
+}
+
+.mrg-b-md {
+    margin-bottom: $padding-medium !important;
+}
+
+.mrg-b-lg {
+    margin-bottom: $padding-large !important;
+}
+
+.mrg-b-xl {
+    margin-bottom: $padding-xl !important;
+}
+
+.mrg-b-xxl {
+    margin-bottom: $padding-xxl !important;
+}
+
+.mrg-l {
+    margin-left: $padding-base !important;
+}
+
+.mrg-l-0 {
+    margin-left: 0 !important;
+}
+
+.mrg-l-sm {
+    margin-left: $padding-small !important;
+}
+
+.mrg-l-md {
+    margin-left: $padding-medium !important;
+}
+
+.mrg-l-lg {
+    margin-left: $padding-large !important;
+}
+
+.mrg-l-xl {
+    margin-left: $padding-xl !important;
+}
+
+.mrg-l-xxl {
+    margin-left: $padding-xxl !important;
+}
+
+.margin-horizontal-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//快捷設置
+@mixin border($borderWidth: 1px, $borderStyle: solid, $borderColor: $border-color-base) {
+    border: $borderWidth $borderStyle $borderColor;
+}
+
+//圓角
+@mixin radius($radius: $border-radius-base) {
+    border-radius: $radius;
+}
+
+//行高與高度一致
+@mixin same-height($height) {
+    height: $height;
+    line-height: $height;
+}
+
+//设置定位位置
+@mixin position-set($set) {
+    $len: length($set);
+
+    @if $len >= 1 {
+        top: nth($set, 1);
+    }
+
+    @if $len >= 2 {
+        right: nth($set, 2);
+    }
+
+    @if $len >= 3 {
+        bottom: nth($set, 3);
+    }
+
+    @if $len >= 4 {
+        left: nth($set, 4);
+    }
+}
+
+@mixin layout-absolute($set:auto auto auto auto, $zIndex: 2) {
+    position: absolute;
+    @include position-set($set);
+    z-index: $zIndex;
+}
+
+@mixin layout-fixed($set:auto auto auto auto, $zIndex: 2) {
+    position: fixed;
+    @include position-set($set);
+    z-index: $zIndex;
+}
+
+.text-body-primary {
+    color: $text-body-primary;
+}
+
+.text-body-second {
+    color: $text-body-second;
+}
+
+.text-primary {
+    color: $text-primary;
+}
+
+.text-success {
+    color: $text-success;
+}
+
+.text-info {
+    color: $text-info;
+}
+
+.text-warning {
+    color: $text-warning;
+}
+
+.text-danger {
+    color: $text-danger;
+}
+
+.text-mute {
+    color: $text-mute;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-through {
+    text-decoration: line-through;
+}
+
+.text-strong {
+    font-weight: bold;
+}
+
+.bfc {
+    overflow: hidden;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.border-box {
+    box-sizing: border-box;
+}
+
+.content-box {
+    box-sizing: content-box;
+}
+
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.text-strong {
+    font-weight: bold;
+}
+
+.text-weight-normal {
+    font-weight: normal;
+}
+
+.line-normal {
+    line-height: normal;
+}
+
+.radius {
+    border-radius: $border-radius-base;
+}
+
+.radius-sm {
+    border-radius: $border-radius-sm;
+}
+
+.radius-md {
+    border-radius: $border-radius-md;
+}
+
+.font-size-small {
+    font-size: $font-size-small;
+}
+
+.font-size-base {
+    font-size: $font-size-base;
+}
+
+.font-size-medium {
+    font-size: $font-size-medium;
+}
+
+.font-size-big {
+    font-size: $font-size-big;
+}
+
+.font-size-large {
+    font-size: $font-size-large;
+}
+
+.font-size-xl {
+    font-size: $font-size-xl;
+}
+
+.font-size-xxl {
+    font-size: $font-size-xxl;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-size {
+    width: $img-size;
+    height: $img-size;
+}
+
+.img-size-sm {
+    width: $img-size-sm;
+    height: $img-size-sm;
+}
+
+//盒子布局
+.flex-container {
+    display: flex;
+    display: -webkit-flex;
+}
+
+.flex-direction-column {
+    -webkit-flex-flow: column;
+    flex-flow: column;
+    flex-direction: column;
+}
+
+.stretch {
+    align-items: stretch;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+// 占比
+@while $flex-column > 0 {
+    .flex-#{$flex-column} {
+        flex: #{$flex-column}
+    }
+
+    $flex-column: $flex-column - 1;
+}
+

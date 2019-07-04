@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const SpritesmithPlugin = require("webpack-spritesmith");
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -78,6 +79,35 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+      // 雪碧图
+      new SpritesmithPlugin({
+          // 目标小图标
+          src: {
+              cwd: resolve("src/assets/images/icons"),
+              glob: "*.png"
+          },
+          // 输出雪碧图文件及样式文件
+          target: {
+              image: resolve("src/assets/images/sprite.png"),
+              css: [
+                  [path.resolve(__dirname, "../src/assets/styles/sprites/sprite.scss"), {
+                      format: "icon_based_template"
+                  }]
+              ]
+          },
+          customTemplates: {
+              "icon_based_template": path.resolve(__dirname, "../icon-scss.template.handlebars") //node_modules/spritesheet-templates/lib/templates/less.template.handlebars
+          },
+          // 样式文件中调用雪碧图地址写法
+          apiOptions: {
+              cssImageRef: "../../images/sprite.png?v=" + new Date().getTime()
+          },
+          spritesmithOptions: {
+              algorithm: "top-down"
+          }
+      })
+  ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

@@ -1,0 +1,52 @@
+.disease-distribution {
+    .map-wrap {
+        position: relative;
+    }
+
+    .map-bar {
+        @include layout-absolute(auto auto px2rem(120) px2rem(20));
+        padding-bottom: 30px;
+        text-align: left;
+        
+        .gender-switch >  li {
+            float: left;
+            margin-right: px2rem(30);
+        }
+
+        .map-location {
+            @include layout-absolute(auto auto 0 auto);
+        }
+    }
+
+    .map-legend {
+        @include layout-absolute(auto auto 0 auto);
+        min-width: px2rem(640);
+
+        > li {
+            float: left;
+            width: 20%;
+        }
+
+        .legend-bar {
+            display: inline-block;
+            vertical-align: middle;
+            width: px2rem(40);
+            height: 6px;
+        }
+    }
+
+    .rank-wrap {
+        padding: 0 px2rem(20);
+    }
+
+    .rank-list {
+        padding: px2rem(20);
+
+        > li {
+            float: left;
+            width: 50%;
+            line-height: 30px;
+            text-align: left;
+        }
+    }
+}
