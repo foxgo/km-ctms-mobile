@@ -13,7 +13,7 @@ import request from '@/utils/request'
  * 2.点击切换成员：
  *     i.调用`getFamilyMemberList`(康美360H5的接口)获取家庭成员列表，弹出成员选择sheet
  *    ii.选中成员后调用`getSwitchFamilyMember`(康美360H5的接口)切换成员
- *   iii.切换成员后调用`healthArchives.js->getBasicHealthArchivesInfo`(康美360H5的接口)获取当前家庭成员的个人基础档案
+ *   iii.切换成员后调用`healthArchives.js->getBasicHealthArchivesInfo`(康美360H5的接口)获取当前家庭成员的个人基础档案，其中的手机号、生日、地址等需要用到
  *
  */
 
@@ -37,8 +37,8 @@ export function updatePerson(data) {
 // 切换家庭成员
 export function getSwitchFamilyMember(memberID) {
   return request({
-    method: 'get',
     url: '/api/PersonFamily/SwitchFamilyMember',
+    method: 'get',
     params: { memberID }
   })
 }
@@ -51,32 +51,6 @@ export function getFamilyMemberList() {
   })
 }
 
-/*
-     "PersonID": 18082,
-     "Name": "开发",//姓名
-     "Gender": "1",//性别1男，2女
-     "Birthdate": "1977-05-12T00:00:00",//出生日期
-     "MarriageStatus": "10",//婚姻史
-     "Height": null,//身体
-     "Weight": null,//体重
-     "IMEI": "",//IMEI号
-     "PersonNo": "510105197705120066",//身份证
-     "IsLH": false,//是否是乐活app
-     "Address": {
-     "PersonAreaID": 67,//ID
-     "PersonID": 18082,
-     "ProvinceID": 110000000000,//省份ID
-     "CityID": 110100000000,//市ID
-     "CountyID": 110101000000,//三级市ID
-     "TownID": 110101001000,//镇ID
-     "DetailedAddress": null,//详细地址
-     },
-     "Phone": "17688715132",//手机号
-     "NickName": null    //昵称
-
-     IsMerge  ??
-     IsFamilyMember  ??
-     */
 // 新建家庭成员
 export function createperson(data) {
   return request({

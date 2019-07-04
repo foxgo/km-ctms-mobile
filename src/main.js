@@ -12,17 +12,18 @@ import "@/assets/styles/page/main.scss";
 
 import store from './store'
 import './icons' // icon
-import './permission' // permission control
+import './permission' // 访问权限控制
 import './assets/styles/common.css'
 import './assets/styles/iconfont.css'
 import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import './assets/styles/iconfont/iconfont.js'
-// import './mock' // simulation data
+
 // 全部调用前端数据
 if (process.env.IS_MOCK) {
   import('./mock')
 }
+
 // 遍历meta里面设置页面的title
 // router.beforeEach((to, from, next) => {
 // 路由发生变化修改页面title
@@ -50,3 +51,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+

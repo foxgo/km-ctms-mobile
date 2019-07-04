@@ -63,6 +63,20 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
+
+          // 使用静态数据来关闭用户角色功能
+          response = {
+            'status': 200,
+            'statusText': 'OK',
+            data: {
+              roles: ['admin'],
+              token: 'admin',
+              introduction: '我是超级管理员',
+              avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+              name: 'Super Admin'
+            }
+          }
+
           if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
             reject('error')
           }
@@ -77,6 +91,7 @@ const user = {
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.introduction)
+
           resolve(response)
         }).catch(error => {
           reject(error)

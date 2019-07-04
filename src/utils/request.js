@@ -6,8 +6,8 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   withCredentials: true,
-  baseURL: process.env.BASE_API, // api的base_url
-  timeout: 5000 // request timeout
+  baseURL: process.env.BASE_API,
+  timeout: 5000
 })
 
 // request interceptor
@@ -18,6 +18,21 @@ service.interceptors.request.use(
       // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
       config.headers['token'] = getToken()
     }
+    // // 配置全局参数
+    // if (config.method === 'post') {
+    //   config.data = {
+    //     ...config.data,
+    //     _t: Date.parse(new Date()) / 1000
+    //   }
+    // } else if (config.method === 'get') {
+    //   config.params = {
+    //     _t: Date.parse(new Date()) / 1000,
+    //     ...config.params
+    //   }
+    // }
+    // // 根据情况动态设置baseurl
+    // config.baseURL = store.getters.baseUrl
+    // config.url = store.getters.baseUrl + config.url
     return config
   },
   error => {

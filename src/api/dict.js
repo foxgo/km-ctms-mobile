@@ -8,11 +8,11 @@ export function fetchMap(query) {
   })
 }
 
-//首页咨询列表
+// 首页咨询列表
 export function getHomeNewsWithImg(count) {
   return request({
     url: '/api/News/GetHomeNewsWithImg',
     method: 'get',
-    params: { 'count':count }
+    count
   })
 }

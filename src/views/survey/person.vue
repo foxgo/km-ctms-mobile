@@ -29,7 +29,7 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import Picker from '@/components/Picker'
 // import DatetimePicker from '@/components/Picker/DatetimePicker'
 import LabelSelect from '@/components/LabelSelect'
-import { fetchPerson, updatePerson } from '@/api/person'
+import { getPersonInfo, updatePerson } from '@/api/person'
 import { initDict } from '@/utils/index'
 
 /* import { initDict, reduceArray } from '@/utils/index'*/
@@ -101,7 +101,7 @@ export default {
     },
     getPerson() {
       this.setDict()
-      fetchPerson().then(response => {
+      getPersonInfo().then(response => {
         this.person = response.data
         //   this.loading = false
         console.log(this.person)

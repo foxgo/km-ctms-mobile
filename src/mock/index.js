@@ -16,7 +16,7 @@ Mock.mock(/\/home\/getUserByToken\.*/, 'get', loginAPI.getUserInfo)
 
 // 个人数据相关
 Mock.mock(/\/person\/list/, 'get', personAPI.getList)
-Mock.mock(/\/person\/detail/, 'get', personAPI.getPerson)
+Mock.mock(/\/person\/detail/, 'get', personAPI.getPersonInfo)
 Mock.mock(/\/person\/create/, 'post', personAPI.createPerson)
 Mock.mock(/\/person\/update/, 'post', personAPI.updatePerson)
 

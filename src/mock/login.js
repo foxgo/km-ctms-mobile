@@ -14,13 +14,6 @@ const userMap = {
     introduction: '我是编辑',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
-  },
-  '847bcd6b61e04771bbf598eceb2e7d9c': {
-    roles: ['editor'],
-    token: '847bcd6b61e04771bbf598eceb2e7d9c',
-    introduction: '我是编辑',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
   }
 }
 
@@ -29,6 +22,8 @@ export default {
     const { username } = JSON.parse(config.body)
     return userMap[username]
   },
+
+  // 模拟通过token获取用户数据，现在的代码下函数会返回false
   getUserInfo: config => {
     const { token } = param2Obj(config.url)
     if (userMap[token]) {
@@ -39,3 +34,13 @@ export default {
   },
   logout: () => 'success'
 }
+
+/*
+config 就是真实接口的参数数据
+
+config: {
+    "url":"undefined/home/getUserByToken?token=cdea40b5046a4335869970f18e848878",
+    "type":"GET",
+    "body":null
+  }
+*/
