@@ -20,9 +20,10 @@ const userMap = {
 export default {
   loginByUsername: config => {
     const { username } = JSON.parse(config.body)
-    console.error('config ===' + config)
     return userMap[username]
   },
+
+  // 模拟通过token获取用户数据，现在的代码下函数会返回false
   getUserInfo: config => {
     const { token } = param2Obj(config.url)
     if (userMap[token]) {
@@ -33,3 +34,13 @@ export default {
   },
   logout: () => 'success'
 }
+
+/*
+config 就是真实接口的参数数据
+
+config: {
+    "url":"undefined/home/getUserByToken?token=cdea40b5046a4335869970f18e848878",
+    "type":"GET",
+    "body":null
+  }
+*/
