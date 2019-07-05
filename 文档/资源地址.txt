@@ -1,0 +1,9 @@
+1.源码地址  
+	svn： 10.2.29.123/jkglb/CTMS  目录：code_version>trunk>CTMS>km-ctms-mobile
+	git： https://github.com/foxgo/km-ctms-mobile.git
+
+2.原型地址
+	http://10.2.29.83:6001/康美360APP原型/#g=1&p=首页
+
+3.API文档地址
+	http://10.2.29.83:6012/KM360-app/index.html#api-NetworkMedical%20%20-PostApiNetworkmedicalLogin
