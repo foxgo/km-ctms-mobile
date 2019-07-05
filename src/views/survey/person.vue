@@ -29,7 +29,7 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import Picker from '@/components/Picker'
 // import DatetimePicker from '@/components/Picker/DatetimePicker'
 import LabelSelect from '@/components/LabelSelect'
-import { getPersonInfo, updatePerson } from '@/api/person'
+import { getPersonInfo, updatePerson } from '@/api/km360App'
 import { initDict } from '@/utils/index'
 
 /* import { initDict, reduceArray } from '@/utils/index'*/

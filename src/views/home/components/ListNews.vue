@@ -6,12 +6,11 @@
   </div>
   <div class="news-box">
     <ul class="news-list">
-      <li v-for="(item,index) in news">
-        <img v-bind:src="item.img" >
+      <li v-for="(item,index) in news" @click="itemClicked(item.ID)">
+        <img v-bind:src="item.MainImage" >
         <div class="titles-box">
-          <h2>不甜的水果含糖也高？---健康资讯健康资讯</h2>
-          <p>小心，不甜的水果未必就少糖！！-------- 健康资讯</p>
-          <p><font>美食</font><font>1290条评论</font></p>
+          <h2>{{item.Title}}</h2>
+          <p><font>{{item.CategoryName}}</font><font>{{item.ReadingQuantity}}次浏览</font></p>
         </div>
       </li>
     </ul>
@@ -20,24 +19,48 @@
 </template>
 
 <script>
-import { getHomeNewsWithImg } from "@/api/dict"
+import { getHomeNewsWithImg, getHomeNewsDetail } from "@/api/km360App"
+import { error } from 'util'
+import axios from "axios"
+
 export default {
   name: 'ListNews',
   data() {
     return {
-      news:[{img:require("@/assets/images/healthEvaluate/food/milk1.png")},
-            {img:require("@/assets/images/healthEvaluate/food/milk1.png")},
-            {img:require("@/assets/images/healthEvaluate/food/milk1.png")},],
+      news:[],
     }
   },
   mounted() {
     getHomeNewsWithImg(3).then(response => {
-      this.news = response.data.ReturnData;
+      this.news = response.data.Data;
     })
   },
   methods: {
   	refreshNews(){
+      getHomeNewsWithImg(3).then(response => {
+        this.news = response.data.Data;
+      })
+    },
 
+    itemClicked(newsID){
+      // window.location.href = "https://www.baidu.com"
+      /* 总是获取空数据 不知道原因
+      getHomeNewsDetail(newsID).then(response => {
+        // window.location.href = response.data.Data.SourceUrl
+        console.log(JSON.stringify(response.data.Data.SourceUrl))
+      }).catch(error => {
+        alert(error)
+      })
+      */
+
+      axios(process.env.BASE_API_APP + "/api/News/GetNewsDetail?id=" + newsID).then((response) => {
+          return response.data;
+      }).then((data) => {
+          console.log(JSON.stringify(data.Data.SourceUrl))
+          window.location.href = data.Data.SourceUrl
+      }).catch(() => {
+          console.log("请求出错");
+      });
     }
   }
 }
@@ -77,9 +100,9 @@ export default {
         box-sizing:border-box
         img
           width px2rem(220)
-          height px2rem(156)
+          height px2rem(150)
           float left
-          margin 0px px2rem(12)
+          margin 0px px2rem(15)
         .titles-box
           display flex
           flex-direction column
@@ -90,9 +113,12 @@ export default {
             font-size px2rem(26px)
             font-weight 500
             color #113260
-            white-space nowrap
+            word-wrap break-word
             overflow hidden
+            text-align left 
+            line-height px2rem(32px)
             padding-right px2rem(15)
+            padding-top px2rem(5)
           p
             color:#7b95b8
             text-align left 

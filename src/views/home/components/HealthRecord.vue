@@ -17,7 +17,7 @@
 <script>
 import Picker from '@/components/Picker'
 import { Toast, Actionsheet } from 'mint-ui'
-import { getFamilyMemberList, getSwitchFamilyMember } from '@/api/person'
+import { getFamilyMemberList, getSwitchFamilyMember } from '@/api/familyMember'
 import { getBasicHealthArchivesInfo } from '@/api/healthArchives'
 export default {
   name: 'HealthRecord',
@@ -58,11 +58,12 @@ export default {
           var memberList = response.data.ReturnData
           memberList.map(member => 
             that.actionSheetData.actionsDataSource.push(
-              {name: member.Name, memberID: member.MemberID, method: this.actionSheetClicked}
+              {name: member.Name, memberID: member.MemberID, method: this.actionSheetClicked }
             )
           )
+          // 新增家庭成员
+          that.actionSheetData.actionsDataSource.push({name: "新增家庭成员", memberID: -1, method: this.actionSheetClicked})
           that.actionSheetData.actionSheetVisible = true;
-          // console.log('that.actionSheetData.actionsDataSource == '+ that.actionSheetData.actionsDataSource)
         }else {
           Toast(response.data.ReturnMessage);
         }
@@ -73,6 +74,16 @@ export default {
 
     actionSheetClicked(member,index) {
       // console.log('member == '+ JSON.stringify(member)  + ' index == '+index)
+      if(index == this.actionSheetData.actionsDataSource.length-1){
+        if(this.actionSheetData.actionsDataSource.length >= 10){
+          Toast("家庭成员数量不能超过10人");
+          return;
+        }
+
+        this.$router.push({ path: '/basicArchives' })
+        return;
+      }
+
       let that = this;
       getSwitchFamilyMember(member.memberID).then(response => {
         if (response.data.IsSuccess) {
