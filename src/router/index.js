@@ -7,7 +7,7 @@ import surveyRouter from './modules/survey'
 import healthRecordRouter from './modules/healthRecord'
 
 import healthEvaluateRouter from './modules/healthEvaluate'
-import { healthArchivesRouter, healthArchivesRouter2 } from './modules/healthArchives'
+import { healthArchivesRouter, healthArchivesRouter2, BasicArchives } from './modules/healthArchives'
 import seeReportRouter from './modules/seeReport'
 import diseaseDistribution from "./modules/diseaseDistribution"; //疾病地理
 
@@ -160,5 +160,6 @@ export const asyncRouterMap = [
   healthEvaluateRouter,
   seeReportRouter,
   healthArchivesRouter2,
+  BasicArchives,
   { path: '*', redirect: '/404', hidden: true }
 ]
