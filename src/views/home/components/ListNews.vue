@@ -2,7 +2,13 @@
 <div>
   <div class="title-box">
     <div class="newsTitle">健康资讯</div>
-    <div class="fr" @click="refreshNews"><img class="refresh-icon" src="@/assets/images/home/refresh.png" />换一换</div>
+    <div class="fr" @click="refreshNews">
+      <img class="refresh-icon" 
+            src="@/assets/images/home/refresh.png" 
+            v-bind:class="[enableAnimation?'rotateAnimation':'']"
+       />
+      换一换
+    </div>
   </div>
   <div class="news-box">
     <ul class="news-list">
@@ -22,12 +28,14 @@
 import { getHomeNewsWithImg, getHomeNewsDetail } from "@/api/km360App"
 import { error } from 'util'
 import axios from "axios"
+import { setTimeout } from 'timers';
 
 export default {
   name: 'ListNews',
   data() {
     return {
       news:[],
+      enableAnimation : false,
     }
   },
   mounted() {
@@ -37,8 +45,15 @@ export default {
   },
   methods: {
   	refreshNews(){
+      // 开启转圈动画
+      this.enableAnimation = true
+      // 发起请求
       getHomeNewsWithImg(3).then(response => {
         this.news = response.data.Data;
+        // 关闭转圈动画
+        setTimeout(()=>{
+          this.enableAnimation = false
+        },1000);
       })
     },
 
@@ -87,8 +102,18 @@ export default {
       &>div.fr .refresh-icon{
         width 0.4rem
         height 0.4rem
-        padding-right 0.1rem
-        padding-bottom 0.1rem
+        margin-right 0.1rem
+        margin-bottom 0.1rem
+      }
+
+      .rotateAnimation{
+        -webkit-animation:refreshAnimation .8s linear infinite forwards;
+
+        @-webkit-keyframes refreshAnimation {
+          0%{-webkit-transform:rotate(0deg);}
+          50%{-webkit-transform:rotate(180deg);}
+          100%{-webkit-transform:rotate(360deg);}
+        }
       }
        
   .news-box>ul

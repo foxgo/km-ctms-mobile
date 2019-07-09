@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui'
 import Banner from './components/Banner'
 import HealthRecord from './components/HealthRecord'
 import HealthOne from './components/HealthOne'
@@ -32,6 +33,13 @@ export default {
   },
   methods: {
     
+  },
+  beforeRouteLeave (to, from, next) {
+    // 判断是否可以跳转
+    if(1) {
+      next()
+    }
+    // Toast('请先完善个人档案信息');
   }
 }
 </script>
