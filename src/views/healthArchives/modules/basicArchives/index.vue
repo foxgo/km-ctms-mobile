@@ -214,6 +214,10 @@ export default {
             Toast("请填写你的姓名！");
             return;
           }
+          if(this.allData.Phone == null || this.allData.Phone == "") {
+            Toast("请填写你的手机号！");
+            return;
+          }
           if(this.allData.PersonNo != null && this.allData.PersonNo != "" ) {
             if (!isCardNo(this.allData.PersonNo)) {
               Toast("请填写正确格式的身份证！");
