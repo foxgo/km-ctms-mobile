@@ -1,9 +1,10 @@
 <template>
-  <div class="content-box smoking">
-    <LifeHabitSelectionItem v-for="(item,index) in dataArr" :key="index" :itemData="item" :indexInList="index" v-on:listenToItem="itemEvent"></LifeHabitSelectionItem>
-
-    <input type="submit" class="submit-btn" value="保存" v-on:click="setPersonEatHabit" />
-  </div>
+  <keep-alive>
+    <div class="content-box smoking">
+      <LifeHabitSelectionItem v-for="(item,index) in dataArr" :key="index" :itemData="item" :indexInList="index" v-on:listenToItem="itemEvent"></LifeHabitSelectionItem>
+      <input type="submit" class="submit-btn" value="保存" v-on:click="setPersonEatHabit" />
+    </div>
+  </keep-alive>
 </template>
 
 <script>

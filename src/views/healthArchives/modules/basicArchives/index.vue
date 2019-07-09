@@ -2,9 +2,14 @@
     <div class="basic-file">
       <ul>
         <li class="clearfix">
-          <p class="red_start"><span>*</span>真实姓名</p>
+          <p class="red_star"><span>*</span>真实姓名</p>
           <div class="wb"></div>
           <input type="text" v-model.lazy="allData.Name"/>
+        </li>
+        <li v-if="showPhoneNum" class="clearfix">
+          <p class="red_star"><span>*</span>手机号</p>
+          <div class="wb"></div>
+          <input type="text" v-model.lazy="allData.Phone"/>
         </li>
         <li class="clearfix">
           <p>身份证</p>
@@ -12,7 +17,7 @@
           <input type="text" v-model.lazy="allData.PersonNo"/>
         </li>
         <li class="clearfix">
-          <p class="red_start"><span>*</span>性别</p>
+          <p class="red_star"><span>*</span>性别</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
           <div class="pc-box" @click="openGenderPicker">
             <input type="hidden" name="bank_id" id="bankId" value="" />
@@ -20,7 +25,7 @@
           </div>
         </li>
         <li class="clearfix">
-          <p class="red_start"><span>*</span>出生年月</p>
+          <p class="red_star"><span>*</span>出生年月</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
           <div class="form-item item-line" id="selectDate">
             <div class="pc-box" @click="openDatePicker">
@@ -79,11 +84,14 @@
 import { Toast,Picker,DatetimePicker,Actionsheet } from 'mint-ui'
 import { dateFormat,isCardNo } from '@/filters'
 import { getBasicHealthArchivesInfo,postBasicHealthArchivesInfo } from '@/api/healthArchives'
+import { createFamilyMember } from '@/api/familyMember'
 
 export default {
       name: "BasicArchives",
       data() {
         return {
+          showPhoneNum:false,
+
           proData:{},   //接收省份信息
           allData: {},  //省份以外的全部信息
 
@@ -116,8 +124,14 @@ export default {
         },
       },
       mounted() {
-        // this.$store.state.app.pageTitle = '基础档案';
-        this.getBasicPersonInfo();
+        if(this.$route.params.pagetype === 'addMember'){
+          this.showPhoneNum = true;
+          this.$store.state.app.pageTitle = '新增成员';
+        } 
+        // 调查问卷、查看档案
+        else if(this.$route.params.pagetype == null){
+          this.getBasicPersonInfo();
+        }
       },
       methods: {
         openDatePicker() {
@@ -194,7 +208,7 @@ export default {
           });
         },
 
-        //提交基本信心
+        // 提交基本信息/新增家庭成员
         setPersonInfor() {
           if(this.allData.Name == null || this.allData.Name == "") {
             Toast("请填写你的姓名！");
@@ -246,16 +260,33 @@ export default {
             Phone: that.allData.Phone
           };
 
-          postBasicHealthArchivesInfo(upData)
-          .then(function(response){
-              if (response.data.IsSuccess === true) {
-                Toast("保存成功！");
-              }else{
-                Toast(response.data.ReturnMessage);
-              }
-          }).catch(function(error){
-            Toast(error.message);
-          })
+          if(this.$route.params.pagetype === 'addMember'){
+            // 新增家庭成员
+            createFamilyMember(upData)
+            .then(function(response){
+                if (response.data.IsSuccess === true) {
+                  Toast("新增家庭成员成功！");
+                }else{
+                  Toast(response.data.ReturnMessage);
+                }
+            }).catch(function(error){
+              Toast(error.message);
+            })
+
+          } else if(this.$route.params.pagetype == null){
+            // 提交基本信心
+            postBasicHealthArchivesInfo(upData)
+            .then(function(response){
+                if (response.data.IsSuccess === true) {
+                  Toast("保存成功！");
+                }else{
+                  Toast(response.data.ReturnMessage);
+                }
+            }).catch(function(error){
+              Toast(error.message);
+            })
+          }
+          
         },
       }
     }
@@ -326,7 +357,7 @@ export default {
   float: right;
 }
 
-.red_start {
+.red_star {
   margin-left: -10px;
 }
 

@@ -1,4 +1,5 @@
 <template>
+<keep-alive>
   <div class="content-box">
     <h5>家族病史<span> 您的父母亲、兄弟姐妹、祖父母是否患有以下疾病?</span></h5>
     <ul class="selections_ul" id="fSelectList">
@@ -31,6 +32,7 @@
 
     <input type="submit" class="submit-btn" value="保存" v-on:click="setFamiliyData" />
   </div>
+</keep-alive>
 </template>
 
 <script>

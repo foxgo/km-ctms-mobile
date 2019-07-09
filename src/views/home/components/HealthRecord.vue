@@ -80,7 +80,7 @@ export default {
           return;
         }
 
-        this.$router.push({ path: '/basicArchives' })
+        this.$router.push('/basicArchives/addMember')
         return;
       }
 
