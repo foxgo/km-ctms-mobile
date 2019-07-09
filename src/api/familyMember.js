@@ -35,7 +35,7 @@ export function getFamilyMemberList() {
 }
 
 // 新建家庭成员
-export function createperson(data) {
+export function createFamilyMember(data) {
   return request({
     url: '/api/Person',
     method: 'post',
