@@ -1,27 +1,26 @@
-# km-ctms-mobile
+# 康美全程健康管理
 
-> A Vue.js project
-
-## Build Setup
+## 构建命令
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动开发模式，开启热加载模式 localhost:8080
 npm run dev
 
-# build for production with minification
+# 构建发布版本
 npm run build
+
+# 构建预发布版本
+npm run build:pre
 
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-
-## 使用说明
+## 项目说明
 
 #### 1.项目设计两套接口（康美360App、康美360H5）
 ```

@@ -44,6 +44,10 @@ module.exports = {
   },
 
   build: {
+    // 添加 pre prod 两处环境的配制，会在build/webpackage.prod.conf.js中使用
+    prodEnv: require('./prod.env'),
+    preEnv: require('./pre.env'),
+
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
