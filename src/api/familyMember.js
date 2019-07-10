@@ -34,7 +34,11 @@ export function getFamilyMemberList() {
   })
 }
 
-// 新建家庭成员
+/**
+ * 新建家庭成员
+ * @参数 data 新建成员所需数据对象
+ * @业务流程 asd
+ */
 export function createFamilyMember(data) {
   return request({
     url: '/api/Person',

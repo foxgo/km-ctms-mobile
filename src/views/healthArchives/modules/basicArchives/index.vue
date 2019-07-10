@@ -27,11 +27,17 @@
         <li class="clearfix">
           <p class="red_star"><span>*</span>出生年月</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
-          <div class="form-item item-line" id="selectDate">
-            <div class="pc-box" @click="openDatePicker">
-              <span data-year="" data-month="" data-date="" ref="birthDateData">请选择时间</span>
-            </div>
-          </div>
+          <date-picker class="pc-box" @showTime="showTime"/>
+        </li>
+        <li v-if="showPhoneNum" class="clearfix">
+          <p>居住地</p>
+          <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
+          <area-picker class="pc-box" @showArea="showArea"/>
+        </li>
+        <li v-if="showPhoneNum" class="clearfix">
+          <p>详细地址</p>
+          <div class="wb"></div>
+          <input type="text" v-model.lazy="allData.Phone"/>
         </li>
         <li class="clearfix">
           <p>身高</p>
@@ -55,19 +61,6 @@
 
       <input type="submit" value="保存" class="submit-btn" v-on:click="setPersonInfor"/>
     
-      <template>
-        <mt-datetime-picker
-          ref="datePicker"
-          type="date"
-          year-format="{value} 年"
-          month-format="{value} 月"
-          date-format="{value} 日"
-          v-model="datePickerValue"
-          :start-date="startDate"
-          :end-date="endDate"
-          @confirm="handleDateConfirm">
-        </mt-datetime-picker>
-      </template>
       <mt-actionsheet
         :actions="genderActions"
         v-model="genderSheetVisible">
@@ -81,6 +74,8 @@
 </template>
 
 <script>
+import DatePicker from '@/components/DatePicker'
+import AreaPicker from '@/components/AreaPicker'
 import { Toast,Picker,DatetimePicker,Actionsheet } from 'mint-ui'
 import { dateFormat,isCardNo } from '@/filters'
 import { getBasicHealthArchivesInfo,postBasicHealthArchivesInfo } from '@/api/healthArchives'
@@ -88,16 +83,13 @@ import { createFamilyMember } from '@/api/familyMember'
 
 export default {
       name: "BasicArchives",
+      components: { DatePicker, AreaPicker },
       data() {
         return {
           showPhoneNum:false,
 
           proData:{},   //接收省份信息
           allData: {},  //省份以外的全部信息
-
-          datePickerValue:null,
-          startDate: new Date('1920-01-01'),
-          endDate: new Date(),
           
           genderActions: [
             { name: '男',indexValue:'1',method:this.selectGender },
@@ -144,12 +136,12 @@ export default {
           this.marriedSheetVisible = true;
         },
 
-        handleDateConfirm(){ 
-          console.log(this.datePickerValue);
+        showTime(time) {
+          this.allData.Birthdate = time
+        },
 
-          let dateDom = this.$refs.birthDateData;
-          if (this.datePickerValue != null) 
-            dateDom.innerText = dateFormat(this.datePickerValue,"yyyy-MM-dd");
+        showArea(province_city_area) {
+          this.allData.Address = province_city_area
         },
 
         selectGender(value){
@@ -160,6 +152,18 @@ export default {
           this.$refs.marriageData.innerText = value.name;
           this.$refs.marriageData.dataset['id'] = value.indexValue;
         },
+
+        /* 
+        "Address": {
+          "PersonAreaID": 67,//ID
+          "PersonID": 18082,
+          "ProvinceID": 110000000000,//省份ID
+          "CityID": 110100000000,//市ID
+          "CountyID": 110101000000,//三级市ID
+          "TownID": 110101001000,//镇ID
+          "DetailedAddress": null,//详细地址
+        }
+        */
 
         //获取基本信息
         getBasicPersonInfo() {
