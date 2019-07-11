@@ -7,7 +7,7 @@ import { getToken, setToken } from '@/utils/auth' // getToken from cookie
 
 // 配置开发环境临时token
 if (process.env.IS_MOCK) {
-  setToken('db0d19da4b304a4a9c5685e9b5a1d768')
+  setToken('2d8c81b267e14c8e84c222f881b19bc8')
 }
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
