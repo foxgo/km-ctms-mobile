@@ -199,7 +199,11 @@ let utils = {
                     reject(err);
                 }
             }).then((res) => {
-                let returnCode = res.ReturnCode || res.ResultCode;
+                let returnCode = res.ReturnCode;
+
+                if(typeof returnCode === "undefined") {
+                    returnCode = res.ResultCode;
+                }
 
                 if([code.tokenInvalid.code, code.tokenLose.code, code.tokenLose.tokenTimeout].indexOf(returnCode) !== -1) {
                     this.goLogin();
