@@ -809,10 +809,10 @@
                         // 必须使用正确的命名空间来创建 SVG $ 元素
                         var image = document.createElementNS( "http://www.w3.org/2000/svg", "image" );
                         Methods.setAttr(image, {
-                            x: parseInt( text.getAttribute( "x" ) ) + ( parseInt( box.width ) - 24 ) / 2,
-                            y: parseInt( text.getAttribute( "y" ) ) - ( opt.areaName.show ? opt.areaName.size : 0 ) - 22,
-                            width: 24,
-                            height: 24,
+                            x: parseInt( text.getAttribute( "x" ) ) + ( parseInt( box.width ) - 17 ) / 2,
+                            y: parseInt( text.getAttribute( "y" ) ) - ( opt.areaName.show ? opt.areaName.size : 0 ) - 17,
+                            width: 17,
+                            height: 17,
                             style: "cursor:pointer",
                             "data-id": text.getAttribute( "data-id" ),
                             "data-name": text.getAttribute( "data-name" )

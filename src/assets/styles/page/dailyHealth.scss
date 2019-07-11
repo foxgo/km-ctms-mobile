@@ -1,0 +1,80 @@
+$daily-health-module-height: 90;
+$daily-health-pad: 30;
+
+.daily-health {
+    @include layout-fixed(40px 0 0 0);
+    font-size: px2rem(28);
+    background: #f5f5f5;
+
+    .header-bar {
+        @include layout-fixed(0 10px auto auto, 3);
+        line-height: 40px;
+        color: #fff;
+        font-size: px2rem(32);
+    }
+
+    .daily-main {
+        overflow: auto;
+    }
+
+    .date-choose-wrap {
+        margin-bottom: px2rem(20);
+        height: px2rem($daily-health-module-height);
+        line-height: px2rem($daily-health-module-height);
+        text-align: center;
+        color: $text-body-primary;
+        background: #fff;
+
+        .arrow-btn {
+            color: #2283f5;
+
+            &.disabled {
+                color: $text-mute;
+            }
+        }
+    }
+
+    .module-wrap {
+        margin-bottom: px2rem(20);
+        text-align: center;
+        background: #fff;
+    }
+
+    .module-title {
+        padding: px2rem($daily-health-pad) px2rem($daily-health-pad) px2rem(20) px2rem($daily-health-pad);
+        height: px2rem(40);
+        line-height: px2rem(40);
+        font-size: px2rem(32);
+        font-weight: bold;
+    }
+
+    .module-bar {
+        padding: px2rem($daily-health-pad);
+        height: px2rem(40);
+        line-height: px2rem(40);
+        font-size: px2rem(30);
+        text-align: left;
+    }
+
+    .module-con {
+        border-top: 1px solid #dcdcdc;
+        padding: px2rem(40) px2rem($daily-health-pad) px2rem(40) px2rem(86);
+    }
+
+    .water-op-btn {
+        color: $text-primary;
+        font-size: px2rem(30);
+
+        &.disabled {
+            color: $text-mute;
+        }
+    }
+
+    .save-btn {
+        display: block;
+        line-height: px2rem(115);
+        color: #fff;
+        text-align: center;
+        background: $text-primary;
+    }
+}

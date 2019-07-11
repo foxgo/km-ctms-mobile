@@ -2,8 +2,10 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
+import {MessageBox} from "mint-ui";
 import axios from "axios";
 
+import store from "@/store";
 import code from "../map/code";
 import apiTypeMap from "../apiRoot";
 
@@ -46,11 +48,22 @@ let utils = {
         this.vm.$root.hideLoading();
     },
     goLogin() {
-        return this.vm.$goto({
+        /*return this.vm.$goto({
             name: "login",
             query: {
                 redirect: location.pathname
             }
+        });*/
+
+        MessageBox.confirm("你已被登出，可以取消继续留在该页面，或者重新登录", "确定登出", {
+            confirmButtonText: "重新登录",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(() => {
+            store.dispatch("FedLogOut").then(() => {
+                // 为了重新实例化vue-router对象 避免bug
+                location.reload();
+            });
         });
     },
     fail(error) {
@@ -79,10 +92,16 @@ let utils = {
         return array.join("&");
     },
     getRequestOption(options) {
+        let dateObj = this.vm.$utils.getCurrentTime();
         let request = options.request;
         let url = this.getApi(request, options.apiType);
         let token = this.vm.$utils.getToken();
-        let data = options.data;
+        let data = {
+            appkey: "b30759f0fd86419d8bfb2e20e6e22578",
+            sign: "81a34e9d1c62a13585c9f67421cbe89d",
+            timestamp: `${dateObj.year}-${dateObj.month}-${dateObj.date} ${dateObj.hours}:${dateObj.minutes}:${dateObj.seconds}`,
+            ...options.data
+        };
         let method = options.type.toLowerCase();
         let fetchOptions = {};
         
@@ -173,13 +192,17 @@ let utils = {
                 return res.data;
             }, (err) => {
                 clearTimeout(timeout);
-                reject(fail(err));
+
+                if(!options.needReject) {
+                    reject(fail(err));
+                } else {
+                    reject(err);
+                }
             }).then((res) => {
-                if([code.tokenInvalid.code, code.tokenLose.code, code.tokenLose.tokenTimeout].indexOf(res.code) !== -1) {
-                    //this.vm.$root.clearTokenAndProfiles();
-                    this.vm.$goto({
-                        name: "login"
-                    });
+                let returnCode = res.ReturnCode || res.ResultCode;
+
+                if([code.tokenInvalid.code, code.tokenLose.code, code.tokenLose.tokenTimeout].indexOf(returnCode) !== -1) {
+                    this.goLogin();
                     
                     return reject(res);
                 }
@@ -204,7 +227,7 @@ let utils = {
                 if(!options.needReject) {
                     for(let pro in code) {
                         if(code[pro].code === res.code) {
-                            this.toast(res.message || code[pro].message || code.fall.message);
+                            this.toast(res.message || code[pro].message || code.fail.message);
                             break;
                         }
                     }

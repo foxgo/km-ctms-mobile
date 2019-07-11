@@ -72,7 +72,7 @@ export default {
   methods: {
     pushPage(index) {
       var pageRoutes = {
-        1: '/healthEvaluate',
+        1: '/dailyHealth',
         2: '/selfBodyCheck',
         3: '/TCMphysique',
         4: '/diseaseDistribution',

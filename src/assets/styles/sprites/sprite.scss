@@ -5,63 +5,171 @@
     // HTML
     <i class="icon-home"></i>
     */
+.icon-help {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(26);
+    height: px2rem(26);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(0);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px 0px;
+    background-size: 57px 627px; */
+}
+
 .icon-location {
     display: inline-block;
     vertical-align: middle;
+    width: px2rem(29);
+    height: px2rem(33);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-26);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -26px;
+    background-size: 57px 627px; */
+}
+
+.icon-glass {
+    display: inline-block;
+    vertical-align: middle;
     width: px2rem(30);
-    height: px2rem(34);
-    background-image: url(../../images/sprite.png?v=1562726039710);
-    background-position: px2rem(0) px2rem(0);
-    background-size: px2rem(84) px2rem(394);
-    /*background-position: 0px 0px;
-    background-size: 84px 394px; */
+    height: px2rem(39);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-59);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -59px;
+    background-size: 57px 627px; */
 }
 
-.icon-female-off {
+.icon-happy {
     display: inline-block;
     vertical-align: middle;
-    width: px2rem(84);
-    height: px2rem(90);
-    background-image: url(../../images/sprite.png?v=1562726039710);
-    background-position: px2rem(0) px2rem(-34);
-    background-size: px2rem(84) px2rem(394);
-    /*background-position: 0px -34px;
-    background-size: 84px 394px; */
+    width: px2rem(40);
+    height: px2rem(40);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-98);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -98px;
+    background-size: 57px 627px; */
 }
 
-.icon-female-on {
+.icon-foot {
     display: inline-block;
     vertical-align: middle;
-    width: px2rem(84);
-    height: px2rem(90);
-    background-image: url(../../images/sprite.png?v=1562726039710);
-    background-position: px2rem(0) px2rem(-124);
-    background-size: px2rem(84) px2rem(394);
-    /*background-position: 0px -124px;
-    background-size: 84px 394px; */
+    width: px2rem(44);
+    height: px2rem(44);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-138);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -138px;
+    background-size: 57px 627px; */
+}
+
+.icon-water {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(44);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-182);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -182px;
+    background-size: 57px 627px; */
+}
+
+.icon-sleep {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(44);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-226);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -226px;
+    background-size: 57px 627px; */
+}
+
+.icon-diet {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(44);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-270);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -270px;
+    background-size: 57px 627px; */
+}
+
+.icon-mood {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(44);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-314);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -314px;
+    background-size: 57px 627px; */
+}
+
+.icon-camera {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(57);
+    height: px2rem(49);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-358);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -358px;
+    background-size: 57px 627px; */
 }
 
 .icon-male-off {
     display: inline-block;
     vertical-align: middle;
-    width: px2rem(84);
-    height: px2rem(90);
-    background-image: url(../../images/sprite.png?v=1562726039710);
-    background-position: px2rem(0) px2rem(-214);
-    background-size: px2rem(84) px2rem(394);
-    /*background-position: 0px -214px;
-    background-size: 84px 394px; */
+    width: px2rem(52);
+    height: px2rem(55);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-407);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -407px;
+    background-size: 57px 627px; */
 }
 
 .icon-male-on {
     display: inline-block;
     vertical-align: middle;
-    width: px2rem(84);
-    height: px2rem(90);
-    background-image: url(../../images/sprite.png?v=1562726039710);
-    background-position: px2rem(0) px2rem(-304);
-    background-size: px2rem(84) px2rem(394);
-    /*background-position: 0px -304px;
-    background-size: 84px 394px; */
+    width: px2rem(52);
+    height: px2rem(55);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-462);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -462px;
+    background-size: 57px 627px; */
+}
+
+.icon-female-on {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(55);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-517);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -517px;
+    background-size: 57px 627px; */
+}
+
+.icon-female-off {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(44);
+    height: px2rem(55);
+    background-image: url(../../images/sprite.png?v=1562862546373);
+    background-position: px2rem(0) px2rem(-572);
+    background-size: px2rem(57) px2rem(627);
+    /*background-position: 0px -572px;
+    background-size: 57px 627px; */
 }
 

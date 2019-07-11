@@ -10,6 +10,7 @@ import healthEvaluateRouter from './modules/healthEvaluate'
 import { healthArchivesRouter, healthArchivesRouter2, BasicArchives } from './modules/healthArchives'
 import seeReportRouter from './modules/seeReport'
 import diseaseDistribution from "./modules/diseaseDistribution"; //疾病地理
+import dailyHealth from "./modules/dailyHealth"; //每日健康
 
 /** note: submenu only apppear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -121,7 +122,7 @@ export const constantRouterMap = [
   },
   // {
   //   path: '/dailyHealth',
-  //   component: HealthEvaluate,
+  //   component: dailyHealth,
   //   meta: { title: '每日健康' }
   // },
   // {
@@ -144,7 +145,8 @@ export const constantRouterMap = [
   //   component: HealthEvaluate,
   //   meta: { title: '疾病地理' }
   // },
-  ...diseaseDistribution
+  ...diseaseDistribution,
+  ...dailyHealth
 ]
 
 export default new Router({

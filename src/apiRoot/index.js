@@ -9,6 +9,11 @@ let apiType = {
         key: "baseApi",
         api: BASE_API,
         text: "baseApi"
+    },
+    "1": {
+        key: "dev",
+        api: "http://test-app.kmhealth360.com",
+        text: "health"
     }
 };
 

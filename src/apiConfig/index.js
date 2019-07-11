@@ -3,10 +3,14 @@
  */
 
 import global from "./global";
+import diseaseDistribution from "./diseaseDistribution";
+import dailyHealth from "./dailyHealth";
 
 //需要token请求的api
 let api = {
-    ...global
+    ...global,
+    ...diseaseDistribution,
+    ...dailyHealth
 };
 
 export default api;
