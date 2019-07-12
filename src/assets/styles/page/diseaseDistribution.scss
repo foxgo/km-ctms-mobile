@@ -1,10 +1,11 @@
 .disease-distribution {
     .map-wrap {
         position: relative;
+        overflow: hidden;
     }
 
     .map-bar {
-        @include layout-absolute(auto auto px2rem(120) px2rem(20));
+        @include layout-absolute(auto auto px2rem(120) px2rem(40));
         padding-bottom: 30px;
         text-align: left;
         
@@ -15,6 +16,9 @@
 
         .map-location {
             @include layout-absolute(auto auto 0 auto);
+            color: $text-body-second;
+            font-size: px2rem(28);
+            white-space: nowrap;
         }
     }
 
@@ -25,28 +29,37 @@
         > li {
             float: left;
             width: 20%;
+            color: $text-body-second;
         }
 
         .legend-bar {
             display: inline-block;
             vertical-align: middle;
             width: px2rem(40);
-            height: 6px;
+            height: px2rem(12);
         }
     }
 
     .rank-wrap {
-        padding: 0 px2rem(20);
+        position: relative;
+        z-index: 3;
+        margin-top: px2rem(-80);
+        padding: 0 px2rem(40);
+        color: $text-body-second;
     }
 
     .rank-list {
-        padding: px2rem(20);
+        margin-top: px2rem(60);
 
         > li {
             float: left;
             width: 50%;
             line-height: 30px;
             text-align: left;
+
+            > a {
+                color: #008dfd;
+            }
         }
     }
 }

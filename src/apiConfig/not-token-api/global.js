@@ -3,8 +3,9 @@
  */
 
 let api = {
-    login: "user/shipperLogin.do",
-    register: "user/register.do"
+    sentCode: "/api/Account/SendVerifyCode",
+    register: "/api/NetworkMedical/UserRegister",
+    login: "/api/NetworkMedical/Login"
 };
 
 export default api;

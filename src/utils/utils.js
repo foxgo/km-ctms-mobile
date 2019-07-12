@@ -192,7 +192,9 @@ let utils = {
             hours,
             minutes,
             seconds,
-            day: `星期${weekday[day]}`,
+            day,
+            dateStr: `${year}-${month}-${date}`,
+            dayStr: `星期${weekday[day]}`,
             alias: `周${weekday[day]}`,
         };
     },

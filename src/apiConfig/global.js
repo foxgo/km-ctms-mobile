@@ -3,7 +3,7 @@
  */
 
 let global = {
-    GetDictionary: "/api/Component/GetDictionary"
+    getCurrentAddress: "/api/PersonArea/GetCurrentAddress"
 };
 
 export default global;
