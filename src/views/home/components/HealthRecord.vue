@@ -58,7 +58,7 @@ export default {
           var memberList = response.data.ReturnData
           memberList.map(member => 
             that.actionSheetData.actionsDataSource.push(
-              {name: member.Name, memberID: member.MemberID, method: this.actionSheetClicked }
+              {name: member.Name, memberID: member.MemberID, phone:member.Phone, gender:member.Gender, method: this.actionSheetClicked }
             )
           )
           // 新增家庭成员
@@ -87,10 +87,12 @@ export default {
       let that = this;
       getSwitchFamilyMember(member.memberID).then(response => {
         if (response.data.IsSuccess) {
-          console.log('切换成员成功')
+          console.log('切换成员成功' + member.name + member.phone + member.gender)
           // 更换头像和名称
           that.actionSheetData.name = member.name
-          // that.actionSheetData.headImageUrl = 
+          this.$store.state.user.name = member.name
+          this.$store.state.user.phone = member.phone
+          this.$store.state.user.gender = member.gender
 
           // // 获取该家庭成员的基础档案
           // getBasicHealthArchivesInfo().then(_response => {

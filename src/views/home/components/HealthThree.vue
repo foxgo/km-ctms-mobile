@@ -11,7 +11,7 @@
             <use xlink:href="#iconmeirijiankang"/>
           </svg>
         </div>
-        <div class="item_div" @click="pushPage(2)">
+        <div class="item_div" @click="pushPage(4)">
           <div>
             <h2>中医体质</h2>
             <p>九种体质<br >辨识养生</p>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="item">
-        <div class="item_div borderBottom1" @click="pushPage(3)">
+        <div class="item_div borderBottom1" @click="pushPage(2)">
           <div>
             <h2>症状自诊</h2>
             <p>健康问题<br >自助排查</p>
@@ -31,7 +31,7 @@
             <use xlink:href="#iconbuweizizhen"/>
           </svg>
         </div>
-        <div class="item_div" @click="pushPage(4)">
+        <div class="item_div" @click="pushPage(5)">
           <div>
             <h2>疾病地理</h2>
             <p>居住地<br >常见病预防</p>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="item">
-        <div class="item_div borderBottom1" @click="pushPage(5)">
+        <div class="item_div borderBottom1" @click="pushPage(3)">
           <div>
             <h2>常见问题</h2>
             <p>当前年龄段<br >常见健康问题</p>
@@ -67,19 +67,41 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   name: 'ListTwo',
   methods: {
     pushPage(index) {
       var pageRoutes = {
-        1: '/healthEvaluate',
+        1: '/dailyHealth',
         2: '/selfBodyCheck',
-        3: '/TCMphysique',
-        4: '/diseaseDistribution',
+        3: '/diseaseNormal',
+        4: '/TCMphysique',
         5: '/deseaseGeography',
-        6: '/Suggest'
+        6: '/LifeCycleHealth'
       }
-      this.$router.push({ path: pageRoutes[index] })
+
+      if(index === 4) {
+        const postData ={
+          "name" : this.$store.state.user.name,
+          "phone" : this.$store.state.user.phone,
+          "sex" : this.$store.state.user.gender,
+        };
+        console.log(JSON.stringify(postData))
+        
+       const baseUrl = process.env.NODE_ENV === 'production' ? "http://healthrecord.kmhealthcloud.cn:8987" : "http://test-healthrecord.kmhealthcloud.cn:8987"
+        axios.post(baseUrl + "/personInfo", postData).then((response) => {
+          return response.data;
+        }).then((data) => {
+            console.log(JSON.stringify(data))
+            // window.location.href = data
+            // this.$router.push( data )
+        }).catch(() => {
+            console.log("请求出错");
+        });
+      }else{
+        this.$router.push({ path: pageRoutes[index] })
+      }
     }
   }
 }

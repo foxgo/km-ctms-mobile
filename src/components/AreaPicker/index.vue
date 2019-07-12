@@ -1,6 +1,6 @@
 <template>
     <div class="picker-box">
-        <div @click="showPicker"><span v-if="county">{{province+' '+city+' '+county}}</span><span v-else>请选择</span></div>
+        <div @click="showPicker"><span v-if="province_city_county_string">{{province_city_county_string}}</span><span v-else>请选择</span></div>
         <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
             <mt-picker
                 ref="picker"
@@ -15,7 +15,6 @@
                     <div class="usi-btn-sure" @click="handleConfirm">确定</div>
                 </div>
             </mt-picker>
-
         </mt-popup>
     </div>
 </template>
@@ -65,6 +64,7 @@ export default {
             province:'',
             city:'',
             county:'',
+            province_city_county_string:''
         }
     },
     mounted(){
@@ -85,7 +85,9 @@ export default {
 
         // 确定
         handleConfirm() {
-            this.$emit('showArea', this.province+' '+this.city+' '+this.county) // 把值传给父级
+            this.province_city_county_string = this.province + ' ' + this.city + ' ' + this.county
+            this.$emit('showArea', this.province_city_county_string) // 把值传给父级
+            this.popupVisible = false
         },
 
         onValueChanged(picker,values) {

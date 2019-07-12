@@ -8,6 +8,8 @@ const user = {
     code: '',
     token: getToken(),
     name: '',
+    phone: '',
+    gender: '',
     avatar: '',
     introduction: '',
     roles: [],

@@ -22,14 +22,17 @@ export default {
       return formatDate(date, 'yyyy-MM-dd')
     }
   },
+  props:['settingTime'], // 手动设置显示的时间
   data() {
     return {
       startDate: new Date(),
       time: null
     }
   },
-  mounted() {
-
+  watch: {
+    settingTime(val) {
+      this.time = new Date(val)
+    }
   },
   methods: {
     showPicker() {
