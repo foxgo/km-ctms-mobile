@@ -216,12 +216,31 @@
                     data
                 }).then(() => {
                     this.$toast("保存成功");
-
-                    this.fetch();
                 });
             },
             //显示选项
             openPicker(key) {
+                let dateObj = this.startDateObj;
+
+                if(key !== "startDate") {
+                    dateObj = this.endDateObj;
+                }
+
+                let noon = noonMap.morning;
+                let hour = Number(dateObj.hours);
+                let minutes = dateObj.minutes;
+                let picker = this.$refs.picker;
+                let max = 12;
+
+                if(hour > max) {
+                    noon = noonMap.night;
+                    hour -= max;
+                }
+
+                picker.setSlotValue(0, noon);
+                picker.setSlotValue(1, hour);
+                picker.setSlotValue(2, minutes);
+
                 this.currentPickerKey = key;
                 this.showPicker = true;
             },
@@ -262,8 +281,6 @@
                     BedTime: this.startDateObj.dateTimeStr,
                     GetUpTime: this.endDateObj.dateTimeStr
                 };
-
-                console.log("this.data:", this.data);
 
                 this.closePicker();
             }

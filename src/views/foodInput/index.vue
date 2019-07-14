@@ -111,7 +111,7 @@
             }
         },
         watch: {
-            "data.foodName" (val) {
+            "data.foodName"(val) {
                 if(val) {
                     this.getAssociationFood();
                 }
@@ -123,13 +123,64 @@
 
             this.initData();
 
-            this.src = this.$root.getTempImage();
+            let file = this.$root.getTempImage();
 
-            if(this.src) {
-                this.getAssociationFood();
+            if(file) {
+                this.upload(file);
             }
         },
         methods: {
+            //上传
+            upload(file) {
+                let self = this;
+                let path = URL.createObjectURL(file);
+                let img = new Image();
+
+                img.onload = function () {
+                    let width = this.width;
+                    let height = this.height;
+                    //let scale = width / height;
+
+                    /*width = 480 || width;
+                     height = width / scale;*/
+
+                    //生成canvas
+                    let canvas = document.createElement("canvas");
+                    let ctx = canvas.getContext("2d");
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    ctx.drawImage(this, 0, 0, width, height);
+
+                    let base64 = canvas.toDataURL("image/jpeg", 1);
+
+                    self.$ajax({
+                        type: "post",
+                        apiType: self.apiType,
+                        request: {
+                            name: "getCalorieFromPicForHealth"
+                        },
+                        data: {
+                            imageFile: btoa(base64)//	--所传图片转换的base64格式
+                        }
+                    }).then((res) => {
+                        let {calorie, name} = res.Data;
+
+                        if(name === "非菜") {
+                            name = "";
+                        }
+
+                        self.src = base64;
+
+                        self.$root.setTempImage(null);
+
+                        self.getAssociationFood(name);
+                    });
+                };
+
+                img.src = path;
+            },
             //聚焦
             focus() {
                 this.showInputTip = false;
@@ -139,15 +190,15 @@
                 this.showInputTip = true;
             },
             //关联查询
-            getAssociationFood() {
+            getAssociationFood(foodName) {
                 this.$ajax({
                     type: "get",
                     apiType: this.apiType,
                     request: {
-                        name: "getAssociationFood" //getRecommendFoodList getAssociationFood
+                        name: "getAssociationFood"
                     },
                     data: {
-                        foodName: this.data.foodName ||  "虾"// "虾"
+                        foodName: this.data.foodName ||  foodName || "虾"// "虾"
                     },
                     showLoading: false
                 }).then((res) => {
@@ -175,7 +226,7 @@
                     type: "get",
                     apiType: this.apiType,
                     request: {
-                        name: "getAssociationFood" //getRecommendFoodList getAssociationFood
+                        name: "getAssociationFood"
                     },
                     data
                 }).then((res) => {

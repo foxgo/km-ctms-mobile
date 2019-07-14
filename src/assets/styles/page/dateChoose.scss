@@ -1,4 +1,4 @@
-$calendar-bar-height: 24;
+$calendar-bar-height: 50;
 $calendar-date-size: 50;
 
 .date-choose-section {
@@ -11,13 +11,13 @@ $calendar-date-size: 50;
 
     .calendar-bar {
         position: relative;
-        padding: px2rem(60) 0 px2rem(70);
+        padding: px2rem(46) 0 px2rem(56);
         line-height: px2rem($calendar-bar-height);
-        font-size: px2rem($calendar-bar-height);
+        font-size: px2rem(24);
         color: $text-body-second;
 
         .calendar-btn {
-            font-size: px2rem($calendar-bar-height);
+            font-size: px2rem(24);
             font-weight: bold;
             color: $text-primary;
             cursor: pointer;

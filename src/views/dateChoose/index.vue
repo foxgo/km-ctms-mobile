@@ -5,7 +5,7 @@
 
         <div class="calendar-wrap clearfix" v-if="dataItems.length">
             <div :class="{'calendar-bar clearfix': true, 'no-disable-btn': showNextMonthOfCurrentMonth}">
-                <a class="calendar-btn el-icon-arrow-left arrow-left-btn"></a>
+                <a class="calendar-btn km-arrow-left arrow-left-btn"></a>
                 <div class="calendar-current">
                     <div class="swiper-container" id="calendar-current-swiper">
                         <div class="swiper-wrapper">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="calendar-btn arrow-right-btn el-icon-arrow-right"></a>
+                <a class="calendar-btn arrow-right-btn km-arrow-right"></a>
             </div>
 
             <ul class="calendar-container calendar-header calendar-list clearfix">
@@ -104,6 +104,11 @@
                 let self = this;
                 let value = this.date;
                 let currentObj = this.today = this.getFormatTime();
+
+                if(value) {
+                    currentObj = this.getFormatTime(new Date(this.$utils.getFormatDateStr(value)));
+                }
+
                 let currentMonthData = this.getMonthData(`${currentObj.year}/${currentObj.month}/01`);
 
                 let preMonthData = this.getPreMonthData(currentObj);
@@ -201,6 +206,8 @@
                     this.createCurrentMonthSwiper();
 
                     mySwiper.controller.control = monthSwiper;
+
+                    this.sliderToCurrentDate();
                 });
             },
             //创建滑动
@@ -409,6 +416,33 @@
                 let [year, month] = array;
 
                 return `${year}/${Number(month)}`;
+            },
+            //滑动到获取当前日期 index
+            sliderToCurrentDate() {
+                let index = this.activeIndex;
+
+                if(this.date) {
+                    let dateObj = this.getFormatTime(new Date(this.$utils.getFormatDateStr(this.date)));
+                    let key = `${dateObj.year}-${dateObj.month}`;
+
+                    for(let i = 0; i < this.dataItems.length; i++) {
+                        let data = this.dataItems[i].data;
+
+                        let find = data.find(n => {
+                            return n.dateStr === this.date;
+                        });
+
+                        if(find && data.key === key) {
+                            index = i;
+
+                            break;
+                        }
+                    }
+                }
+
+                if(mySwiper) {
+                    mySwiper.slideTo(index);
+                }
             },
             //选择
             selectHandle(item) {

@@ -5,18 +5,18 @@
         <div class="full-height flex-container flex-direction-column">
             <div class="flex-1 daily-main">
                 <div class="date-choose-wrap" v-if="today">
-                    <a class="arrow-btn el-icon-arrow-left" href="javascript:" @click="getPrevDate"></a>
+                    <a class="arrow-btn km-arrow-left" href="javascript:" @click="getPrevDate"></a>
 
-                    <router-link :to="{name: 'dateChoose'}" v-html="date">2016-08-23</router-link>
+                    <router-link class="vertical-middle" :to="{name: 'dateChoose'}" v-html="date">2016-08-23</router-link>
 
-                    <a :class="{'arrow-btn el-icon-arrow-right': true, 'disabled': today === date}" href="javascript:" @click="getNextDate"></a>
+                    <a :class="{'arrow-btn km-arrow-right': true, 'disabled': today === date}" href="javascript:" @click="getNextDate"></a>
                 </div>
 
                 <div class="module-wrap">
                     <div class="module-title">每日健康指标</div>
 
                     <router-link class="module-bar clearfix" :to="{name: 'foodDetail'}">
-                        <span class="inline-block fr text-mute font-size-small">饮食详情  <i class="el-icon-arrow-right" /></span>
+                        <span class="inline-block fr text-mute font-size-small">饮食详情  <i class="icon-arrow-right" /></span>
 
                         <i class="icon-diet" /> <span class="vertical-middle">饮食记录</span>
                     </router-link>
@@ -50,9 +50,9 @@
                     </div>
 
                     <div class="module-con clearfix">
-                        <a class="el-icon-remove water-op-btn mrg-r-lg" href="javascript:" @click="changeDrinkingWater('reduce')" v-if="data.DrinkingWater"></a>
+                        <a class="icon-min water-op-btn mrg-r-lg" href="javascript:" @click="changeDrinkingWater('reduce')" v-if="data.DrinkingWater"></a>
 
-                        <a class="el-icon-remove water-op-btn mrg-r-lg disabled" href="javascript:" v-else></a>
+                        <a class="icon-min-off water-op-btn mrg-r-lg disabled" href="javascript:" v-else></a>
 
                         <i class="mrg-r icon-glass"/>
 
@@ -60,13 +60,13 @@
 
                         <span class="mrg-r-lg text-mute" v-html="data.DrinkingWater">0</span>
 
-                        <a class="water-op-btn el-icon-circle-plus" href="javascript:" @click="changeDrinkingWater('add')"></a>
+                        <a class="water-op-btn icon-plus" href="javascript:" @click="changeDrinkingWater('add')"></a>
                     </div>
                 </div>
 
                 <div class="module-wrap">
                     <div class="module-bar clearfix" @click="updateSteps">
-                        <span class="inline-block fr text-mute font-size-small"><i class="el-icon-arrow-right" /></span>
+                        <span class="inline-block fr text-mute font-size-small"><i class="icon-arrow-right" /></span>
 
                         <i class="icon-foot" /> <span class="vertical-middle">步数记录</span>
                     </div>
@@ -88,7 +88,7 @@
 
                 <div class="module-wrap">
                     <router-link class="module-bar clearfix" :to="{name: 'sleepInput'}">
-                        <span class="inline-block fr text-mute font-size-small"><span class="text-strong font-size-big text-body-second" v-html="data.SleepHours">0</span> 小时<i class="el-icon-arrow-right" /></span>
+                        <span class="inline-block fr text-mute font-size-small"><span class="text-strong font-size-big text-body-second" v-html="data.SleepHours">0</span> <span>小时</span> <i class="icon-arrow-right" /></span>
 
                         <i class="icon-sleep" /> <span class="vertical-middle">睡眠记录</span>
                     </router-link>
@@ -378,9 +378,10 @@
                     request: {
                         name: "updateHealthData"
                     },
-                    data
+                    data,
+                    showLoading: false
                 }).then((res) => {
-                    console.log(res);
+                    //console.log(res);
                 });
             },
             //获取个人资料

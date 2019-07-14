@@ -3,9 +3,11 @@
         <div class="full-height flex-container flex-direction-column">
             <div class="flex-1 flex-container flex-direction-column clearfix">
                 <div class="date-choose-wrap mrg-b-0" v-if="today">
-                    <a class="arrow-btn el-icon-arrow-left" href="javascript:" @click="getPrevDate"></a>
-                    <router-link :to="{name: 'dateChoose'}" v-html="date">2016-08-23</router-link>
-                    <a :class="{'arrow-btn el-icon-arrow-right': true, 'disabled': today === date}" href="javascript:" @click="getNextDate"></a>
+                    <a class="arrow-btn km-arrow-left" href="javascript:" @click="getPrevDate"></a>
+
+                    <router-link class="vertical-middle" :to="{name: 'dateChoose'}" v-html="date">2016-08-23</router-link>
+
+                    <a :class="{'arrow-btn km-arrow-right': true, 'disabled': today === date}" href="javascript:" @click="getNextDate"></a>
                 </div>
 
                 <div class="module-con text-center clearfix">
@@ -22,7 +24,7 @@
                     <div class="col-fixed-6">
                         <div class="inline-block clearfix">
                             <p class="text-body-primary">
-                                <strong class="text-strong text-body-second font-size-big">暂无法评估</strong>
+                                <strong class="text-strong text-body-second font-size-big" v-html="getEvaluate()"></strong>
                             </p>
 
                             <p class="mrg-t-md font-size-small text-mute">
@@ -32,7 +34,7 @@
                     </div>
                 </div>
 
-                <food-input-choose v-model="showDietChoose" :date="date" @complete="addDietComplete"/>
+                <food-input-choose v-model="showDietChoose" :date="date" />
 
                 <div class="recommend-wrap flex-1 flex-container flex-direction-column">
                     <div class="recommend-title">匹配食物列表</div>
@@ -93,6 +95,12 @@
                 this.getHealthData();
                 this.getDietDetails();
             },
+            //获取评估
+            getEvaluate() {
+                let result = "暂无法评估";
+
+                return result;
+            },
             //获取当天统计
             getHealthData() {
                 this.$ajax({
@@ -127,8 +135,6 @@
             addDiet() {
                 this.showDietChoose = true;
             },
-            //选择今日食物 完成
-            addDietComplete(list) {},
             //删除食物
             remove(item) {
                 this.$MessageBox.confirm("确定要删除吗?").then(() => {

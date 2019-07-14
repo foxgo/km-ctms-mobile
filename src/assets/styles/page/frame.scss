@@ -46,3 +46,29 @@
         }
     }
 }
+
+.km-arrow-left {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(20);
+    height: px2rem(22);
+    background: url("../../images/arrow-left.png") no-repeat center bottom;
+    background-size: px2rem(20) px2rem(100);
+
+    &.disabled {
+        background-position: center top;
+    }
+}
+
+.km-arrow-right {
+    display: inline-block;
+    vertical-align: middle;
+    width: px2rem(20);
+    height: px2rem(22);
+    background: url("../../images/arrow-right.png") no-repeat center bottom;
+    background-size: px2rem(20) px2rem(100);
+
+    &.disabled, &.swiper-button-disabled {
+        background-position: center top;
+    }
+}
