@@ -77,7 +77,7 @@ export default {
         2: '/selfBodyCheck',
         3: '/diseaseNormal',
         4: '/TCMphysique',
-        5: '/deseaseGeography',
+        5: '/diseaseDistribution',
         6: '/LifeCycleHealth'
       }
 

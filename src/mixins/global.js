@@ -4,6 +4,7 @@
 
 import {Indicator} from "mint-ui";
 
+let tempImage;
 
 let globalMixin = {
     data() {
@@ -64,6 +65,12 @@ let globalMixin = {
 
             return path;
         },
+        setTempImage(img) {
+            tempImage = img;
+        },
+        getTempImage() {
+            return tempImage;
+        }
     }
 };
 

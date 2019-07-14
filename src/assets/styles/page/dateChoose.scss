@@ -1,0 +1,85 @@
+$calendar-bar-height: 24;
+$calendar-date-size: 50;
+
+.date-choose-section {
+    .calendar-wrap {
+        text-align: center;
+        line-height: px2rem($calendar-date-size);
+        color: $text-body-primary;
+        background: #fff;
+    }
+
+    .calendar-bar {
+        position: relative;
+        padding: px2rem(60) 0 px2rem(70);
+        line-height: px2rem($calendar-bar-height);
+        font-size: px2rem($calendar-bar-height);
+        color: $text-body-second;
+
+        .calendar-btn {
+            font-size: px2rem($calendar-bar-height);
+            font-weight: bold;
+            color: $text-primary;
+            cursor: pointer;
+
+            &.swiper-button-disabled.arrow-right-btn {
+                color: $text-mute;
+                cursor: not-allowed;
+            }
+        }
+
+        .calendar-current {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            width: px2rem(220);
+            height: px2rem($calendar-bar-height);
+
+            .swiper-container, .swiper-slide {
+                height: px2rem($calendar-bar-height);
+            }
+
+            .current {
+                @include layout-absolute(auto 0 auto 0);
+                width: 100%;
+            }
+        }
+    }
+
+    .calendar-header {
+        margin-bottom: px2rem(30);
+    }
+
+    .calendar-list {
+        .calendar-item {
+            float: left;
+            margin-bottom: px2rem(30);
+            width: 14.285714285714286%;
+            text-align: center;
+            cursor: pointer;
+
+            &.no-current-month {
+                color: #999;
+            }
+
+            .calendar-date {
+                display: inline-block;
+                vertical-align: middle;
+                border-radius: 100%;
+                width: px2rem($calendar-date-size);
+                height: px2rem($calendar-date-size);
+                line-height: px2rem($calendar-date-size);
+                text-align: center;
+
+                &.active {
+                    color: #fff;
+                    background: $text-primary;
+                }
+            }
+        }
+    }
+
+    #calendar-swiper .swiper-slide {
+        min-height: px2rem(480);
+    }
+}

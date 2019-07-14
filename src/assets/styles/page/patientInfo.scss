@@ -1,0 +1,53 @@
+
+.patient-info-section {
+    line-height: 1.5;
+    text-align: left;
+    font-size: px2rem(28);
+    color: $text-body-primary;
+
+   .warning-tip {
+       border-top: 1px solid #f5ebc4;
+       border-bottom: 1px solid #f5ebc4;
+       padding: px2rem(20);
+       font-size: px2rem(24);
+       color: #ebaf7a;
+       background: #fbf7e6;
+   }
+
+    .form-con {
+        padding: px2rem(40);
+        line-height: px2rem(70);
+    }
+
+    .field-row {
+        margin-bottom: px2rem(40);
+
+        .field-label {
+            float: left;
+            margin-right: px2rem(20);
+            width: px2rem(114);
+            text-align: right;
+        }
+
+        .field-unit {
+            float: right;
+            width: px2rem(70);
+            height: px2rem(70);
+            text-align: right;
+        }
+
+        .field-input {
+            border-radius: 2px;
+            padding: 0 px2rem(30);
+            width: 100%;
+            height: px2rem(70);
+            vertical-align: middle;
+            background: #f6f6f6;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
+    }
+}

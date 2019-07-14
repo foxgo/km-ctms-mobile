@@ -1,0 +1,51 @@
+.sleep-input-section {
+    @include layout-fixed(40px 0 0 0);
+    line-height: 1.5;
+    text-align: left;
+    font-size: px2rem(28);
+    color: $text-body-primary;
+    background: #f6f6f6;
+
+    .field-row {
+        .field-label {
+            display: block;
+            padding: 0 px2rem(40);
+            line-height: px2rem(90);
+        }
+
+        .field-con {
+            padding: 0 px2rem(40);
+            line-height: px2rem(80);
+            color: $text-body-second;
+            background: #fff;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
+    }
+
+    .btn-con {
+        padding: px2rem(40) px2rem(40);
+    }
+
+    .time-picker {
+        width: 100%;
+
+        .time-picker-btn {
+            float: left;
+            border-bottom: 1px solid #dbdbdb;
+            width: 50%;
+            text-align: center;
+            line-height: 39px;
+            font-size: 16px;
+            color: #26a2ff;
+            box-sizing: border-box;
+
+            &.cancel-btn {
+                border-right: 1px solid #dbdbdb;
+                color: #666;
+            }
+        }
+    }
+}

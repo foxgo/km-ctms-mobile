@@ -1,3 +1,48 @@
-.page-section {
-    width: px2rem(750);
+.km-header-bar {
+    @include layout-fixed(0 10px auto auto, 3);
+    line-height: 40px;
+    color: #fff;
+    font-size: px2rem(32);
+}
+
+.page-infinite-loading {
+    padding-top: 20px;
+    text-align: center;
+
+    .mint-spinner-fading-circle {
+        margin: auto;
+    }
+}
+
+.label-radio {
+    display: inline-block;
+    font-weight: normal;
+
+    > input[type=radio] {
+        -webkit-appearance: none;
+        position: relative;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        width: px2rem(32);
+        height: px2rem(32);
+        background: url("../../images/radio.png") no-repeat left top;
+        background-size: px2rem(32) px2rem(100);
+        vertical-align: text-bottom;
+        cursor: pointer;
+
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:checked {
+            background-position: left bottom;
+        }
+
+        + * {
+            vertical-align: top;
+        }
+    }
 }

@@ -97,9 +97,9 @@ let utils = {
         let url = this.getApi(request, options.apiType);
         let token = this.vm.$utils.getToken();
         let data = {
-            appkey: "b30759f0fd86419d8bfb2e20e6e22578",
+            /*appkey: "b30759f0fd86419d8bfb2e20e6e22578",
             sign: "81a34e9d1c62a13585c9f67421cbe89d",
-            timestamp: `${dateObj.year}-${dateObj.month}-${dateObj.date} ${dateObj.hours}:${dateObj.minutes}:${dateObj.seconds}`,
+            timestamp: `${dateObj.year}-${dateObj.month}-${dateObj.date} ${dateObj.hours}:${dateObj.minutes}:${dateObj.seconds}`,*/
             ...options.data
         };
         let method = options.type.toLowerCase();
@@ -108,6 +108,10 @@ let utils = {
         let headers = Object.assign({
             "Content-Type": "text/plain"
         }, options.headers);
+
+        if(options.apiType == 1) {
+            token = this.vm.$utils.getHealthToken();
+        }
         
         if(this.vm.$api[request.name]) {
             if(!token) {
@@ -123,12 +127,10 @@ let utils = {
             headers.token = token ? `${token}` : "";
         }
         
-        if(method === "post" && typeof FormData !== "undefined" && data instanceof FormData) {
-            
-        } else if (method === "post") {
-            headers["Content-Type"] = "application/json"; //application/x-www-form-urlencoded application/json
-            
-            //data = this.param(data);
+        if(method === "post" && typeof FormData !== "undefined" && options.data instanceof FormData) {
+            data = options.data;
+        } else if(method === "post") {
+            headers["Content-Type"] = "application/json"; //application/x-www-form-urlencoded application/json  application/x-www-form-urlencoded
         } else if (method !== "get" && data) {
             data = JSON.stringify(data);
         } else if (data) {
@@ -203,6 +205,10 @@ let utils = {
 
                 if(typeof returnCode === "undefined") {
                     returnCode = res.ResultCode;
+                }
+
+                if(res.IsSuccess) {
+                    returnCode = 0;
                 }
 
                 if([code.tokenInvalid.code, code.tokenLose.code, code.tokenLose.tokenTimeout].indexOf(returnCode) !== -1) {

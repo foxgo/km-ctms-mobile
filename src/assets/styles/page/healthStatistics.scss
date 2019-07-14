@@ -1,0 +1,57 @@
+$chart-title-bar-size: 16;
+$chart-color: $text-primary;
+
+.health-statistics {
+    .tabs-wrap {
+        padding: px2rem(40);
+
+        .tabs-header {
+            border-radius: 4px;
+            border: 1px solid $chart-color; 
+
+            > li {
+                border-left: 1px solid $chart-color;
+                line-height: px2rem(70);
+                font-size: px2rem(32);
+                color: $chart-color;
+                text-align: center;
+                cursor: pointer;
+
+                &:first-child {
+                    border-left: none;
+                }
+
+                &.active {
+                    color: #fff;
+                    background: $chart-color;
+                }
+            }
+        }
+    }
+
+    .chart-wrap {
+        text-align: left;
+
+        .chart-title {
+            padding: px2rem(40) 0 px2rem(20);
+            font-size: px2rem(28);
+            color: $text-body-second;
+            font-weight: bold;
+
+            &:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: "";
+                margin-right: px2rem(15);
+                border-radius: 100%;
+                width: px2rem($chart-title-bar-size);
+                height: px2rem($chart-title-bar-size); 
+                background: #666;
+            }
+        }
+
+        .chart-ele {
+            height: 150px; 
+        }
+    }
+}

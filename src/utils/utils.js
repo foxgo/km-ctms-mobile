@@ -2,14 +2,23 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
+import Cookies from "js-cookie";
 import api from "../apiConfig";
 import notTokenApi from "../apiConfig/not-token-api";
 import sentTokenApi from "../apiConfig/sent-token-api";
 import apiTypeMap from "../apiRoot";
 import {getToken} from "@/utils/auth";
 
+const healthTokenKey = "healthToken";
+
 let utils = {
     getToken,
+    saveHealthToken(token) {
+        return Cookies.set(healthTokenKey, token);
+    },
+    getHealthToken() {
+        return Cookies.get(healthTokenKey);
+    },
     getSearchParam(paramName) {
         let search = location.href.substring(location.href.indexOf("?") + 1, location.href.length);
         let array = search.split("&");
@@ -153,6 +162,33 @@ let utils = {
         
         return result;
     },
+    //获取正确的时间格式str
+    getFormatDateStr(str) {
+        let reg = /\-/g;
+        let result = "";
+
+        if(str) {
+            result = str.replace(reg, "/");
+        }
+
+        return result;
+    },
+    //回退
+    goBack() {
+        history.go(-1);
+    },
+    // 格式化价格
+    formatMoney(value, fixNum = 2) {
+        let num = 0;
+
+        if(!isNaN(value)) {
+            num = Number(value);
+        }
+
+        num = num.toFixed(fixNum);
+
+        return `${num}元`;
+    },
     // 是否为空对象
     isEmpty(obj) {
         return !obj || JSON.stringify(obj) === "{}";
@@ -194,8 +230,11 @@ let utils = {
             seconds,
             day,
             dateStr: `${year}-${month}-${date}`,
+            dateTimeStr: `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`,
+            chinaDateStr: `${year}年${month}月${date}日`,
             dayStr: `星期${weekday[day]}`,
             alias: `周${weekday[day]}`,
+            self: current
         };
     },
     capitalize(str) {

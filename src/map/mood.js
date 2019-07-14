@@ -8,8 +8,8 @@ export default {
         key: "none",
         text: "未填写",
         value: 0,
-        icon: "icon-happy",
-        activeIcon: "icon-happy-on"
+        icon: "",
+        activeIcon: ""
     },
     "1": {
         key: "happy",
@@ -22,28 +22,28 @@ export default {
         key: "cheerful",
         text: "愉快",
         value: 2,
-        icon: "icon-happy",
-        activeIcon: "icon-happy-on"
+        icon: "icon-cheerful",
+        activeIcon: "icon-cheerful-on"
     },
     "3": {
         key: "peaceful",
         text: "平和",
         value: 3,
-        icon: "icon-happy",
-        activeIcon: "icon-happy-on"
+        icon: "icon-peaceful",
+        activeIcon: "icon-peaceful-on"
     },
     "4": {
         key: "low",
         text: "低落",
         value: 4,
-        icon: "icon-happy",
-        activeIcon: "icon-happy-on"
+        icon: "icon-low",
+        activeIcon: "icon-low-on"
     },
     "5": {
         key: "angry",
         text: "生气",
         value: 5,
-        icon: "icon-happy",
-        activeIcon: "icon-happy-on"
+        icon: "icon-angry",
+        activeIcon: "icon-angry-on"
     }
 };

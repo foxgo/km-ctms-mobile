@@ -1,0 +1,103 @@
+
+.daily-report {
+    font-size: px2rem(28);
+    color: $text-body-primary;
+    text-align: left;
+    line-height: 1.5;
+    background: #f5f5f5;
+
+    .report-info {
+        margin-bottom: px2rem(20);
+        padding: px2rem(40) px2rem(60);
+        font-size: px2rem(28);
+        background: #fff;
+    }
+
+    .report-status {
+        color: #f56341;
+    }
+
+    .report-score {
+        padding: px2rem(35) 0 px2rem(65);
+        text-align: center;
+
+        .score-con {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+
+            > strong {
+                font-size: px2rem(66);
+                color: #f09b06;
+                vertical-align: baseline;
+            }
+        }
+
+        .report-date {
+            @include layout-absolute(auto auto 0 100%);
+            margin-left: px2rem(30);
+            line-height: px2rem(30);
+            font-size: px2rem(24);
+            color: $text-mute;
+            white-space: nowrap;
+        }
+    }
+
+    .module-wrap {
+        background: #fff;
+    }
+
+    .module-title {
+        padding: px2rem(20) px2rem(30);
+        height: px2rem(40);
+        line-height: px2rem(46);
+        font-size: px2rem(28);
+        color: $text-body-second;
+    }
+
+    .module-bar {
+        display: block;
+        padding: px2rem($daily-health-pad);
+        height: px2rem(40);
+        line-height: px2rem(40);
+        font-size: px2rem(30);
+        text-align: left;
+    }
+
+    .module-con {
+        border-top: 1px solid #dcdcdc;
+        padding: px2rem(36) px2rem(40);
+    }
+
+    .recommend-wrap {
+        margin-top: px2rem(20);
+        padding: px2rem($daily-health-pad);
+        background: #fff;
+
+        .recommend-title {
+            font-size: px2rem(32);
+            /*font-weight: bold;*/
+            color: $text-body-second;
+        }
+    }
+
+    .recommend-list {
+        > li {
+            border-bottom: 1px solid #dbdbdb;
+            padding: px2rem(30) 0;
+            font-size: px2rem(28);
+            color: $text-body-second;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .recommend-pic {
+            float: left;
+            margin-right: px2rem(40);
+            width: px2rem(160);
+            height: px2rem(120);
+        }
+    }
+}

@@ -2,12 +2,14 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
-import {Toast} from "mint-ui";
+import {Toast, MessageBox} from "mint-ui";
+import Swiper from "@/assets/js/swiper/swiper.js";
 import api from "../apiConfig";
 import notTokenApi from "../apiConfig/not-token-api";
 import sentTokenApi from "../apiConfig/sent-token-api";
 import ajax from "./ajax";
 import utils from "./utils";
+import "@/assets/js/swiper/swiper.min.css";
 
 export default {
     install: (Vue, options) => {
@@ -18,6 +20,10 @@ export default {
         Vue.prototype.$sentTokenApi = sentTokenApi;
 
         Vue.prototype.$utils = utils;
+
+        Vue.prototype.$createSwiper = function(el, options) {
+            return new Swiper(el, options);
+        };
 
         Vue.prototype.$ajax = function(options) {
             let promise = window.requestPromise = ajax(options, this);
@@ -51,6 +57,9 @@ export default {
                 this.$root.$router[method](option);
             }
         };
+
+        //
+        Vue.prototype.$MessageBox = MessageBox;
 
         //弹出提示消息
         Vue.prototype.$toast = function(message) {

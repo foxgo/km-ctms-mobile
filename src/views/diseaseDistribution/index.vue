@@ -272,6 +272,14 @@
                     needReject: true
                 }).then((res) => {
                     let obj = res.ReturnData;
+
+                    if(!obj.Province) {
+                        obj = {
+                            Province: "广东",
+                            ProvinceID: "440000000000"
+                        };
+                    }
+
                     let current = this.getProvinceMapDataByName(obj.Province);
 
                     this.data = {
