@@ -40,9 +40,9 @@
 
       <!-- 中部:各种建议 -->
       <section id="middle">
-        <div id="suggetion">
+        <div id="suggetion" class="clearfix">
           <ul :class="showScoreTips == true ? 'isFixed' :''">
-            <li>
+            <!--<li>
                 <router-link :to="{name:linkerList[0].name, params:{suggestionData:dietSuggestion,suggestionDetailData:dietSuggestionDetail}}" active-class="seleted_li_a">{{linkerList[0].title}}</router-link>
             </li>
             <li>
@@ -53,11 +53,44 @@
             </li>
             <li>
                 <router-link :to="{name:linkerList[3].name, params:{suggestionData:societySuggestion}}" active-class="seleted_li_a">{{linkerList[3].title}}</router-link>
+            </li>-->
+
+            <li>
+              <a :class="{'seleted_li_a': 0 === currentTabIndex}" href="javascript:" @click="setCurrentTab(0)">{{linkerList[0].title}}</a>
+            </li>
+            <li>
+              <a :class="{'seleted_li_a': 1 === currentTabIndex}" href="javascript:" @click="setCurrentTab(1)">{{linkerList[1].title}}</a>
+            </li>
+            <li>
+              <a :class="{'seleted_li_a': 2 === currentTabIndex}" href="javascript:" @click="setCurrentTab(2)">{{linkerList[2].title}}</a>
+            </li>
+            <li>
+              <a :class="{'seleted_li_a': 3 === currentTabIndex}" href="javascript:" @click="setCurrentTab(3)">{{linkerList[3].title}}</a>
             </li>
           </ul>
         </div>
-        <div>
-          <router-view/>
+        <div class="clearfix">
+          <div class="swiper-container" id="health-evaluate-swiper" v-if="loadComplete">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <eatting-suggest :suggestionData="dietSuggestion" :suggestionDetailData="dietSuggestionDetail" />
+              </div>
+
+              <div class="swiper-slide">
+                <sport-suggest :suggestionData="sportSuggestion" />
+              </div>
+
+              <div class="swiper-slide">
+                <mental-suggest :suggestionData="mentalSuggestion" />
+              </div>
+
+              <div class="swiper-slide">
+                <society-suggest :suggestionData="societySuggestion" />
+              </div>
+            </div>
+          </div>
+
+          <!--<router-view/>-->
         </div>
       </section>
     </div>
@@ -68,10 +101,19 @@ import { Toast } from 'mint-ui'
 import { getHealthEvaluateInfo } from '@/api/healthEvaluate'
 import { ScoreAlertView } from './components/ScoreAlertView/scoreAlertView'
 
+import EattingSuggest from "./components/EattingSuggest";
+import SportSuggest from "./components/SportSuggest";
+import MentalSuggest from "./components/MentalSuggest";
+import SocietySuggest from "./components/SocietySuggest";
+
+let mySwiper;
+
 export default {
   name: 'HealthEvaluate',
   data() {
     return {
+      loadComplete: false, //是否已加载
+      currentTabIndex: 0, // 当前标签
       linkerList: [
         { title: '饮食建议', name: 'EattingSuggest' },
         { title: '运动建议', name: 'SportSuggest' },
@@ -95,6 +137,12 @@ export default {
       
     }
   },
+  components: {
+      EattingSuggest,
+      SportSuggest,
+      MentalSuggest,
+      SocietySuggest
+  },
   mounted() {
     this.$store.state.app.pageTitle = '健康评估'
     this.loadData();
@@ -102,6 +150,30 @@ export default {
     window.addEventListener('scroll',this.scrollHandle,true);
   },
   methods: {
+    //创建滑动
+    createSwiper(option) {
+        let self = this;
+
+        let options = Object.assign({}, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            initialSlide: this.currentTabIndex,
+            autoplay: false,
+            on: {
+                slideChange() {
+                    self.currentTabIndex = this.activeIndex;
+                }
+            }
+        }, option);
+
+        mySwiper = this.$createSwiper("#health-evaluate-swiper", options);
+    },
+      //设置当前标签内容
+    setCurrentTab(index) {
+        if(mySwiper) {
+            mySwiper.slideTo(index);
+        }
+    },
     scrollHandle:function () {
       let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;  
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -121,7 +193,7 @@ export default {
           that.sportSuggestion = data.SportAdvice;
           that.mentalSuggestion = data.PsychologyResult.BehaviorSuggestion;
           that.societySuggestion = data.SocialResult.BehaviorSuggestion;
-          that.$router.push({name:that.linkerList[0].name,params:{suggestionData:that.dietSuggestion,suggestionDetailData:that.dietSuggestionDetail}});
+         // that.$router.push({name:that.linkerList[0].name,params:{suggestionData:that.dietSuggestion,suggestionDetailData:that.dietSuggestionDetail}});
           console.log('dietSuggestion ==' + that.dietSuggestion);
           // 分数
          // document.getElementById('head_span_score').innerHTML = data.PersonDeseaseCategory.HealthScore;
@@ -214,6 +286,11 @@ export default {
         }else {
           Toast(response.data.ReturnMessage);
         }
+
+        this.loadComplete = true;
+        this.$nextTick(() => {
+            this.createSwiper();
+        });
       }).catch(error => {
         Toast(error.message);
       })

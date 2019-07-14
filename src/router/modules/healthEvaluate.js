@@ -6,7 +6,7 @@ const healthEvaluateRouter =
     name: '健康评估',
     component: HealthEvaluate,
     // redirect: '/healthEvaluate/eattingSuggest',
-    children: [
+    /*children: [
       {
         path: 'eattingSuggest',
         component: () => import('@/views/healthEvaluate/components/EattingSuggest'),
@@ -35,7 +35,7 @@ const healthEvaluateRouter =
         props: true,
         meta: { noCache: true }
       }
-    ]
+    ]*/
 
   }
 
