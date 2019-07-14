@@ -147,6 +147,14 @@
             },
             //日期选择
             chooseDate() {
+                let date = new Date(this.$utils.getFormatDateStr(this.dateStr));
+                let dateObj = this.$utils.getCurrentTime(date);
+                let picker = this.$refs.picker.$refs.picker;
+
+                picker.setSlotValue(0, dateObj.year + "");
+                picker.setSlotValue(1, dateObj.month + "");
+                picker.setSlotValue(2, dateObj.date + "");
+
                 this.$refs.picker.open();
             },
             //日期修改

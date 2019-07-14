@@ -3,6 +3,7 @@
  */
 
 let BASE_API = process.env.BASE_API;
+let BASE_API_APP = process.env.BASE_API_APP;
 
 let apiType = {
     "0": {
@@ -11,8 +12,8 @@ let apiType = {
         text: "baseApi"
     },
     "1": {
-        key: "dev",
-        api: "http://test-app.kmhealth360.com",
+        key: "appApi",
+        api: BASE_API_APP, //"http://test-app.kmhealth360.com"
         text: "health"
     }
 };
