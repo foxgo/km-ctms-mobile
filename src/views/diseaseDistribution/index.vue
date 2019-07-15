@@ -121,6 +121,10 @@
                 illList: [],
                 provinceList: [],
                 showIllList: true,
+                current: {
+                    Province: "广东",
+                    ProvinceID: "440000000000"
+                },
                 data: {
                     province: "",
                     provinceCode: "", //广东
@@ -129,6 +133,7 @@
             };
         },
         mounted() {
+            document.getElementById("map").innerHTML = "";
             this.$root.setPageTitle("疾病地理功能");
 
             this.init();
@@ -137,6 +142,13 @@
             this.getCurrentProvince().then(() => {
                 this.getIllnessList();
             });
+        },
+        beforeDestroy() {
+            jsMap.destroy();
+
+            if(mc) {
+                mc.destroy();
+            }
         },
         methods: {
             //初始化
@@ -202,6 +214,8 @@
             configMap(option) {
                 let self = this;
                 let size = document.getElementById("app").clientWidth;
+                let obj = this.getProvinceMapDataByName(this.current.Province);
+                let {key} = obj;
 
                 let options = Object.assign({
                     name: "china",
@@ -215,10 +229,10 @@
                     zoom: {
                         disabled: true,
                         max: 5,
-                        zoomRange: true,
-                        wheelZoom: true
+                        zoomRange: false,
+                        wheelZoom: false
                     },
-                    selected: ["guangdong"],
+                    selected: [key],
                     areaName: {
                         show: true,
                         size: 12,
@@ -228,10 +242,11 @@
                     // 禁用默认交互效果
                     // 此时只有点击标注图标才会有事件触发[ 禁用的地区不会触发点击事件 ]
                     defaultInteractive: true,
+                    tip: false,
                     marker: {
                         disabled: false,
                         icon,
-                        data: ["guangdong"],
+                        data: [key],
                         click: function(id, name) {
                             self.provinceClickHandle(id, name);
                         }
@@ -274,13 +289,12 @@
                     let obj = res.ReturnData;
 
                     if(!obj.Province) {
-                        obj = {
-                            Province: "广东",
-                            ProvinceID: "440000000000"
-                        };
+                        obj = this.current;
                     }
 
                     let current = this.getProvinceMapDataByName(obj.Province);
+
+                    this.current = obj;
 
                     this.data = {
                         ...this.data,
@@ -291,12 +305,12 @@
 
                     callback(current.key);
                 }, () => {
-                    let obj = this.getProvinceMapDataByName("广东省");
+                    let obj = this.current;
 
                     this.data = {
                         ...this.data,
-                        province: "广东",
-                        provinceCode: "440000000000", //广东
+                        province: obj.Province,
+                        provinceCode: obj.ProvinceID,
                         diseaseName: ""
                     };
 
@@ -412,7 +426,6 @@
                     let obj = this.getProvinceMapDataByName(n.Name);
                     let {key} = obj;
                     let color = this.$utils.getMapProp(legend, n.Level, "color");
-
 
                     fill.basicColor[key] = color;
                     fill.hoverColor[key] = color;

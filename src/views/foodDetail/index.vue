@@ -75,6 +75,7 @@
             return {
                 apiType: 1,
                 showDietChoose: false,
+                patientInfo: {},
                 data: {},
                 dataItems: []
             };
@@ -92,12 +93,55 @@
         methods: {
             //获取当天的数据
             fetch() {
+                this.getPatientInfo();
                 this.getHealthData();
                 this.getDietDetails();
             },
+            //获取个人资料
+            getPatientInfo() {
+                this.$ajax({
+                    type: "get",
+                    apiType: this.apiType,
+                    request: {
+                        name: "getPatientInfo"
+                    },
+                    data: {}
+                }).then((res) => {
+                    this.patientInfo = res.Data;
+                });
+            },
             //获取评估
             getEvaluate() {
+                let weight = this.patientInfo.Weight;
+                let height = this.patientInfo.Height;
+                let calories = this.data.CaloriesIntake;
                 let result = "暂无法评估";
+                //标准卡路里
+                let standCalorie = 0;
+                //标准体重
+                const standardWeight = Math.abs(105 - height);
+                //BMI=体重/ 身高²
+                const BMI = weight / Math.pow(height / 100, 2);
+
+                if(height && weight) {
+                    if(BMI < 18.5) {
+                        standCalorie = standardWeight * 35;
+                    } else if(BMI >= 18.5 && BMI < 24) {
+                        standCalorie = standardWeight * 30;
+                    } else if(BMI >= 24 && BMI < 28) {
+                        standCalorie = standardWeight * 25;
+                    } else {
+                        standCalorie = standardWeight * 25;
+                    }
+
+                    if(standCalorie * 1.1 < calories) {
+                        return result = "偏高";
+                    } else if(standCalorie * 0.9 < calories && calories < standCalorie * 1.1) {
+                        return result = "适中";
+                    } else if(standCalorie * 0.9 > calories) {
+                        return result = "偏低";
+                    }
+                }
 
                 return result;
             },

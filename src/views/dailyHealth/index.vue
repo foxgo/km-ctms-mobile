@@ -202,11 +202,14 @@
                      CaloriesConsume: 0, // 可选	float            消耗的总卡路里数,（可选,需求修改该字段时传值即可）
                      WalkSteps: 0, // 可选	int            步数,（可选,需求修改该字段时传值即可）
                     *
-                    * */
+                    * 公里      = 步数*0.6*0.001
+                     卡路里  = 步数*0.04
+
+                     * */
 
                     let steps = parseInt(value);
-                    let WalkingDistance = Number(steps * 0.6 / 1000).toFixed(2); // 步数转公里
-                    let CaloriesConsume = Number(steps / 25).toFixed(2); // 千卡路里计算公式
+                    let WalkingDistance = steps * 0.6 * 0.001; // 步数转公里
+                    let CaloriesConsume = steps * 0.04; // 千卡路里计算公式
 
                     this.data = {
                         ...this.data,

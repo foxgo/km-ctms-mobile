@@ -15,9 +15,9 @@
         </form>
 
         <div class="food-pic" v-if="src">
-            <img :src="src" class="img-response" />
+            <img :src="src" class="img-response mrg-b-md" />
 
-            <div class="text-body-second mrg-t-md mrg-b-md">
+            <div class="text-body-second mrg-b-md" v-if="showUnMatchingTip">
                 <i class="icon-warning" /> 抱歉找不到匹配的食物，以下是我们推荐的食物您还可以通过搜索查询食物。
             </div>
         </div>
@@ -86,6 +86,7 @@
                 apiType: 1,
                 loading: false,
                 showInputTip: true,
+                showUnMatchingTip: false,
                 showList: false,
                 showConfirmDialog: false,
                 confirmData: {},
@@ -162,15 +163,19 @@
                             name: "getCalorieFromPicForHealth"
                         },
                         data: {
-                            imageFile: btoa(base64)//	--所传图片转换的base64格式
+                            imageFile: base64.substr(base64.indexOf(",") + 1)//	--所传图片转换的base64格式
                         }
                     }).then((res) => {
+                        let showUnMatchingTip = false;
                         let {calorie, name} = res.Data;
 
                         if(name === "非菜") {
                             name = "";
+
+                            showUnMatchingTip = true;
                         }
 
+                        self.showUnMatchingTip = showUnMatchingTip;
                         self.src = base64;
 
                         self.$root.setTempImage(null);

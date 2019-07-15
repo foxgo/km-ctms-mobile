@@ -5,8 +5,10 @@
     }
 
     .map-bar {
-        @include layout-absolute(auto auto px2rem(120) px2rem(40));
+        @include layout-absolute(auto auto px2rem(120) 0);
+        padding-left: px2rem(40);
         padding-bottom: 30px;
+        min-width: px2rem(200);
         text-align: left;
         
         .gender-switch >  li {
@@ -46,6 +48,7 @@
         margin-top: px2rem(-80);
         padding: 0 px2rem(40);
         color: $text-body-second;
+        background: #fff;
     }
 
     .rank-list {

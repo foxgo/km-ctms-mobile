@@ -126,6 +126,7 @@
         hoverCallback: function () {},
         clickCallback: function () {}
     };
+    var destroy;
 
     // 整合参数
     function mergeParam ( param ) {
@@ -155,6 +156,8 @@
         version: "4.1.0",
         config: function ( selector, jsonData, options ) {
             var opt = mergeParam( options || {} );
+
+            this.destroy();
 
             // 必须传入地图数据
             if ( !jsonData || Methods.type( jsonData ) !== "object" ) {
@@ -448,63 +451,60 @@
                     }
                 }
 
-                // 事件集合
-                areaBox.forEach(function ( v ) {
-                    $( ".jsmap-" + v, $el ).forEach(function ( elem ) {
-                        elem.addEventListener("mouseenter", function () {
-                            if ( IsMobile || !opt.defaultInteractive ) {
-                                return;
+                var areaBoxMouseenter = function () {
+                    if ( IsMobile || !opt.defaultInteractive ) {
+                        return;
+                    }
+
+                    var _this = this;
+
+                    // 如果此区域被禁用
+                    // 则无任何事件
+                    if ( _this.classList.contains( "jsmap-disabled" ) ) {
+                        return;
+                    }
+
+                    // 鼠标悬浮时的填充色 ( 未被点击过的情况下 )
+                    if ( !_this.classList.contains( "jsmap-clicked" ) ) {
+
+                        // 克隆一个含有地区名称的数组
+                        var cloneAllName = areaBox.map(function ( name ) {
+                            return name;
+                        });
+
+                        if ( Methods.type( opt.fill.hoverColor ) === "string" ) {
+                            if ( _this.nodeName.toLowerCase() === "path" ) {
+                                _this.setAttribute( "fill", opt.fill.hoverColor );
                             }
+                        }
 
-                            var _this = this;
-
-                            // 如果此区域被禁用
-                            // 则无任何事件
-                            if ( _this.classList.contains( "jsmap-disabled" ) ) {
-                                return;
-                            }
-
-                            // 鼠标悬浮时的填充色 ( 未被点击过的情况下 )
-                            if ( !_this.classList.contains( "jsmap-clicked" ) ) {
-
-                                // 克隆一个含有地区名称的数组
-                                var cloneAllName = areaBox.map(function ( name ) {
-                                    return name;
-                                });
-
-                                if ( Methods.type( opt.fill.hoverColor ) === "string" ) {
-                                    if ( _this.nodeName.toLowerCase() === "path" ) {
-                                        _this.setAttribute( "fill", opt.fill.hoverColor );
-                                    }
+                        if ( Methods.type( opt.fill.hoverColor ) === "object" && !Methods.isEmptyObject( opt.fill.hoverColor ) ) {
+                            for ( var i in opt.fill.hoverColor ) {
+                                var v = opt.fill.hoverColor[ i ];
+                                if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + i ) > -1 ) {
+                                    _this.setAttribute( "fill", v );
                                 }
-
-                                if ( Methods.type( opt.fill.hoverColor ) === "object" && !Methods.isEmptyObject( opt.fill.hoverColor ) ) {
-                                    for ( var i in opt.fill.hoverColor ) {
-                                        var v = opt.fill.hoverColor[ i ];
-                                        if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + i ) > -1 ) {
-                                            _this.setAttribute( "fill", v );
-                                        }
-                                        cloneAllName.splice( cloneAllName.indexOf( i ), 1 );
-                                    }
-
-                                    // 未特殊设置的地区仍保持默认配置色
-                                    cloneAllName.forEach(function ( area ) {
-                                        if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + area ) > -1 ) {
-                                            _this.setAttribute( "fill", defaults.fill.hoverColor );
-                                        }
-                                    })
-                                }
+                                cloneAllName.splice( cloneAllName.indexOf( i ), 1 );
                             }
 
-                            // 悬浮回调事件
-                            opt.hoverCallback( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
+                            // 未特殊设置的地区仍保持默认配置色
+                            cloneAllName.forEach(function ( area ) {
+                                if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + area ) > -1 ) {
+                                    _this.setAttribute( "fill", defaults.fill.hoverColor );
+                                }
+                            })
+                        }
+                    }
 
-                            // 悬浮提示框
-                            if ( opt.tip ) {
+                    // 悬浮回调事件
+                    opt.hoverCallback( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
 
-                                // 为 true 时显示地区的汉字名称
-                                if ( opt.tip === true ) {
-                                    $tip.innerHTML = '<div \
+                    // 悬浮提示框
+                    if ( opt.tip ) {
+
+                        // 为 true 时显示地区的汉字名称
+                        if ( opt.tip === true ) {
+                            $tip.innerHTML = '<div \
 										style="\
 											padding:10px 12px;\
 											color:#fff;\
@@ -514,138 +514,147 @@
 											border:#777 solid 1px;\
 											background:rgba(0,0,0,.75);"\
 									>' + _this.getAttribute( "data-name" ) + '</div>';
+                        }
+
+                        // 是函数时可显示自定义内容
+                        // 函数的参数包含了地区的全拼和汉语名称
+                        if ( Methods.type( opt.tip ) === "function" ) {
+                            $tip.innerHTML = opt.tip( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
+                        }
+
+                        // 悬浮移动事件
+                        document.onmousemove = function ( event ) {
+                            var x = event.pageX + 12 + "px",
+                                y = event.pageY + 12 + "px";
+                            Methods.setCSS($tip, {
+                                transform: "translate3d(" + x + ", " + y + ", 0)",
+                                display: "block"
+                            });
+                        }
+                    }
+                };
+
+                var areaBoxMouseleave = function () {
+                    if ( IsMobile || !opt.defaultInteractive ) {
+                        return;
+                    }
+
+                    // 如果此区域被禁用
+                    // 则无任何事件
+                    if ( this.classList.contains( "jsmap-disabled" ) ) {
+                        return;
+                    }
+
+                    // 恢复原始填充色 ( 未被点击过的情况下 )
+                    if ( !this.classList.contains( "jsmap-clicked" ) ) {
+                        if ( this.nodeName.toLowerCase() === "path" ) {
+                            this.setAttribute( "fill", this.getAttribute( "data-fill" ) );
+                        }
+                    }
+
+                    // 悬浮框内容清空并恢复位置
+                    if ( opt.tip ) {
+                        $tip.innerHTML = "";
+                        Methods.setCSS($tip, {
+                            transform: "translate3d(0, 0, 0)",
+                            display: "none"
+                        });
+                        document.onmousemove = null;
+                    }
+                };
+
+                var areaBoxClick = function () {
+                    var _this = this;
+
+                    // 如果此区域被禁用
+                    // 则无任何事件
+                    if ( _this.classList.contains( "jsmap-disabled" ) || !opt.defaultInteractive ) {
+                        return;
+                    }
+
+                    var id = _this.getAttribute( "data-id" );
+
+                    // 点击后的填充色
+                    if ( opt.fill.clickColor === false ) {
+                        return;
+                    } else {
+
+                        // 克隆一个含有地区名称的数组
+                        var cloneAllName = areaBox.map(function ( name ) {
+                            return name;
+                        });
+
+                        if ( typeof opt.fill.clickColor === "string" ) {
+                            if ( _this.nodeName.toLowerCase() === "path" ) {
+                                _this.setAttribute( "fill", opt.fill.clickColor );
+                            }
+                        }
+                        if ( Methods.type( opt.fill.clickColor ) === "object" && !Methods.isEmptyObject( opt.fill.clickColor ) ) {
+                            for ( var i in opt.fill.clickColor ) {
+                                var v = opt.fill.clickColor[ i ];
+                                if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + i ) > -1 ) {
+                                    _this.setAttribute( "fill", v );
                                 }
+                                cloneAllName.splice( cloneAllName.indexOf( i ), 1 );
+                            }
 
-                                // 是函数时可显示自定义内容
-                                // 函数的参数包含了地区的全拼和汉语名称
-                                if ( Methods.type( opt.tip ) === "function" ) {
-                                    $tip.innerHTML = opt.tip( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
+                            // 未特殊设置的地区仍保持默认配置色
+                            cloneAllName.forEach(function ( area ) {
+                                if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + area ) > -1 ) {
+                                    _this.setAttribute( "fill", defaults.fill.clickColor );
                                 }
+                            })
+                        }
+                    }
 
-                                // 悬浮移动事件
-                                document.onmousemove = function ( event ) {
-                                    var x = event.pageX + 12 + "px",
-                                        y = event.pageY + 12 + "px";
-                                    Methods.setCSS($tip, {
-                                        transform: "translate3d(" + x + ", " + y + ", 0)",
-                                        display: "block"
-                                    });
-                                }
-                            }
-                        })
-                        elem.addEventListener("mouseleave", function () {
-                            if ( IsMobile || !opt.defaultInteractive ) {
-                                return;
-                            }
-
-                            // 如果此区域被禁用
-                            // 则无任何事件
-                            if ( this.classList.contains( "jsmap-disabled" ) ) {
-                                return;
-                            }
-
-                            // 恢复原始填充色 ( 未被点击过的情况下 )
-                            if ( !this.classList.contains( "jsmap-clicked" ) ) {
-                                if ( this.nodeName.toLowerCase() === "path" ) {
-                                    this.setAttribute( "fill", this.getAttribute( "data-fill" ) );
-                                }
-                            }
-
-                            // 悬浮框内容清空并恢复位置
-                            if ( opt.tip ) {
-                                $tip.innerHTML = "";
-                                Methods.setCSS($tip, {
-                                    transform: "translate3d(0, 0, 0)",
-                                    display: "none"
-                                });
-                                document.onmousemove = null;
-                            }
-                        })
-                        elem.addEventListener("click", function () {
-                            var _this = this;
-
-                            // 如果此区域被禁用
-                            // 则无任何事件
-                            if ( _this.classList.contains( "jsmap-disabled" ) || !opt.defaultInteractive ) {
-                                return;
-                            }
-
-                            var id = _this.getAttribute( "data-id" );
-
-                            // 点击后的填充色
-                            if ( opt.fill.clickColor === false ) {
-                                return;
-                            } else {
-
-                                // 克隆一个含有地区名称的数组
-                                var cloneAllName = areaBox.map(function ( name ) {
-                                    return name;
-                                });
-
-                                if ( typeof opt.fill.clickColor === "string" ) {
-                                    if ( _this.nodeName.toLowerCase() === "path" ) {
-                                        _this.setAttribute( "fill", opt.fill.clickColor );
-                                    }
-                                }
-                                if ( Methods.type( opt.fill.clickColor ) === "object" && !Methods.isEmptyObject( opt.fill.clickColor ) ) {
-                                    for ( var i in opt.fill.clickColor ) {
-                                        var v = opt.fill.clickColor[ i ];
-                                        if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + i ) > -1 ) {
-                                            _this.setAttribute( "fill", v );
-                                        }
-                                        cloneAllName.splice( cloneAllName.indexOf( i ), 1 );
-                                    }
-
-                                    // 未特殊设置的地区仍保持默认配置色
-                                    cloneAllName.forEach(function ( area ) {
-                                        if ( _this.getAttribute( "class" ).indexOf( "jsmap-" + area ) > -1 ) {
-                                            _this.setAttribute( "fill", defaults.fill.clickColor );
-                                        }
-                                    })
-                                }
-                            }
-
-                            // 点击后的文字颜色
-                            if ( opt.areaName.clickColor !== false ) {
-                                if ( opt.areaName.show ) {
-                                    var $elem = $( "text.jsmap-" + _this.getAttribute( "data-id" ), $el )[ 0 ];
-                                    $elem.setAttribute( "fill", opt.areaName.clickColor );
-                                    if ( !opt.multiple ) {
-                                        $( $( "text", $el ) ).forEach(function ( text ) {
-                                            if ( text !== $elem ) {
-                                                text.setAttribute( "fill", opt.areaName.basicColor );
-                                            }
-                                        })
-                                    }
-                                }
-                            }
-
-                            // 单选
+                    // 点击后的文字颜色
+                    if ( opt.areaName.clickColor !== false ) {
+                        if ( opt.areaName.show ) {
+                            var $elem = $( "text.jsmap-" + _this.getAttribute( "data-id" ), $el )[ 0 ];
+                            $elem.setAttribute( "fill", opt.areaName.clickColor );
                             if ( !opt.multiple ) {
-                                _this.classList.add( "jsmap-clicked" );
-                                $( $pathText ).forEach(function ( pathText ) {
-                                    if ( !pathText.classList.contains( "jsmap-" + id ) && !pathText.classList.contains( "jsmap-disabled" ) ) {
-                                        pathText.classList.remove( "jsmap-clicked" );
-                                        if ( pathText.nodeName.toLowerCase() !== "text" ) {
-                                            pathText.setAttribute( "fill", pathText.getAttribute( "data-fill" ) );
-                                        }
+                                $( $( "text", $el ) ).forEach(function ( text ) {
+                                    if ( text !== $elem ) {
+                                        text.setAttribute( "fill", opt.areaName.basicColor );
                                     }
                                 })
-                            } else {
+                            }
+                        }
+                    }
 
-                                // 多选
-                                _this.classList[ $el.outerSelected ? "add" : "toggle" ]( "jsmap-clicked" );
-                                if ( !_this.classList.contains( "jsmap-clicked" ) ) {
-                                    _this.setAttribute( "fill", _this.getAttribute( "data-fill" ) );
+                    // 单选
+                    if ( !opt.multiple ) {
+                        _this.classList.add( "jsmap-clicked" );
+                        $( $pathText ).forEach(function ( pathText ) {
+                            if ( !pathText.classList.contains( "jsmap-" + id ) && !pathText.classList.contains( "jsmap-disabled" ) ) {
+                                pathText.classList.remove( "jsmap-clicked" );
+                                if ( pathText.nodeName.toLowerCase() !== "text" ) {
+                                    pathText.setAttribute( "fill", pathText.getAttribute( "data-fill" ) );
                                 }
                             }
-
-                            // 点击回调事件
-                            // 函数的参数包含了地区的全拼和汉语名称
-                            if ( !$el.outerSelected && !$el.autoSelected ) {
-                                opt.clickCallback( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
-                            }
                         })
+                    } else {
+
+                        // 多选
+                        _this.classList[ $el.outerSelected ? "add" : "toggle" ]( "jsmap-clicked" );
+                        if ( !_this.classList.contains( "jsmap-clicked" ) ) {
+                            _this.setAttribute( "fill", _this.getAttribute( "data-fill" ) );
+                        }
+                    }
+
+                    // 点击回调事件
+                    // 函数的参数包含了地区的全拼和汉语名称
+                    if ( !$el.outerSelected && !$el.autoSelected ) {
+                        opt.clickCallback( _this.getAttribute( "data-id" ), _this.getAttribute( "data-name" ) );
+                    }
+                };
+
+                // 事件集合
+                areaBox.forEach(function ( v ) {
+                    $( ".jsmap-" + v, $el ).forEach(function ( elem ) {
+                        elem.addEventListener("mouseenter", areaBoxMouseenter);
+                        elem.addEventListener("mouseleave", areaBoxMouseleave);
+                        elem.addEventListener("click", areaBoxClick);
                     })
                 })
 
@@ -770,6 +779,7 @@
                         }
                     }
                     function mousedownHandle ( event ) {
+                        console.log("mousedownHandle:");
                         x = event.pageX - $container.offsetLeft,
                             y = event.pageY - $container.offsetTop;
                         document.addEventListener( "mousemove", mousemoveHandle );
@@ -783,6 +793,17 @@
                     document.addEventListener( "mouseup", mouseupHandle );
                 }
 
+                var markerClick = function ( event ) {
+                    var target = event.target
+                    if ( target.nodeName.match( /(image|text)/ ) ) {
+                        if ( target.classList.contains( "jsmap-disabled" ) ) {
+                            return;
+                        }
+                        if ( Methods.type( opt.marker.click ) === "function" ) {
+                            opt.marker.click( target.getAttribute( "data-id" ), target.getAttribute( "data-name" ) );
+                        }
+                    }
+                };
                 // 标注点功能
                 if ( opt.marker.disabled === false ) {
                     var markerArray = [];
@@ -831,17 +852,7 @@
                             }
                         })
                     })
-                    $svg.addEventListener("click", function ( event ) {
-                        var target = event.target
-                        if ( target.nodeName.match( /(image|text)/ ) ) {
-                            if ( target.classList.contains( "jsmap-disabled" ) ) {
-                                return;
-                            }
-                            if ( Methods.type( opt.marker.click ) === "function" ) {
-                                opt.marker.click( target.getAttribute( "data-id" ), target.getAttribute( "data-name" ) );
-                            }
-                        }
-                    })
+                    $svg.addEventListener("click", markerClick);
                 }
 
                 // 不显示区域名称
@@ -850,6 +861,26 @@
                         $svg.removeChild( text );
                     })
                 }
+
+                destroy = function () {
+                    // 事件集合
+                    if(areaBox && areaBox.length) {
+                        areaBox.forEach(function ( v ) {
+                            $( ".jsmap-" + v, $el ).forEach(function ( elem ) {
+                                elem.removeEventListener("mouseenter", areaBoxMouseenter);
+                                elem.removeEventListener("mouseleave", areaBoxMouseleave);
+                                elem.removeEventListener("click", areaBoxClick);
+                            })
+                        });
+                    }
+
+                    if($svg) {
+                        $svg.removeEventListener("click", markerClick);
+                    }
+
+                    /*$container.removeEventListener( "mousedown", mousedownHandle );
+                    document.removeEventListener( "mouseup", mouseupHandle );*/
+                };
             })
         },
         refresh: function ( selector ) {
@@ -982,6 +1013,13 @@
         },
         getPreloadJSON: function ( name ) {
             return !name ? CacheJSON : CacheJSON[ name ];
+        },
+        destroy: function () {
+            if(destroy) {
+                destroy();
+
+                destroy = null;
+            }
         }
     };
 
