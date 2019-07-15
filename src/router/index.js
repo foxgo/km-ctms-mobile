@@ -119,11 +119,11 @@ export const constantRouterMap = [
     component: () => import('@/views/errorPage/401'),
     hidden: true
   },
-  // {
-  //   path: '/dailyHealth',
-  //   component: dailyHealth,
-  //   meta: { title: '每日健康' }
-  // },
+  {
+    path: '/htmlPanel',
+    component: () => import('@/components/HtmlPanel'),
+    hidden: true
+  }, // 外部html页面嵌套壳
   // {
   //   path: '/lifePeriodHealth',
   //   component: HealthEvaluate,
@@ -138,11 +138,6 @@ export const constantRouterMap = [
   //   path: '/TCMphysique',
   //   component: HealthEvaluate,
   //   meta: { title: '中医体质' }
-  // },
-  // {
-  //   path: '/deseaseGeography',
-  //   component: HealthEvaluate,
-  //   meta: { title: '疾病地理' }
   // },
   ...diseaseDistribution,
   ...dailyHealth

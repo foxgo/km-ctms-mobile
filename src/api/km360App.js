@@ -11,6 +11,15 @@ export function getHomeNewsWithImg(count) {
 }
 
 // 获取资讯URL
+export function getCarouselList(newsID) {
+  return request({
+    url: '/api/GetCarouselList',
+    method: 'get',
+    is360AppAPI: true
+  })
+}
+
+// 获取首页轮播图
 export function getHomeNewsDetail(newsID) {
   return request({
     url: '/api/News/GetNewsDetail',

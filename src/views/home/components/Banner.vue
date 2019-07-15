@@ -1,40 +1,37 @@
-<!--<template>
-  <div class="banner">
-    <img class="banner-img" src="@/assets/images/home/banner_01.png" >
-  </div>
-</template>-->
-
 <template>
   <div class="banner" v-on:mouseover="stop()" v-on:mouseout="move()">
     <div class="slideshow">
       <ul>
-        <li v-for="(img, index) in imgArray" v-show="index===mark" @click="getUrl(index)" :key="index">
+        <li v-for="(item, index) in itemArray" v-show="index===mark" @click="getUrl(index)" :key="index">
           <a href="#">
-            <img class="banner-img" :src='img'>
+            <img class="banner-img" :src='item.CarouselUrl'>
           </a>
         </li>
       </ul>
     </div>
     <div class="bar">
-      <span v-for="(item, index) in imgArray" :class="{ 'active':index===mark }"
+      <span v-for="(item, index) in itemArray" :class="{ 'active':index===mark }"
       @click="change(index)" :key="index"></span>
     </div>
   </div>
 </template>
  
 <script>
+import { getCarouselList } from '@/api/km360App'
 export default {
 	name: 'banner',
   data () {
     return {
       timer: null, //定时器
       mark: 0, //比对图片索引的变量
-      imgArray: [
-        require('../../../assets/images/home/banner1.jpg'),
-        require('../../../assets/images/home/banner2.jpg'),
-        require('../../../assets/images/home/banner3.jpg'),
-      ]
+      itemArray: []
     }
+  },
+  mounted() {
+    getCarouselList().then(response => {
+      this.itemArray = response.data.Data
+      this.play()
+    })
   },
   methods: {
     autoPlay () {
@@ -47,7 +44,10 @@ export default {
       this.timer = setInterval(this.autoPlay, 2500)
     },
     getUrl (i) {
-      alert(i)
+      const url = this.itemArray[i].LinkAddress
+      console.log(url)
+      window.location.href = url
+      // this.$router.push({path:'/htmlPanel', query:{url}})
     },
     change (i) {
       this.mark = i
@@ -59,9 +59,7 @@ export default {
       this.timer = setInterval(this.autoPlay, 2500)
     }
   },
-  created () {
-    this.play()
-  }
+  
 }
 </script>
 

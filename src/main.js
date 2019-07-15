@@ -40,7 +40,7 @@ Vue.use(Vuelidate)
 Vue.prototype.$echarts = echarts
 
 Vue.use(MintUI)
-Vue.use(install);
+Vue.use(install)
 
 Vue.config.productionTip = false
 

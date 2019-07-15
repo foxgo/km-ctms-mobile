@@ -184,9 +184,13 @@ export default {
 
     loadData() {
       let that = this;
+      this.$root.showLoading()
+
       getHealthEvaluateInfo().then(response => {
         console.log(response.data.ReturnData);
         if (response.data.IsSuccess) {
+          this.$root.hideLoading()
+
           let data = response.data.ReturnData;
           that.dietSuggestion = data.DietAdvice;
           that.dietSuggestionDetail = data.DietAdviseDetail;
@@ -284,6 +288,7 @@ export default {
          }
 
         }else {
+          this.$root.hideLoading()
           Toast(response.data.ReturnMessage);
         }
 
@@ -292,6 +297,7 @@ export default {
             this.createSwiper();
         });
       }).catch(error => {
+        this.$root.hideLoading()
         Toast(error.message);
       })
     },

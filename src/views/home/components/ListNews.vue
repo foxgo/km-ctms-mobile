@@ -71,8 +71,10 @@ export default {
       axios(process.env.BASE_API_APP + "/api/News/GetNewsDetail?id=" + newsID).then((response) => {
           return response.data;
       }).then((data) => {
-          console.log(JSON.stringify(data.Data.SourceUrl))
-          window.location.href = data.Data.SourceUrl
+        const url = data.Data.SourceUrl
+          // console.log(url)
+          window.location.href = url
+          // this.$router.push({path:'/htmlPanel', query:{url}})
       }).catch(() => {
           console.log("请求出错");
       });
