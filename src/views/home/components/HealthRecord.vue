@@ -1,7 +1,7 @@
 <template>
   <div class="health-record">
     <img v-bind:src="actionSheetData.headImageUrl"></img>
-    <div class="toggle" @click="togglePerson()">{{actionSheetData.name}} ▼</div> 
+    <div class="toggle" @click="togglePerson()"><span>{{actionSheetData.name}} ▼</span></div> 
     <div class="space"></div>
     <div class="health-info" @click="pushPage()">健康档案</div>
     <mt-actionsheet 
@@ -132,13 +132,20 @@ export default {
       font-size:px2rem(28px)
       flex:1
       &>.toggle{
-      	margin-left: px2rem(20px);
-        color: #008dfd;
-        border: 1px solid #008dfd;
-        flex:0 0 px2rem(140px);
-        height: px2rem(50px);
-        line-height:px2rem(50px);
+        flex:0 0 px2rem(200px);
+        &>span{
+          color: #008dfd;
+          border: 1px solid #008dfd;
+          margin-left: 0.1rem;
+          padding-left 0.2rem
+          padding-right 0.1rem
+          padding-top 0.05rem
+          padding-bottom  0.05rem
+          height: px2rem(50px);
+          line-height:px2rem(50px);
+        }
       }
+      
     &>div.space{
       flex:1;
     }

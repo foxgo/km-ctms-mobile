@@ -1,4 +1,14 @@
-.submit-btn {
+a,button,input { /* 手机端去除按钮点击阴影 */
+  -webkit-tap-highlight-color:rgba(255,0,0,0);
+}
+body { /* 手机端去除选择文本 */
+  -webkit-user-select:none;
+}
+input,textarea{ /* 去掉textarea,input的默认样式（IOS上的圆角及内阴影等，Android未测试） */
+  -webkit-appearance:none;
+}
+
+.submit-btn { /* 提交按钮 */
   width: 92%;
   height: 1.066666666666667rem;
   border-radius: 0.533333333333rem;

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import areaData from './areaData.json' //引入省市区数据
+import areaData from './areaData_id.json' //引入省市区数据
 import { Picker } from 'mint-ui'
 export default {
     name: 'AreaPicker',
@@ -61,10 +61,9 @@ export default {
                     textAlign: 'center'
                 }
             ],
-            province:'',
-            city:'',
-            county:'',
-            province_city_county_string:''
+  
+            province_city_county_string:'',
+            province_city_county_obj:{}
         }
     },
     mounted(){
@@ -72,7 +71,7 @@ export default {
         // 设置初始状态数据
         var provinceArr = areaData.map(province => province.n)
         var cityArr = areaData[0].l.map(city => city.n)
-        var arearr = areaData[0].l[0].l
+        var arearr = areaData[0].l[0].l.map(area => area.n)
         this.dataSource[0].values = provinceArr
         this.dataSource[2].values = cityArr
         this.dataSource[4].values = arearr
@@ -85,16 +84,15 @@ export default {
 
         // 确定
         handleConfirm() {
-            this.province_city_county_string = this.province + ' ' + this.city + ' ' + this.county
-            this.$emit('showArea', this.province_city_county_string) // 把值传给父级
+            this.province_city_county_string = this.province_city_county_obj.province.value + ' ' + this.province_city_county_obj.city.value + ' ' + this.province_city_county_obj.county.value
+            // 把值传给父级
+            this.$emit('showAreaData', this.province_city_county_obj) 
             this.popupVisible = false
         },
 
         onValueChanged(picker,values) {
             if(this.dataSource[4].values.length <=0) return;
             var provinceArr,cityArr,arearr;
-
-            this.province = values[0];
 
             // 查找当前省份的索引
             var provinceArr = areaData.map(province => province.n)
@@ -104,14 +102,26 @@ export default {
             // 查找当前城市的索引
             let cityIndex = cityArr.indexOf(values[1]) 
             // 当前城市下的区县
-            var arearr = areaData[provinceIndex].l[cityIndex>0?cityIndex:0].l
+            var arearr = areaData[provinceIndex].l[cityIndex>0?cityIndex:0].l.map(area => area.n)
+            let areaIndex = arearr.indexOf(values[2]) 
 
             picker.setSlotValues(1,cityArr);
             picker.setSlotValues(2,arearr);
 
-            this.province = values[0];
-            this.city = values[1];
-            this.county = values[2];
+            // 获取省份城市区县的id
+            let province = areaData[provinceIndex]
+            if(!province) { return }
+            let city = province.l[cityIndex]
+            if(!city) { return }
+            let area = areaData[provinceIndex].l[cityIndex].l[areaIndex]
+            if(!area) { return }
+            // console.log(JSON.stringify(area))
+
+            this.province_city_county_obj = {
+                province: { value: values[0], id: province.id},
+                city: { value: values[1], id: city.id},
+                county: { value: values[2], id: area.id}
+            }
         }
     }
 }
@@ -143,4 +153,11 @@ export default {
     background-color red
     height 1px
     width 100%
+
+//设置显示不下的内容以...表示
+.picker-box >>>span 
+    overflow: hidden 
+    white-space: nowrap
+    text-overflow: ellipsis
+    display: block
 </style>

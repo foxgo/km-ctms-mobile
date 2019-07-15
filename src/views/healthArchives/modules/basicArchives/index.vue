@@ -14,7 +14,7 @@
         <li class="clearfix" ref="cardID">
           <p>身份证</p>
           <div class="wb"></div>
-          <input type="text" maxlength="18" v-model="allData.PersonNo"/>
+          <input type="text" maxlength="18" :readonly="cardIdEnableEdit ? false :'readonly'" v-model="allData.PersonNo"/>
         </li>
         <li class="clearfix">
           <p class="red_star"><span>*</span>性别</p>
@@ -29,12 +29,12 @@
         <li v-show="showLivingAreaCell" class="clearfix">
           <p>居住地</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
-          <area-picker class="pc-box" @showArea="showArea"/>
+          <area-picker class="pc-box" @showAreaData="showAreaData"/>
         </li>
         <li v-show="showLivingAddressCell" class="clearfix">
           <p>详细地址</p>
           <div class="wb"></div>
-          <input type="text" v-model.lazy="allData.DetailedAddress"/>
+          <input type="text" v-model.lazy="province_city_county_obj.DetailedAddress"/>
         </li>
         <li class="clearfix">
           <p>身高</p>
@@ -84,11 +84,12 @@ export default {
           showLivingAreaCell:false, //是否显示居住地选择框
           showLivingAddressCell:false, //是否显示详细地址输入框
 
-          proData:{},   //接收省份信息
+          province_city_county_obj:{},  //接收省份信息
           allData: {},  //省份以外的全部信息
 
           autoInputCardID: '', //标记账号，用来处理检测到账号已存在而连续弹窗的问题
           autoInputName: '', //标记账号，用来处理检测到账号已存在而连续弹窗的问题
+          cardIdEnableEdit: true, //身份证是否可以编辑，成功设置过后不能再编辑
           
           genderActions: [
             { name: '男',indexValue:'1',method:this.selectGender },
@@ -131,7 +132,9 @@ export default {
               const genderIndex = parseInt(gender)%2 ? 0 : 1
               this.selectGender(this.genderActions[genderIndex])
 
-              // 检测家庭成员是否已经存在
+              
+              // 检测家庭成员是否已经存在，修改时不再做检测
+              if(!this.showPhoneCell) { return }
               if(this.autoInputCardID && this.autoInputCardID === val) { return }
               this.autoInputCardID = ''
 
@@ -144,6 +147,7 @@ export default {
           }
         },
         phoneNumber(val) {
+          if(!this.showPhoneCell) { return }
           const tmpVal = val + ''
           if(tmpVal != "" && tmpVal.length >= 11){ 
             if(isPhoneNo(tmpVal)) {
@@ -188,8 +192,9 @@ export default {
         showTime(time) { //选择生日回调
           this.allData.Birthdate = time
         },
-        showArea(province_city_area) { //选择居住地回调
-          this.allData.Address = province_city_area
+        showAreaData(province_city_country_obj) { //选择居住地回调
+          console.log(JSON.stringify(province_city_country_obj))
+          this.province_city_county_obj = province_city_country_obj
         },
         selectGender(value){ //选择性别回调
           this.$refs.gender.innerText = value.name;
@@ -209,8 +214,9 @@ export default {
               let getData = response.data.ReturnData;
               that.allData = Object.assign({}, that.allData, getData);
               that.address = Object.assign({}, that.address, getData.Address);
-              console.log(that.allData);
-
+              
+              //身份证能否编辑
+              that.cardIdEnableEdit = !that.allData.PersonNo||that.allData.PersonNo.length<15
               //性别
               if(that.allData.Gender == 1) {
                 that.$refs.gender.innerText = "男";
@@ -246,12 +252,12 @@ export default {
             this.warningAnimation(this.$refs.phone)
             return;
           }
-          // if(this.allData.PersonNo != null && this.allData.PersonNo != "" ) {
-          //   if (!isCardNo(this.allData.PersonNo)) {
-          //     Toast("请填写正确格式的身份证！");
-          //     return;
-          //   }
-          // }
+          if(this.allData.PersonNo != null && this.allData.PersonNo != "" ) {
+            if (!isCardNo(this.allData.PersonNo)) {
+              Toast("请填写正确格式的身份证！");
+              return;
+            }
+          }
           if(this.allData.Gender == null) {
             Toast("请选择你的性别！");
             this.warningAnimation(this.$refs.gender)
@@ -262,16 +268,26 @@ export default {
             this.warningAnimation(this.$refs.birthDate)
             return;
           }
-          if(this.allData.Height > 250 || this.allData.Height < 40) {
+          if(this.allData.Height != null && this.allData.Height != "" && this.allData.Height > 250 || this.allData.Height < 40) {
             Toast("身高范围：40-250 cm！");
             return;
           }
-          if(this.allData.Weight > 220 || this.allData.Weight < 1) {
+          if(this.allData.Weight != null && this.allData.Weight != "" && this.allData.Weight > 220 || this.allData.Weight < 1) {
             Toast("体重范围：1-220 kg！");
             return;
           }
 
           let that = this;
+          var address = {}
+          if(that.province_city_county_obj.province) {
+            address = {
+              ProvinceID: that.province_city_county_obj.province.id,//省份ID
+              CityID: that.province_city_county_obj.city.id,//市ID
+              CountyID: that.province_city_county_obj.county.id,//三级市ID
+              DetailedAddress: that.province_city_county_obj.DetailedAddress
+            }
+          }
+          
           let upData = {
             Name: that.allData.Name,
             PersonNo: that.allData.PersonNo,
@@ -280,28 +296,34 @@ export default {
             MarriageStatus: that.allData.MarriageStatus,
             Gender: that.allData.Gender,
             Birthdate:  that.allData.BirthDate,
-            Phone: that.allData.Phone
+            Phone: that.allData.Phone,
+            Address: address
           };
 
           if(this.$route.params.pagetype === 'addMember'){ // 新增家庭成员
-            
-            createFamilyMember(upData)
-            .then(function(response){
-                if (response.data.IsSuccess === true) {
-                  Toast("新增家庭成员成功！");
-                }else{
-                  Toast(response.data.ReturnMessage);
-                }
-            }).catch(function(error){
-              Toast(error.message);
-            })
+            console.log(JSON.stringify(upData))
 
+            MessageBox.confirm("身份证号一旦设置将不能再修改").then(action => {
+              createFamilyMember(upData)
+              .then(function(response){
+                  if (response.data.IsSuccess === true) {
+                    Toast("新增家庭成员成功！");
+                  }else{
+                    Toast(response.data.ReturnMessage);
+                  }
+              }).catch(function(error){
+                Toast(error.message);
+              })
+            }).catch(err => {})
           } else if(this.$route.params.pagetype == null){
-            // 提交基本信心
+            // 提交基本信息
             postBasicHealthArchivesInfo(upData)
             .then(function(response){
                 if (response.data.IsSuccess === true) {
                   Toast("保存成功！");
+                  let getData = response.data.ReturnData;
+                  //身份证能否编辑
+                  that.cardIdEnableEdit = !getData.PersonNo||getData.PersonNo.length<15
                 }else{
                   Toast(response.data.ReturnMessage);
                 }
@@ -309,7 +331,6 @@ export default {
               Toast(error.message);
             })
           }
-          
         },
 
         warningAnimation(element) {
@@ -344,7 +365,7 @@ export default {
                 if(!!data && !!data.Name){ // 已有该账号,弹框提醒
                   console.log(data)
 
-                  var tipMessage = (type===1?"手机号":"身份证号") + "已存在账号系统中，姓名【" + data.Name + "】," + (data.PersonNo ? "身份证号【"+data.PersonNo+"】,":"") + "手机号【" + data.Phone + "】,请重新输入"
+                  var tipMessage = (type===1?"手机号":"身份证号") + "已存在账号系统中，姓名【" + data.Name + "】," + (data.PersonNo ? "身份证号【"+data.PersonNo+"】,":"") + "手机号【" + data.Phone + "】,是否显示档案？"
                   MessageBox.confirm(tipMessage).then(action => {
                     that.isAccountExist = true
                     // 用返回的数据填入输入框
@@ -412,6 +433,7 @@ export default {
   border: none;
   outline: none;
   background-color: transparent;
+  width: 5rem;
 }
 .basic-file ul li .wb {
   width: 0.576rem;
@@ -443,16 +465,5 @@ export default {
   margin-left: -10px;
 }
 
-.submit-btn {
-  width: 92%;
-  height: 1.066666666666667rem;
-  border-radius: 0.533333333333rem;
-  border: none;
-  background-color: #008dfd;
-  color: #fff;
-  margin-top:20px;
-  margin-bottom:20px;
-  font-size: 0.4266666666666667rem;
-}
 
 </style>
