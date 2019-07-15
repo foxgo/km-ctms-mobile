@@ -134,6 +134,18 @@
                     Birthday: dateObj.dateStr
                 };
 
+                if(isNaN(data.Height)) {
+                    this.$toast("身高应该为数字");
+
+                    return;
+                }
+
+                if(isNaN(data.Weight)) {
+                    this.$toast("体重应该为数字");
+
+                    return;
+                }
+
                 this.$ajax({
                     type: "post",
                     apiType: this.apiType,
