@@ -299,6 +299,11 @@ export default {
       }).catch(error => {
         this.$root.hideLoading()
         Toast(error.message);
+
+          this.loadComplete = true;
+          this.$nextTick(() => {
+              this.createSwiper();
+          });
       })
     },
 
