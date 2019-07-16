@@ -18,5 +18,9 @@ export default {
     "tokenTimeout": {
         code: 50014,
         message: "Token 过期了"
+    },
+    "tokenLongLost": {
+        code: -2,
+        message: "Token 过期了"
     }
 };

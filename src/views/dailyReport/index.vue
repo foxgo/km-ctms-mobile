@@ -88,7 +88,7 @@
             <ul class="recommend-list" v-if="data.RecommendProduct">
                 <li class="clearfix">
                     <a class="block clearfix">
-                        <img class="recommend-pic" v-lazy="data.RecommendProduct.SKU_IMG_PATH" />
+                        <img class="recommend-pic" v-lazy="$utils.getRecommendProductUrl(data.RecommendProduct.SKU_IMG_PATH)" />
 
                         <div class="bfc clearfix">
                             <div class="mrg-b" v-html="data.RecommendProduct.PRODUCT_NAME">三七粉</div>

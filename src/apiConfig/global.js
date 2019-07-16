@@ -3,6 +3,7 @@
  */
 
 let global = {
+    getPersonInfo: "/api/Person/GetPersonInfo",
     getCurrentAddress: "/api/PersonArea/GetCurrentAddress"
 };
 

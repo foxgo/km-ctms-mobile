@@ -109,8 +109,8 @@ let utils = {
             "Content-Type": "text/plain"
         }, options.headers);
 
-        if(options.apiType == 1) {
-            token = this.vm.$utils.getHealthToken();
+        if(this.vm.$utils.getMapKey(apiTypeMap, options.apiType) == "appApi") {
+            token = this.vm.$utils.getToken_360App();
         }
         
         if(this.vm.$api[request.name]) {
@@ -211,7 +211,7 @@ let utils = {
                     returnCode = 0;
                 }
 
-                if([code.tokenInvalid.code, code.tokenLose.code, code.tokenLose.tokenTimeout].indexOf(returnCode) !== -1) {
+                if([code.tokenInvalid.code, code.tokenLose.code, code.tokenTimeout.code, code.tokenLongLost.code].indexOf(returnCode) !== -1) {
                     this.goLogin();
                     
                     return reject(res);

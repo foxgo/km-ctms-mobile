@@ -11,7 +11,7 @@
                 </ul>
 
                 <div class="map-location clearfix" v-if="showIllList">
-                    <i class="icon-location" /> 您的居住地
+                    <i class="icon-location" /> {{myAddress}}
                 </div>
 
                 <ul class="map-legend clearfix" v-else>
@@ -60,7 +60,7 @@
 
     import areaMapData from "@/data/areaData_v2";
     import icon from "@/assets/images/icons/location.png";
-    import genderMap from "@/map/gender";
+    import genderMap from "@/map/h5-gender";
 
     const legend = {
         "1": {
@@ -112,6 +112,8 @@
     let el;
     let mc;
 
+    let tempIll;
+
     export default {
         data() {
             return {
@@ -125,12 +127,45 @@
                     Province: "广东",
                     ProvinceID: "440000000000"
                 },
+                currentAddress: {},
                 data: {
                     province: "",
                     provinceCode: "", //广东
                     diseaseName: ""
                 }
             };
+        },
+        computed: {
+            myAddress() {
+                let array = [];
+                let currentAddress = this.currentAddress;
+
+                if(currentAddress.Province) {
+                    array.push(currentAddress.Province);
+                }
+
+                if(currentAddress.City) {
+                    array.push(currentAddress.City);
+                }
+
+                if(currentAddress.County) {
+                    array.push(currentAddress.County);
+                }
+
+                if(currentAddress.Town) {
+                    array.push(currentAddress.Town);
+                }
+
+                if(currentAddress.DetailedAddress) {
+                    array.push(currentAddress.DetailedAddress);
+                }
+
+                if(!array.length) {
+                    array = ["您的居住地"];
+                }
+
+                return array.join("");
+            }
         },
         mounted() {
             document.getElementById("map").innerHTML = "";
@@ -139,7 +174,7 @@
             this.init();
             this.bindEvents();
 
-            this.getCurrentProvince().then(() => {
+            Promise.all([this.getPersonInfo(), this.getCurrentProvince()]).then(() => {
                 this.getIllnessList();
             });
         },
@@ -258,6 +293,20 @@
 
                 jsMap.config("#map", mapData, options);
             },
+            //获取用户信息
+            getPersonInfo() {
+                return this.$ajax({
+                    type: "get",
+                    request: {
+                        name: "getPersonInfo"
+                    },
+                    data: {}
+                }).then((res) => {
+                    let {Gender} = res.ReturnData;
+
+                    this.gender = this.$utils.getMapKey(genderMap, Gender) || this.gender;
+                });
+            },
             //根据手机号获取所在省
             getCurrentProvince() {
                 let self = this;
@@ -303,6 +352,8 @@
                         diseaseName: ""
                     };
 
+                    this.currentAddress = res.ReturnData;
+
                     callback(current.key);
                 }, () => {
                     let obj = this.current;
@@ -336,6 +387,12 @@
             //性别切换
             genderSwitch(item) {
                 this.gender = item.key;
+
+                if(this.showIllList) {
+                    this.getIllnessList();
+                } else {
+                    this.illHandle(tempIll);
+                }
             },
             //点击省份地图
             provinceClickHandle(id, name) {
@@ -358,6 +415,8 @@
             },
             //点击疾病
             illHandle(item) {
+                tempIll = item;
+
                 this.$ajax({
                     type: "get",
                     request: {
@@ -380,6 +439,8 @@
             //点击列表里的省份名称
             provinceHandle(item) {
                 let obj = this.getProvinceMapDataByName(item.Name);
+                let tempProvince = item;
+
                 this.data = {
                     ...this.data,
                     province: item.Name,

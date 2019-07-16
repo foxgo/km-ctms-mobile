@@ -154,9 +154,10 @@
         mounted() {
             this.$root.setPageTitle("健康3秒钟");
 
-            this.login().then(() => {
+            this.initData(this.fetch);
+            /*this.login().then(() => {
                 this.initData(this.fetch);
-            });
+            });*/
         },
         methods: {
             //说明
@@ -208,8 +209,8 @@
                      * */
 
                     let steps = parseInt(value);
-                    let WalkingDistance = steps * 0.6 * 0.001; // 步数转公里
-                    let CaloriesConsume = steps * 0.04; // 千卡路里计算公式
+                    let WalkingDistance = Number(steps * 0.6 * 0.001).toFixed(2); // 步数转公里
+                    let CaloriesConsume = Number(steps * 0.04).toFixed(2); // 千卡路里计算公式
 
                     this.data = {
                         ...this.data,
@@ -230,41 +231,7 @@
 
                 this.updateHealthData();
             },
-            /*//发送注册验证码
-            sendCode() {
-                return this.$ajax({
-                    type: "get",
-                    apiType: this.apiType,
-                    request: {
-                        name: "sentCode"
-                    },
-                    data: {
-                        toPhone: "13265695561",	//string 手机号
-                        valid: 1//	int 操作类型 0:只发送验证码，1: 注册; 2:康美360忘记密码;
-                    }
-                }).then((res) => {
-                    console.log(res);
-                    this.$toast("发送成功");
-                });
-            },
-            //注册
-            register() {
-                this.$ajax({
-                    type: "post",
-                    apiType: this.apiType,
-                    request: {
-                        name: "register"
-                    },
-                    data: {
-                        PhoneNumber: "13265695561", //	String 手机号
-                        VerificationCode: "84968", //	String验证码
-                        Password: "111111"	//String密码
-                    }
-                }).then((res) => {
-                    this.$toast("注册成功");
-                });
-            },*/
-            //健康模块登录
+            /*//健康模块登录
             login() {
                 return this.$ajax({
                     type: "post",
@@ -277,10 +244,10 @@
                         Password: "111111" //	String
                     }
                 }).then((res) => {
-                    this.$utils.saveHealthToken(res.Data.Token);
+                    this.$utils.setToken_360App(res.Data.Token);
                     //this.$toast("登录成功");
                 });
-            },
+            },*/
             //获取数据
             fetch() {
                 this.$ajax({
@@ -305,59 +272,6 @@
                     };
                 });
             },
-            /*addDietDetails() {
-                this.$ajax({
-                    type: "post",
-                    apiType: this.apiType,
-                    request: {
-                        name: "addDietDetails"
-                    },
-                    /!*data: {
-                        DataDate: "2016-08-23", //string              数据日期,必填
-                        DietList: "", // array                         食物信息列表
-                         FoodName: "", // string	                         食物名称
-                         Count: 0, // int	                         食物份量
-                         Calories: "", // float	                         每份食物含的卡路里数
-                         OrderNum: "", // int                         顺序号
-                         ImageUrl: "" // string	                         食物图片地址
-                    }*!/
-                    data: {
-                        "DataDate": "2017-12-08",
-                        "DietList": [
-                            {
-                                "FoodName": "叉烧饭",
-                                "Count": "1",
-                                "Calories": "516.6",
-                                "OrderNum": "1",
-                                "ImageUrl": "http://upload.jkbat.com/Files/20170425/xk01pn1h.w32.jpg"
-                            },
-                            {
-                                "FoodName": "苹果",
-                                "Count": "2",
-                                "Calories": "20.6",
-                                "OrderNum": "2",
-                                "ImageUrl": "http://upload.jkbat.com/Files/20170425/xk01pn1h.w32.jpg"
-                            }
-                        ]
-                    }
-                }).then((res) => {
-                    console.log(res);
-                });
-            },
-            getDietDetails() {
-                this.$ajax({
-                    type: "get",
-                    apiType: this.apiType,
-                    request: {
-                        name: "getDietDetails"
-                    },
-                    data: {
-                        "date": "2017-12-08"
-                    }
-                }).then((res) => {
-                    console.log(res);
-                });
-            },*/
             //更新健康
             updateHealthData() {
                 let data = {

@@ -2,22 +2,29 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
-import Cookies from "js-cookie";
 import api from "../apiConfig";
 import notTokenApi from "../apiConfig/not-token-api";
 import sentTokenApi from "../apiConfig/sent-token-api";
 import apiTypeMap from "../apiRoot";
-import {getToken_H5} from "@/utils/auth";
+import {getToken_H5, getToken_360App, setToken_360App} from "@/utils/auth";
 
-const healthTokenKey = "healthToken";
+let NODE_ENV = process.env.NODE_ENV;
+let recommendProductBase = "http://hc003teststore.blob.core.chinacloudapi.cn/";
+
+if(NODE_ENV === "preproduction") {
+    recommendProductBase = "http://hc003tnstore.blob.core.chinacloudapi.cn/";
+}
+
+if(NODE_ENV === "production") {
+    recommendProductBase = "http://hc003pestore.blob.core.chinacloudapi.cn/";
+}
 
 let utils = {
     getToken_H5,
-    saveHealthToken(token) {
-        return Cookies.set(healthTokenKey, token);
-    },
-    getHealthToken() {
-        return Cookies.get(healthTokenKey);
+    setToken_360App,
+    getToken_360App,
+    getRecommendProductUrl(url) {
+        return `${recommendProductBase}${url}`;
     },
     getSearchParam(paramName) {
         let search = location.href.substring(location.href.indexOf("?") + 1, location.href.length);

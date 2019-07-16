@@ -109,6 +109,15 @@
                 }
 
                 return result;
+            },
+            from() {
+                let from = this.$route.query.from;
+
+                if(!from) {
+                    from = "foodDetail";
+                }
+
+                return from;
             }
         },
         watch: {
@@ -316,9 +325,13 @@
                     }).then(() => {
                         this.hideConfirmDialog();
 
-                        this.$goto({
-                            name: "foodDetail"
-                        });
+                        if(this.from === "dailyHealth") {
+                            this.$goto({
+                                name: "foodDetail"
+                            }, "replace");
+                        } else {
+                            history.go(-1);
+                        }
                     });
                 });
             },

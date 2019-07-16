@@ -81,7 +81,10 @@
                 }
 
                 this.$goto({
-                    name: "foodInput"
+                    name: "foodInput",
+                    query: {
+                        from: this.$route.name
+                    }
                 });
             },
             //拍照

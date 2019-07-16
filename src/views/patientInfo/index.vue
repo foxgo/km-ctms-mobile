@@ -59,7 +59,7 @@
 </template>
 
 <script>
-    import genderMap from "@/map/gender";
+    import genderMap from "@/map/app-gender";
 
     let data = {
         /*"ID":"", //患者ID
@@ -91,7 +91,6 @@
                 }
             };
         },
-
         computed: {},
         components: {},
         mounted() {
@@ -133,6 +132,8 @@
                     ...this.data,
                     Birthday: dateObj.dateStr
                 };
+
+                delete data.IDNumber;
 
                 if(isNaN(data.Height)) {
                     this.$toast("身高应该为数字");
