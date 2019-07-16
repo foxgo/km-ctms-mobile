@@ -1,5 +1,6 @@
 <template>
-  <div class="home">
+  <div class="home clearfix">
+    <a class="km-header-bar" href="../../static/login_H5&360App.html" style="color:white;">登录</a>
     <banner />
     <health-record />
     <health-one />

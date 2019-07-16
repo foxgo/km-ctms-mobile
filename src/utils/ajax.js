@@ -95,7 +95,7 @@ let utils = {
         let dateObj = this.vm.$utils.getCurrentTime();
         let request = options.request;
         let url = this.getApi(request, options.apiType);
-        let token = this.vm.$utils.getToken();
+        let token = this.vm.$utils.getToken_H5();
         let data = {
             /*appkey: "b30759f0fd86419d8bfb2e20e6e22578",
             sign: "81a34e9d1c62a13585c9f67421cbe89d",

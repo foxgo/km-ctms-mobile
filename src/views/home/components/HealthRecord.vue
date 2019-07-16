@@ -1,6 +1,6 @@
 <template>
   <div class="health-record">
-    <img v-bind:src="actionSheetData.headImageUrl"></img>
+    <img v-bind:src="actionSheetData.avatarUrl"></img>
     <div class="toggle" @click="togglePerson()"><span>{{actionSheetData.name}} ▼</span></div> 
     <div class="space"></div>
     <div class="health-info" @click="pushPage()">健康档案</div>
@@ -19,16 +19,19 @@ import Picker from '@/components/Picker'
 import { Toast, Actionsheet } from 'mint-ui'
 import { getFamilyMemberList, getSwitchFamilyMember } from '@/api/familyMember'
 import { getBasicHealthArchivesInfo } from '@/api/healthArchives'
+import { getPersonInfo } from '@/api/km360App'
+import { setToken_H5, setToken_360App, getToken_H5, getToken_360App } from '@/utils/auth'
+
 export default {
   name: 'HealthRecord',
   components: { Picker },
   data() {
     return {
     	actionSheetData: {
-        name:"梁小明",
+        name:"",
     	  actionsDataSource: [],
         actionSheetVisible: false,
-        headImageUrl: require('@/assets/images/home/profile.png'),
+        avatarUrl: require('@/assets/images/home/profile.png'),
       },
 
       yearSlot: [{
@@ -40,7 +43,16 @@ export default {
     }
   },
   mounted() {
-    
+    if(this.$store.state.user.name){
+      this.actionSheetData.name = this.$store.state.user.name
+    }else{
+      // 获取当前用户的基础信息
+      getPersonInfo().then(response => {
+        // console.log(JSON.stringify(response))
+        const userData = response.data.Data
+        this.storeUserInfo(userData)
+      })
+    }
   },
   methods: {
     
@@ -87,20 +99,35 @@ export default {
       let that = this;
       getSwitchFamilyMember(member.memberID).then(response => {
         if (response.data.IsSuccess) {
-          console.log('切换成员成功' + member.name + member.phone + member.gender)
-          // 更换头像和名称
-          that.actionSheetData.name = member.name
-          this.$store.state.user.name = member.name
-          this.$store.state.user.phone = member.phone
-          this.$store.state.user.gender = member.gender
+          console.log('切换成员成功: ' + member.name + ' ' + member.phone + ' ' + member.gender)
 
-          // // 获取该家庭成员的基础档案
-          // getBasicHealthArchivesInfo().then(_response => {
-          //   let archiveData = _response.data.ReturnData
+          // 更新H5-token
+          const token = response.data.ReturnData.Token
+          setToken_H5(token)
+          console.log('new token === ' + token)
 
-          // }).catch(error => {
-          //   Toast(error);
-          // })
+          // 先暂时使用member带过来的数据更新用户名
+          that.$store.state.user.name = that.actionSheetData.name = member.name
+          that.$store.state.user.phone = member.phone
+          that.$store.state.user.gender = member.gender
+
+          // 获取切换后用户的信息，正式更换用户数据（包含了头像、生日）
+          getBasicHealthArchivesInfo().then(response => {
+            const data = response.data.ReturnData
+            console.log(data)
+
+            if(data) {
+              that.storeUserInfo({
+                'UserName' : data.Name,
+                'PhoneNumber' : member.phone,
+                'PhotoPath' : require('@/assets/images/home/profile.png'),
+                'Sex' : data.Gender,
+                'Birthday' : data.Birthdate,
+              })
+            }
+          }).catch(error => {
+            Toast(error);
+          })
         }else {
           Toast(response.data.ReturnMessage);
         }
@@ -108,6 +135,21 @@ export default {
         Toast(error);
       })
     },
+
+    storeUserInfo(userData) {
+      const name = userData.UserName
+      const phone = userData.PhoneNumber
+      const avatar = userData.PhotoPath
+      const gender = userData.Sex
+      const birthDate = userData.Birthday
+      
+      // 保存当前用户的基础信息
+      this.$store.state.user.name = this.actionSheetData.name = name
+      this.$store.state.user.avatar = this.actionSheetData.avatarUrl = avatar
+      this.$store.state.user.phone = phone
+      this.$store.state.user.gender = gender
+      this.$store.state.user.birthDate = birthDate
+    }
    
   }
 }

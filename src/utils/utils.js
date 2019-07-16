@@ -7,12 +7,12 @@ import api from "../apiConfig";
 import notTokenApi from "../apiConfig/not-token-api";
 import sentTokenApi from "../apiConfig/sent-token-api";
 import apiTypeMap from "../apiRoot";
-import {getToken} from "@/utils/auth";
+import {getToken_H5} from "@/utils/auth";
 
 const healthTokenKey = "healthToken";
 
 let utils = {
-    getToken,
+    getToken_H5,
     saveHealthToken(token) {
         return Cookies.set(healthTokenKey, token);
     },

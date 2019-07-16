@@ -1,7 +1,13 @@
 <template>
   <keep-alive>
     <div class="content-box" v-cloak>
-      <LifeHabitSelectionItem v-for="(item,index) in dataArr" v-if="index == 1 && (parseInt(item.value)<=-1 || parseInt(item.value) >=2)" :key="index" :itemData="item" :indexInList="index" v-on:listenToItem="itemEvent"></LifeHabitSelectionItem>
+      <LifeHabitSelectionItem 
+        v-for="(item,index) in dataArr" 
+        :key="index" 
+        :itemData="item" 
+        :indexInList="index" 
+        v-on:listenToItem="itemEvent">
+      </LifeHabitSelectionItem>
       <input type="submit" class="submit-btn" value="保存" v-on:click="setSavePersonDrink" />
     </div>
   </keep-alive>

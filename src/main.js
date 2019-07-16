@@ -42,7 +42,24 @@ Vue.prototype.$echarts = echarts
 Vue.use(MintUI)
 Vue.use(install)
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
+
+// Token获取与保存
+setToken_H5('tempToken')
+import { setToken_H5, setToken_360App } from '@/utils/auth'
+// 解析URL传入的参数
+var reg1 = new RegExp('(^|&)' + 'token_H5' + '=([^&]*)(&|$)', 'i')
+var reg2 = new RegExp('(^|&)' + 'token_360App' + '=([^&]*)(&|$)', 'i')
+var paramStr = window.location.search.substr(1)
+if (paramStr) {
+  const token_H5 = paramStr.match(reg1)[2]
+  const token_360App = paramStr.match(reg2)[2]
+  console.log('H5 ===' + token_H5)
+  console.log('360 ===' + token_360App)
+
+  setToken_H5(token_H5)
+  setToken_360App(token_360App)
+}
 
 new Vue({
   el: '#app',

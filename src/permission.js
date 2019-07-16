@@ -3,12 +3,7 @@ import store from './store'
 import { Toast } from 'mint-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken, setToken } from '@/utils/auth' // getToken from cookie
-
-// 配置开发环境临时token
-if (process.env.IS_MOCK) {
-  setToken('7cc2aca04c5a41bcae765b487bda2f98')
-}
+import { getToken_H5 } from '@/utils/auth' // getToken from cookie
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
@@ -23,7 +18,7 @@ const whiteList = ['/login', '/authredirect']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-  if (getToken()) { // determine if there has token
+  if (getToken_H5()) { // determine if there has token
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })

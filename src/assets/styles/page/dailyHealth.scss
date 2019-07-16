@@ -2,7 +2,7 @@ $daily-health-module-height: 90;
 $daily-health-pad: 30;
 
 .daily-health {
-    @include layout-fixed(40px 0 0 0);
+    // @include layout-fixed(40px 0 0 0);
     font-size: px2rem(28);
     background: #f5f5f5;
 

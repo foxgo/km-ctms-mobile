@@ -3,7 +3,13 @@
     <div>
       <h4>{{ this.itemData.title }}</h4>
       <ul class="selections_ul">
-        <li class="selectionButton_li" v-for="(answerItem,index) in itemData.answer" v-bind:key="index" v-bind:class="{active: answerItem.ItemCode == itemData.value || selectedCodesArr.indexOf(answerItem.ItemCode) > -1 }" @click="buttonClick(answerItem.ItemCode)">{{ answerItem.ItemName}}</li>
+        <li class="selectionButton_li" 
+          v-for="(answerItem,index) in itemData.answer" 
+          v-bind:key="index" 
+          v-bind:class="{active: answerItem.ItemCode == itemData.value || selectedCodesArr.indexOf(answerItem.ItemCode) > -1 }" 
+          @click="buttonClick(answerItem.ItemCode)">
+        {{ answerItem.ItemName}}
+        </li>
       </ul>
     </div>
 </template>

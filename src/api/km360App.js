@@ -34,7 +34,8 @@ export function getPersonInfo() {
   /* -3过期 -2-不合法 -1-异常发生 0-成功 3-错误 */
   return request({
     url: '/api/Patient/Info',
-    method: 'get'
+    method: 'get',
+    is360AppAPI: true
   })
 }
 
@@ -43,6 +44,7 @@ export function updatePerson(data) {
   return request({
     url: '/person/update',
     method: 'post',
+    is360AppAPI: true,
     data
   })
 }
@@ -52,6 +54,7 @@ export function deleteperson(id) {
   return request({
     url: '/person/delete/',
     method: 'get',
+    is360AppAPI: true,
     params: { id }
   })
 }

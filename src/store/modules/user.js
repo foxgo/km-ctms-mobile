@@ -1,15 +1,15 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken_H5, setToken_H5, removeToken_H5 } from '@/utils/auth'
 
 const user = {
   state: {
-    user: '',
     status: '',
     code: '',
-    token: getToken(),
+    token: getToken_H5(),
     name: '',
     phone: '',
     gender: '',
+    birthDate: '',
     avatar: '',
     introduction: '',
     roles: [],
@@ -53,7 +53,7 @@ const user = {
         loginByUsername(username, userInfo.password).then(response => {
           const data = response.data
           commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          setToken_H5(response.data.token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -75,7 +75,7 @@ const user = {
               token: 'admin',
               introduction: '我是超级管理员',
               avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-              name: 'Super Admin'
+              name: 'Admin'
             }
           }
 
@@ -107,7 +107,7 @@ const user = {
     //     commit('SET_CODE', code)
     //     loginByThirdparty(state.status, state.email, state.code).then(response => {
     //       commit('SET_TOKEN', response.data.token)
-    //       setToken(response.data.token)
+    //       setToken_H5(response.data.token)
     //       resolve()
     //     }).catch(error => {
     //       reject(error)
@@ -121,7 +121,7 @@ const user = {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
-          removeToken()
+          removeToken_H5()
           resolve()
         }).catch(error => {
           reject(error)
@@ -133,7 +133,7 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
-        removeToken()
+        removeToken_H5()
         resolve()
       })
     },
@@ -142,7 +142,7 @@ const user = {
     ChangeRoles({ commit }, role) {
       return new Promise(resolve => {
         commit('SET_TOKEN', role)
-        setToken(role)
+        setToken_H5(role)
         getUserInfo(role).then(response => {
           const data = response.data
           commit('SET_ROLES', data.roles)
