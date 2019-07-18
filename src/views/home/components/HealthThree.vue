@@ -81,7 +81,9 @@ export default {
         6: '/LifeCycleHealth'
       }
 
-      if(index === 4) {
+      if(index === 2) {
+        window.location.href = "static/selfBodyCheck"
+      } else if(index === 4) {
         const postData ={
           "name" : this.$store.state.user.name,
           "phone" : this.$store.state.user.phone,
@@ -89,7 +91,7 @@ export default {
         };
         console.log(JSON.stringify(postData))
         
-       const baseUrl = process.env.NODE_ENV === 'production' ? "http://healthrecord.kmhealthcloud.cn:8987" : "http://test-healthrecord.kmhealthcloud.cn:8987"
+        const baseUrl = process.env.NODE_ENV === 'production' ? "http://healthrecord.kmhealthcloud.cn:8987" : "http://test-healthrecord.kmhealthcloud.cn:8987"
         axios.post(baseUrl + "/personInfo", postData).then((response) => {
           return response.data;
         }).then((data) => {
