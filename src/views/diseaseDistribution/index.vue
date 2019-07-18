@@ -137,34 +137,14 @@
         },
         computed: {
             myAddress() {
-                let array = [];
+                let array = ["您的所在地"];
                 let currentAddress = this.currentAddress;
 
                 if(currentAddress.Province) {
                     array.push(currentAddress.Province);
                 }
 
-                if(currentAddress.City) {
-                    array.push(currentAddress.City);
-                }
-
-                if(currentAddress.County) {
-                    array.push(currentAddress.County);
-                }
-
-                if(currentAddress.Town) {
-                    array.push(currentAddress.Town);
-                }
-
-                if(currentAddress.DetailedAddress) {
-                    array.push(currentAddress.DetailedAddress);
-                }
-
-                if(!array.length) {
-                    array = ["您的居住地"];
-                }
-
-                return array.join("");
+                return array.join("-");
             }
         },
         mounted() {
