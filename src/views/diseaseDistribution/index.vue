@@ -112,6 +112,7 @@
     let el;
     let mc;
 
+    let canMove = false;
     let tempIll;
 
     export default {
@@ -159,6 +160,8 @@
             });
         },
         beforeDestroy() {
+            canMove = false;
+
             jsMap.destroy();
 
             if(mc) {
@@ -188,6 +191,10 @@
             },
             //拖动
             onPan(e) {
+                if(!canMove) {
+                    return;
+                }
+
                 if(e.type == "panstart") {
                     startX = transform.translate.x;
                     startY = transform.translate.y;
@@ -206,7 +213,15 @@
                     scale = transform.scale || 1;
                 }
 
-                transform.scale = scale * e.scale;
+                canMove = true;
+
+                let result = scale * e.scale;
+
+                if(result <= 1) {
+                    result = 1;
+                }
+
+                transform.scale = result;
 
                 this.updateElementTransform();
             },
