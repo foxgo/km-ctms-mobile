@@ -68,6 +68,7 @@
 
 <script>
 import axios from "axios"
+import { getToken_360App } from '@/utils/auth'
 export default {
   name: 'ListTwo',
   methods: {
@@ -78,7 +79,7 @@ export default {
         3: '/diseaseNormal',
         4: '/TCMphysique',
         5: '/diseaseDistribution',
-        6: '/LifeCycleHealth'
+        6: '/lifeCycle'
       }
 
       if(index === 2) {
@@ -92,7 +93,11 @@ export default {
         console.log(JSON.stringify(postData))
         
         const baseUrl = process.env.NODE_ENV === 'production' ? "http://healthrecord.kmhealthcloud.cn:8987" : "http://test-healthrecord.kmhealthcloud.cn:8987"
-        axios.post(baseUrl + "/personInfo", postData).then((response) => {
+        axios.post(baseUrl + "/personInfo", postData,{
+          headers: {
+            'Token': getToken_360App()
+          }
+        }).then((response) => {
           return response.data;
         }).then((data) => {
             console.log(JSON.stringify(data))

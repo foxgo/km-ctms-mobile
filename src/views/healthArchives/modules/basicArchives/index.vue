@@ -348,7 +348,7 @@ export default {
               console.log(data)
 
               var tipMessage = (type===1?"手机号":"身份证号") + "已存在家庭档案中，姓名【" + data.Name + "】," + (data.PersonNo ? "身份证号【"+data.PersonNo+"】,":"") + "手机号【" + data.Phone + "】,请重新输入"
-              MessageBox.confirm(tipMessage).then(action => {
+              MessageBox.alert(tipMessage).then(action => {
                 if(type === 1){
                   this.allData.Phone = ''
                 }else if(type === 2) {

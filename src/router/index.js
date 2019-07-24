@@ -124,21 +124,11 @@ export const constantRouterMap = [
     component: () => import('@/components/HtmlPanel'),
     hidden: true
   }, // 外部html页面嵌套壳
-  // {
-  //   path: '/lifePeriodHealth',
-  //   component: HealthEvaluate,
-  //   meta: { title: '生命周期健康' }
-  // },
-  // {
-  //   path: '/selfBodyCheck',
-  //   component: HealthEvaluate,
-  //   meta: { title: '部位自诊' }
-  // },
-  // {
-  //   path: '/TCMphysique',
-  //   component: HealthEvaluate,
-  //   meta: { title: '中医体质' }
-  // },
+  {
+    path: '/lifeCycle',
+    component: () => import('@/views/lifeCycle'),
+    meta: { title: '生命周期健康' }
+  },
   ...diseaseDistribution,
   ...dailyHealth
 ]

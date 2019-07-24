@@ -28,7 +28,7 @@ export default {
   data() {
     return {
     	actionSheetData: {
-        name:"",
+        name:"未登录",
     	  actionsDataSource: [],
         actionSheetVisible: false,
         avatarUrl: require('@/assets/images/home/profile.png'),
@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted() {
-    if(this.$store.state.user.name){
+    if(this.$store.state.user.name && this.$store.state.user.name !== 'Admin'){
       this.actionSheetData.name = this.$store.state.user.name
     }else{
       // 获取当前用户的基础信息
