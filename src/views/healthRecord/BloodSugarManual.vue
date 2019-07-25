@@ -3,7 +3,7 @@
     <ul class="manual_ul">
       <li>
         <div class="text-tit"><span>*</span>时间段</div>
-        <select-code :slot-data="valueTime" class="text-input" @showType ="showSugarType"/>
+        <select-code :slot-data="sugarType" :selected-value="bloodSugar.SugarType" text-name="ItemName" value-name="ItemCode" @change="onChange"/>
         <div class="company"><i class="iconfont">&#xe64a;</i></div>
       </li>
       <li>
@@ -28,21 +28,18 @@ import { Toast } from 'mint-ui'
 import DatePicker from '@/components/DatePicker'
 import SelectCode from '@/components/SelectCode'
 import { saveBloodSugar } from '@/api/dailyMonitor'
+import { initDict } from '@/utils/index'
 export default {
   name: 'BloodPressureManual',
   components: { DatePicker, SelectCode },
   data() {
     return {
-      valueTime: [
-        {
-          values: ['空腹', '随机', '早晨后', '午餐前', '午餐后', '晚餐前', '晚餐后', '睡前', '凌晨']
-        }
-      ],
-      value: [
-        {
-          values: ['男', '女', '其他']
-        }
-      ],
+      sugarType: [{
+        flex: 1,
+        values: [],
+        className: 'slot1',
+        defaultIndex: 0
+      }],
       bloodSugar: {
         SugarTypeList: null,
         Sugar: null,
@@ -52,19 +49,42 @@ export default {
   },
   mounted() {
     // 修改导航标题
-    this.$store.state.app.pageTitle = '手动输入血糖'
+    this.$store.state.app.pageTitle = '手动输入血糖';
+  },
+  created() {
+    this.init()
   },
   methods: {
+    init() {
+      const promises = []
+      this.dictIds = ['CM37.09']
+      const promiseDict = initDict(this.$store, this.dictIds)
+      if (promiseDict) {
+        promises.push(promiseDict)
+      }
+      if (promises.length > 0) {
+        Promise.all(promises).then(() => {
+          this.getData()
+        })
+      } else {
+        this.getData()
+      }
+    },
+    setDict() {
+       this.sugarType[0].values = this.$store.state.dict.items.filter(item => item.ItemType === 'CM37.09');
+    },
+    getData() {
+      this.setDict();
+    },
+    onChange: function(value) {
+      this.bloodSugar.SugarType = value.ItemCode;
+    },
     showTime(time) {
       this.bloodSugar.ExamTime = time
     },
-    showSugarType(type) {
-      this.bloodSugar.SugarTypeList = type
-      console.log('SugarTypeList:' + this.bloodSugar.SugarTypeList)
-    },
     saveData() {
       let that = this;
-      if (that.bloodSugar.SugarTypeList == null || that.bloodSugar.Sugar == null || that.bloodSugar.ExamTime == null) {
+      if (that.bloodSugar.Sugar == null || that.bloodSugar.ExamTime == null) {
           Toast('不能为空');
           return;
       }

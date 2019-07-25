@@ -388,6 +388,42 @@ const dictList =
    'ItemType': 'CM37.14',
    'ItemCode': '3',
    'ItemName': '>1000ml'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '1000004',
+   'ItemName': '空腹'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060500',
+   'ItemName': '随机'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060501',
+   'ItemName': '早餐后'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060502',
+   'ItemName': '午餐前'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060503',
+   'ItemName': '午餐后'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060504',
+   'ItemName': '晚餐前'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060505',
+   'ItemName': '晚餐后'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060506',
+   'ItemName': '睡前'
+ }, {
+   'ItemType': 'CM37.09',
+   'ItemCode': '060507',
+   'ItemName': '凌晨'
  }]
 
 export default {
