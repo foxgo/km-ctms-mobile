@@ -87,7 +87,7 @@ export default {
   mounted() {
     // 修改导航标题
     this.getReport(0)
-    this.$store.state.app.pageTitle = '血压报告'
+    this.$store.state.app.pageTitle = '血糖报告'
   },
   methods: {
     // 切换
@@ -104,21 +104,27 @@ export default {
       } else if (i == 2) {
         type = 'threemonth'
       }
-      this.flag = true
-      this.listLoading = true
+      let that = this;
+      that.flag = true;
+      that.listLoading = true;
       getBloodSugarReport(type).then(response => {
-        this.bloodSugarReport = response.data
-        console.log(this.bloodSugarReport.Count)
-        this.total = this.bloodSugarReport.Count + '次测量'
-        for (var i in this.bloodSugarReport.ResultPercentList) {
-          this.value[i] = this.bloodSugarReport.ResultPercentList[i].Percentage//  获取圆环name
+        let data = response.data;
+        console.log(that.bloodSugarReport.Count)
+        if(data.IsSuccess){
+          that.bloodSugarReport = data.ReturnData;
+          that.total = that.bloodSugarReport.Count + '次测量';
+          for (var i in that.bloodSugarReport.ResultPercentList) {
+            that.value[i] = that.bloodSugarReport.ResultPercentList[i].Percentage;//  获取圆环name
+          }
+          that.barData[0].data = [that.bloodSugarReport.MaxBloodSugar, that.bloodSugarReport.MinBloodSugar];
+          that.averageData[0].data = [that.bloodSugarReport.AverFasting, that.bloodSugarReport.AverBeforeLunch, that.bloodSugarReport.AverAfterSleep, that.bloodSugarReport.AverAfterLunch];
+        }else {
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
         }
-        this.barData[0].data = [this.bloodSugarReport.MaxBloodSugar, this.bloodSugarReport.MinBloodSugar]
-        this.averageData[0].data = [this.bloodSugarReport.AverFasting, this.bloodSugarReport.AverBeforeLunch, this.bloodSugarReport.AverAfterSleep, this.bloodSugarReport.AverAfterLunch]
-        this.listLoading = false
+        that.listLoading = false;
       }, error => {
-        this.listLoading = false
-        console.log('[error] ' + error) // for debug
+        that.listLoading = false;
+        console.log('[error] ' + error); // for debug
       })
     }
   }

@@ -34,28 +34,35 @@ export default {
   },
   mounted() {
     // 修改导航标题
-    this.$store.state.app.pageTitle = '手动输入血压'
+    this.$store.state.app.pageTitle = '手动输入心率'
   },
   methods: {
     showTime(time) {
       this.heartRate.ExamTime = time
     },
     saveData() {
-      saveHeartRate(this.heartRate).then(() => {
-        if (this.heartRate.Rate == null || this.heartRate.ExamTime == null) {
-          Toast('不能为空')
-        } else {
-          Toast({
-            title: '成功',
-            message: '保存成功',
-            type: 'success',
-            duration: 2000
-          })
+      let that = this;
+      if (that.heartRate.Rate == null || that.heartRate.ExamTime == null) {
+          Toast('不能为空');
+          return;
+      }
+      saveHeartRate(that.heartRate).then(response => {
+        let data = response.data;
+        if (data.IsSuccess) {
+              Toast({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            });
+            that.$router.push({path:"/healthRecord/Pulse"});
+          }else{
+             Toast(data.ReturnMessage);
         }
-        this.listLoading = false
+        that.listLoading = false;
       }, error => {
-        console.log('[error] ' + error) // for debug
-        this.listLoading = false
+        console.log('[error] ' + error); // for debug
+        that.listLoading = false;
       })
     }
   }

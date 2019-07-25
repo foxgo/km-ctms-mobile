@@ -34,6 +34,7 @@ Mock.mock(/HealthHistory/, 'get', lifeStyleAPI.getHealthHistory)
 Mock.mock(/HealthHistory/, 'post', lifeStyleAPI.saveHealthHistory)
 
 // 健康测量
+/*
 Mock.mock(/\/DailyMonitor\/GetBloodPressureRecord/, 'get', dailyMonitorAPI.getBloodPressureRecord)
 Mock.mock(/\/DailyMonitor\/SaveBloodPressure/, 'post', dailyMonitorAPI.saveBloodPressure)
 Mock.mock(/\/DailyMonitor\/GetBloodSugarRecord/, 'get', dailyMonitorAPI.getBloodSugarRecord)
@@ -48,6 +49,7 @@ Mock.mock(/\/DailyMonitor\/GetVitalCapacityRecord/, 'get', dailyMonitorAPI.getVi
 Mock.mock(/\/DailyMonitor\/SaveVitalCapacityRecord/, 'post', dailyMonitorAPI.saveVitalCapacityRecord)
 Mock.mock(/\/DailyMonitor\/GetBloodPressureReport/, 'get', dailyMonitorAPI.getBloodPressureReport)
 Mock.mock(/\/DailyMonitor\/GetBloodSugarReport/, 'get', dailyMonitorAPI.getBloodSugarReport)
+*/
 // 生命周期建议信息
 Mock.mock(/\/Suggest/, 'get', suggestAPI.getSuggest)
 export default Mock

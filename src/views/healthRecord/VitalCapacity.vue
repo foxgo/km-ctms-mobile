@@ -54,16 +54,22 @@ export default {
   },
   methods: {
     getData() {
-      this.listLoading = true
+      let that = this;
+      that.listLoading = true;
       getVitalCapacityRecord().then(response => {
-        this.vitalCapacityRecord = response.data
-        this.items[0].data = this.vitalCapacityRecord.VitalCapacityList
-        console.log(this.vitalCapacityRecord.VitalCapacityList)
-        this.flag = true
-        this.listLoading = false
+        let data = response.data;
+        if(data.IsSuccess){
+            that.vitalCapacityRecord = data.ReturnData;
+            that.items[0].data =  data.ReturnData.VitalCapacityList
+            console.log(data.ReturnData);
+        }else{
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
+        }
+        that.flag = true;
+        that.listLoading = false;
       }, error => {
-        this.listLoading = false
-        console.log('[error] ' + error) // for debug
+        that.listLoading = false;
+        console.log('[error] ' + error); // for debug
       })
     }
   }

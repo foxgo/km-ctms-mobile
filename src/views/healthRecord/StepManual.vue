@@ -41,21 +41,28 @@ export default {
       this.stepRecord.StepTime = time
     },
     saveData() {
-      saveStepRecord(this.stepRecord).then(() => {
-        if (this.stepRecord.Step == null || this.stepRecord.StepTime == null) {
-          Toast('不能为空')
-        } else {
-          Toast({
-            title: '成功',
-            message: '保存成功',
-            type: 'success',
-            duration: 2000
-          })
+      let that = this;
+      if (that.stepRecord.Step == null || that.stepRecord.StepTime == null) {
+          Toast('不能为空');
+          return;
+      }
+      saveStepRecord(that.stepRecord).then(response => {
+        let data = response.data;
+        if (data.IsSuccess) {
+              Toast({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            });
+            that.$router.push({path:"/healthRecord/Step"});
+          }else{
+             Toast(data.ReturnMessage);
         }
-        this.listLoading = false
+        that.listLoading = false;
       }, error => {
-        console.log('[error] ' + error) // for debug
-        this.listLoading = false
+        console.log('[error] ' + error); // for debug
+        that.listLoading = false;
       })
     }
   }

@@ -41,21 +41,28 @@ export default {
       this.vitalCapacityRecord.ExamTime = time
     },
     saveData() {
-      saveVitalCapacityRecord(this.vitalCapacityRecord).then(() => {
-        if (this.vitalCapacityRecord.VitalCapacity == null || this.vitalCapacityRecord.ExamTime == null) {
-          Toast('不能为空')
-        } else {
-          Toast({
-            title: '成功',
-            message: '保存成功',
-            type: 'success',
-            duration: 2000
-          })
+      let that = this;
+      if (that.vitalCapacityRecord.VitalCapacity == null || that.vitalCapacityRecord.ExamTime == null) {
+          Toast('不能为空');
+          return;
+      }
+      saveVitalCapacityRecord(that.vitalCapacityRecord).then(response => {
+        let data = response.data;
+        if (data.IsSuccess) {
+              Toast({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            });
+            that.$router.push({path:"/healthRecord/VitalCapacity"});
+          }else{
+             Toast(data.ReturnMessage);
         }
-        this.listLoading = false
+        that.listLoading = false;
       }, error => {
-        console.log('[error] ' + error) // for debug
-        this.listLoading = false
+        console.log('[error] ' + error);// for debug
+        that.listLoading = false;
       })
     }
   }

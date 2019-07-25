@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       h: document.documentElement.clientHeight || document.body.clientHeight,
-      items: [{ name: '血糖', data: [] }, { name: '舒张压', data: [119, 30, 80, 90, 100, 79, 80, 99, 120] }],
+      items: [{ name: '血糖', data: [] }, { name: '', data: [] }],
       lastTime: '2017-10-19 10:23',
       min: 0,
       max: 18,
@@ -65,15 +65,21 @@ export default {
   },
   methods: {
     getData() {
-      this.listLoading = true
+      let that = this;
+      that.listLoading = true
       getBloodSugarRecord().then(response => {
-        this.bloodSugarRecord = response.data
-        this.items[0].data = this.bloodSugarRecord.SugarList
-        this.items[1].data = this.bloodSugarRecord.SugarTypeList
-        this.flag = true
-        this.listLoading = false
+        let data = response.data;
+        if(data.IsSuccess){
+            that.bloodSugarRecord = data.ReturnData;
+            that.items[0].data = data.ReturnData.SugarList;
+            that.items[1].data = data.ReturnData.SugarTypeList;
+        }else{
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
+        }
+        that.flag = true;
+        that.listLoading = false;
       }, error => {
-        this.listLoading = false
+        that.listLoading = false;
         console.log('[error] ' + error) // for debug
       })
     }

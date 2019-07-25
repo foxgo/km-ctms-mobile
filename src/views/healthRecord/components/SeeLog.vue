@@ -7,8 +7,9 @@
         <div class="log_detailed">
           <ul>
             <li v-for="(item, index) in m.DetailedRecords" :key="index">
-              <p><i class="iconfont icon-time">&#xe69c;</i><span>{{ item.Time | formatDate }}</span></p>
-              <p v-if="item.RecordValue"><span class="marginRight">{{ item.ItemType }}</span>{{ item.RecordValue }}</p>
+              <p><i class="iconfont icon-time">&#xe69c;</i><span>{{ item.Time | formatTime }}</span></p>
+              <p v-if="item.RecordValue"><span class="marginRight">{{ item.ItemType }}</span></p>
+              <p v-if="item.RecordValue"><span class="marginRight">{{ item.RecordValue }}mmol/L</span></p>
               <p v-else>血压{{ item.Systolic }}/{{ item.Diastolic }}</p>
 
               <p
@@ -34,6 +35,10 @@ export default {
     formatDate(time) {
       var date = new Date(time)
       return formatDate(date, 'yyyy-MM-dd')
+    },
+    formatTime(time) {
+      var date = new Date(time);
+      return formatDate(date, 'hh:mm');
     }
   }, // 格式化
   props: { // 接受父组件传递来的数据

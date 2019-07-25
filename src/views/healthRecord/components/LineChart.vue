@@ -29,7 +29,8 @@ export default {
     lastTime: {
       type: String,
       default() {
-        return new Date()
+        //return formatDate(new Date(), 'yyyy-MM-dd hh:mm')
+        return null
       }
     },
     items: {
@@ -83,7 +84,7 @@ export default {
         left: 'right',
         subtext: ''
       }, {
-        text: this.lastTime,
+        text: formatDate(new Date(this.lastTime), 'yyyy-MM-dd hh:mm'),
         textStyle: {
           color: '#666', // 颜色
           fontWeight: 'normal', // 粗细

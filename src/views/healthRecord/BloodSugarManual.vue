@@ -63,23 +63,29 @@ export default {
       console.log('SugarTypeList:' + this.bloodSugar.SugarTypeList)
     },
     saveData() {
-      saveBloodSugar(this.bloodSugar).then(() => {
-        console.log(this.bloodSugar)
-        if (this.bloodSugar.SugarTypeList == null || this.bloodSugar.Sugar == null || this.bloodSugar.ExamTime == null) {
-          Toast('不能为空')
-        } else {
-          Toast({
-            title: '成功',
-            message: '保存成功',
-            type: 'success',
-            duration: 2000
-          })
+      let that = this;
+      if (that.bloodSugar.SugarTypeList == null || that.bloodSugar.Sugar == null || that.bloodSugar.ExamTime == null) {
+          Toast('不能为空');
+          return;
+      }
+      saveBloodSugar(that.bloodSugar).then(response => {
+        let data = response.data;
+        if (data.IsSuccess) {
+              Toast({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            });
+            that.$router.push({path:"/healthRecord/BloodSugar"});
+          }else{
+             Toast(data.ReturnMessage);
         }
-        console.log(this.bloodPressure)
-        this.listLoading = false
+        console.log(that.bloodSugar);
+        that.listLoading = false;
       }, error => {
-        console.log('[error] ' + error) // for debug
-        this.listLoading = false
+        console.log('[error] ' + error); // for debug
+        that.listLoading = false;
       })
     }
   }

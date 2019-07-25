@@ -57,14 +57,20 @@ export default {
   },
   methods: {
     getData() {
-      this.listLoading = true
+      let that = this;
+      that.listLoading = true;
       getStepReocrd().then(response => {
-        this.stepReocrd = response.data
-        this.items[0].data = this.stepReocrd.StepsList
-        this.flag = true
-        this.listLoading = false
+        let data = response.data;
+        if(data.IsSuccess){
+            that.stepReocrd = data.ReturnData;
+            that.items[0].data = data.ReturnData.StepsList;
+        }else{
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
+        }
+        that.flag = true;
+        that.listLoading = false;
       }, error => {
-        this.listLoading = false
+        that.listLoading = false;
         console.log('[error] ' + error) // for debug
       })
     }

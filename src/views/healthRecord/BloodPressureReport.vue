@@ -81,19 +81,26 @@ export default {
       } else if (i == 2) {
         type = 'threemonth'
       }
-      this.flag = true
-      this.listLoading = true
+      let that = this;
+      that.flag = true;
+      that.listLoading = true
       getBloodPressureReport(type).then(response => {
-        this.bloodPressureReport = response.data
-        for (var i in this.bloodPressureReport.ResultPercentList) {
-          this.value[i] = this.bloodPressureReport.ResultPercentList[i].Percentage//  获取圆环name
+        let data = response.data;
+        if(data.IsSuccess){
+          that.bloodPressureReport = data.ReturnData;
+          for (let i in that.bloodPressureReport.ResultPercentList) {
+            that.value[i] = that.bloodPressureReport.ResultPercentList[i].Percentage;//  获取圆环name
+          }
+          that.total = data.ReturnData.Count + "次\n测量";
+          that.barData[0].data = [that.bloodPressureReport.MaxSystolic, that.bloodPressureReport.MinSystolic, that.bloodPressureReport.AverSystolic];
+          that.barData[1].data = [that.bloodPressureReport.MaxDiastolic, that.bloodPressureReport.MinDiastolic, that.bloodPressureReport.AverDiastolic];
+        }else {
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
         }
-        this.barData[0].data = [this.bloodPressureReport.MaxSystolic, this.bloodPressureReport.MinSystolic, this.bloodPressureReport.AverSystolic]
-        this.barData[1].data = [this.bloodPressureReport.MaxDiastolic, this.bloodPressureReport.MinDiastolic, this.bloodPressureReport.AverDiastolic]
-        this.listLoading = false
+        that.listLoading = false;
       }, error => {
-        this.listLoading = false
-        console.log('[error] ' + error) // for debug
+        that.listLoading = false;
+        console.log('[error] ' + error); // for debug
       })
     }
   }
@@ -148,7 +155,8 @@ export default {
                    &>span:nth-child(3)
                      margin-right:0;
                      display: inline-block;
-                     font-size:px2rem(26)
+                     font-size:px2rem(26);
+                     width:px2rem(30);
 .report-column
     margin-top:px2rem(50)
     &>ul

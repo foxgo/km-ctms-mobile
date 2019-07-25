@@ -55,15 +55,21 @@ export default {
   },
   methods: {
     getData() {
-      this.listLoading = true
+      let that = this;
+      that.listLoading = true;
       getBloodOxygenRecord().then(response => {
-        this.bloodOxygenRecord = response.data
-        this.items[0].data = this.bloodOxygenRecord.OxygenList
-        this.flag = true
-        this.listLoading = false
+        that.flag = true;
+        that.listLoading = false;
+        let data = response.data;
+        if(data.IsSuccess){
+            that.bloodOxygenRecord = data.ReturnData;
+            that.items[0].data = data.ReturnData.OxygenList;
+        }else{
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
+        }
       }, error => {
-        this.listLoading = false
-        console.log('[error] ' + error) // for debug
+        that.listLoading = false;
+        console.log('[error] ' + error); // for debug
       })
     }
   }

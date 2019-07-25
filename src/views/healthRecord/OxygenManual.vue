@@ -41,21 +41,27 @@ export default {
       this.bloodOxygenRecord.ExamTime = time
     },
     saveData() {
-      saveBloodOxygenRecord(this.bloodOxygenRecord).then(() => {
-        if (this.bloodOxygenRecord.Oxygen == null || this.bloodOxygenRecord.ExamTime == null) {
-          Toast('不能为空')
-        } else {
-          Toast({
-            title: '成功',
-            message: '保存成功',
-            type: 'success',
-            duration: 2000
-          })
+      let that = this;
+      if (that.bloodOxygenRecord.Oxygen == null || that.bloodOxygenRecord.ExamTime == null) {
+          Toast('不能为空');
+          return;
+      }
+      saveBloodOxygenRecord(that.bloodOxygenRecord).then(response => {
+        let data = response.data;
+        if (data.IsSuccess) {
+              Toast({
+              title: '成功',
+              message: '保存成功',
+              type: 'success',
+              duration: 2000
+            });
+            that.$router.push({path:"/healthRecord/Oxygen"});
+          }else{
+             Toast(data.ReturnMessage);
         }
-        this.listLoading = false
       }, error => {
-        console.log('[error] ' + error) // for debug
-        this.listLoading = false
+        console.log('[error] ' + error); // for debug
+        that.listLoading = false;
       })
     }
   }

@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       h: document.documentElement.clientHeight || document.body.clientHeight,
-      items: [{ name: '血氧', data: [] }],
+      items: [{ name: '心率', data: [] }],
       min: 20,
       max: 140,
       interval: 20, // 间隔
@@ -59,14 +59,20 @@ export default {
   },
   methods: {
     getData() {
-      this.listLoading = true
+      let that = this;
+      that.listLoading = true
       getHeartRateRecord().then(response => {
-        this.heartRateRecord = response.data
-        this.items[0].data = this.heartRateRecord.rateList
-        this.flag = true
-        this.listLoading = false
+        that.flag = true;
+        that.listLoading = false;
+        var data = response.data;
+        if(data.IsSuccess){
+            that.heartRateRecord = data.ReturnData;
+            that.items[0].data = data.ReturnData.RateList;
+        }else{
+           console.log('[ReturnMessage] ' + data.ReturnMessage);
+        }
       }, error => {
-        this.listLoading = false
+        that.listLoading = false;
         console.log('[error] ' + error) // for debug
       })
     }
