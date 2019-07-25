@@ -96,6 +96,7 @@ export default {
   @import '~@/assets/styles/varibles.styl'
   .manual_bg
      background-color: #f5f5f5
+     margin-top: 40px
      padding-top:px2rem(20)
      &>ul
        background: #ffffff

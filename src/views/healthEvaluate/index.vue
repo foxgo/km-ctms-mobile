@@ -325,6 +325,9 @@ export default {
 
 <style scoped >
 /*@import '~@/assets/styles/varibles.styl'*/
+.health_evaluate {
+		margin-top: 40px;
+	}
 
 #score_synthesize {
   padding-top: 10px;

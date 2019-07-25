@@ -500,4 +500,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+.disease-distribution {
+    margin-top: 40px;
+}
+</style>

@@ -199,4 +199,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+.daily-report {
+    margin-top: 40px;
+}
+</style>

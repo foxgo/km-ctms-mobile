@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header-navbar :page-title="this.$store.getters.pageTitle"/>
-    <router-view/>
+    <router-view>1212121212</router-view>
   </div>
 </template>
 

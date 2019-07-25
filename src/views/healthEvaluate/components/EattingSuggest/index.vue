@@ -4,7 +4,7 @@
 			<with-data :suggestionData="dietSuggestion" :suggestionDetailData="dietSuggestionDetail"></with-data>
 		</div>
 		<div v-else>
-			<div class="suggetion_content_text" style="padding-top:40px;">
+			<div class="suggetion_content_text" style="padding-top:10px;">
 			&nbsp;&nbsp;为了科学的为您定制饮食计划，您需要完善您的健康档案信息。请完善您的<strong style="color:red;"> 身高、体重、体力活动 </strong>信息
 			</div>
 			<div class="noRecord_background"><div/></div>

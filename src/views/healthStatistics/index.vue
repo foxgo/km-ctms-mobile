@@ -200,4 +200,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+.health-statistics {
+    margin-top: 40px;
+}
+</style>

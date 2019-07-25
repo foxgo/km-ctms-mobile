@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="suggetion_content_text" style="padding-top:40px;">
+		<div class="suggetion_content_text" style="padding-top:10px;">
 			&nbsp;&nbsp;为了科学的为您制定运动计划，您需要完善您的健康档案信息。请完善您的：
 		</div>
 		<div v-for="(item, index) in suggestion" class="suggetion_content_text">

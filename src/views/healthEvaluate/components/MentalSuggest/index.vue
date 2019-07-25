@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div v-if="suggestionData">
-			<div class="suggetion_content_text" style="padding-top:40px;">&nbsp;&nbsp;&nbsp;&nbsp;{{suggestionData}}</div>
+			<div class="suggetion_content_text">&nbsp;&nbsp;&nbsp;&nbsp;{{suggestionData}}</div>
 		</div>
 		<div v-else>
-			<div class="suggetion_content_text" style="padding-top:40px;">
+			<div class="suggetion_content_text" style="padding-top:10px;">
 			&nbsp;&nbsp;为了科学的为您制定心理建议,您需要完善您的健康档案信息。
 			</div>
 			<div class="noRecord_background"><div/></div>

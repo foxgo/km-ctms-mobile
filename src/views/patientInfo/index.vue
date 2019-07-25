@@ -184,4 +184,8 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+.patient-info-section {
+    margin-top: 40px;
+}
+</style>

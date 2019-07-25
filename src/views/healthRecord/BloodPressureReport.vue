@@ -109,6 +109,8 @@ export default {
 
 <style scoped lang="stylus">
   @import '~@/assets/styles/varibles.styl'
+  .health_content
+    margin-top: 40px
   .reportNav
     display: flex
     height:px2rem(90)

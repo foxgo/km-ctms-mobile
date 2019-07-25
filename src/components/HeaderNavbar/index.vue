@@ -1,5 +1,5 @@
 <template>
-  <mt-header :title="pageTitle" class="title">
+  <mt-header fixed :title="pageTitle" class="title">
     <router-link slot="left" to="">
       <mt-button icon="back" @click.native="routerGoBack"/>
     </router-link>
