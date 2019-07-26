@@ -347,7 +347,7 @@ export function initDict(store, codes) {
   }
   // console.log('notStoreIds:' + notStoreIds)
   if (notStoreIds.length > 0) {
-    const promiseDict = store.dispatch('getDict', { ids: notStoreIds.join(',') })
+    const promiseDict = store.dispatch('getDict', { ItemTypes: notStoreIds })
     store.commit('SET_TYPE', notStoreIds)
     return promiseDict
   } else {

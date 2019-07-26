@@ -64,17 +64,14 @@ export default {
       }
       if (promises.length > 0) {
         Promise.all(promises).then(() => {
-          this.getData()
+          this.setDict();
         })
       } else {
-        this.getData()
+        this.setDict();
       }
     },
     setDict() {
        this.sugarType[0].values = this.$store.state.dict.items.filter(item => item.ItemType === 'CM37.09');
-    },
-    getData() {
-      this.setDict();
     },
     onChange: function(value) {
       this.bloodSugar.SugarType = value.ItemCode;
