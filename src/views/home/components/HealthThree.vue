@@ -100,9 +100,8 @@ export default {
         }).then((response) => {
           return response.data;
         }).then((data) => {
-            console.log(JSON.stringify(data))
-            // window.location.href = data
-            // this.$router.push( data )
+            // console.log(JSON.stringify(data))
+            window.location.href = data.data
         }).catch(() => {
             console.log("请求出错");
         });
