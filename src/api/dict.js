@@ -9,10 +9,9 @@ export function fetchMap(query) {
 }
 
 export function fetchList(data) {
-  const url = `/api/Component?Data.ItemTypes=${data.ids}`
   return request({
-    url: url,
-    method: 'get',
+    url: '/api/Component/getDict',
+    method: 'post',
     data
   })
 }

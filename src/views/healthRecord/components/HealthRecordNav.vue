@@ -34,7 +34,7 @@ export default {
 <style scoped lang="stylus">
   @import '~@/assets/styles/varibles.styl'
 div
-  margin-top: 40px
+  margin-top: 70px
 ul
   display: flex
   height:px2rem(90)
