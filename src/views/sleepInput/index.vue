@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section sleep-input-section clearfix">
+    <div class="page-section sleep-input-section normal-page-box clearfix">
         <form @submit.prevent="save" class="form-con" v-if="startDateObj">
             <div class="field-row clearfix">
                 <label class="field-label">卧床时间</label>

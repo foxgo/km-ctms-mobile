@@ -36,7 +36,7 @@ export default {
   methods: {
     autoPlay () {
       this.mark++;
-      if (this.mark === 3) {
+      if (this.mark === this.itemArray.length) {
         this.mark = 0
       }
     },
@@ -45,8 +45,11 @@ export default {
     },
     getUrl (i) {
       const url = this.itemArray[i].LinkAddress
-      console.log(url)
-      window.location.href = url
+      const obj = {
+          'title': this.itemArray[i].CarouselTitle || '产品详情',
+          'url': url
+      }
+      alert(JSON.stringify(obj))
       // this.$router.push({path:'/htmlPanel', query:{url}})
     },
     change (i) {
@@ -92,7 +95,7 @@ export default {
     width: 100%;
     bottom: 10px;
     margin: 0 auto;
-    z-index: 10;
+    z-index: 0;
     text-align: center;
   }
   .bar span {

@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section daily-report clearfix">
+    <div class="page-section daily-report normal-page-box clearfix">
         <div class="report-info">
             <div class="text-body-primary">健康评分:</div>
 
@@ -200,7 +200,4 @@
 </script>
 
 <style scoped>
-.daily-report {
-    margin-top: 40px;
-}
 </style>

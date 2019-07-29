@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section daily-health clearfix">
+    <div class="page-section daily-health normal-page-box clearfix">
         <router-link class="km-header-bar" :to="{name: 'healthStatistics'}">统计</router-link>
 
         <div class="full-height flex-container flex-direction-column">
@@ -46,7 +46,7 @@
 
                 <div class="module-wrap">
                     <div class="module-bar clearfix">
-                        <i class="icon-water" /> <span class="vertical-middle">喝水记录</span> <i class="icon-help vertical-top" @click="waterDesc"/>
+                        <i class="icon-water" /> <span class="vertical-middle">喝水记录</span> <i class="icon-help vertical-middle" @click="waterDesc"/>
                     </div>
 
                     <div class="module-con clearfix">

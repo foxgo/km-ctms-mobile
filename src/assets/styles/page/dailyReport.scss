@@ -34,7 +34,7 @@
         }
 
         .report-date {
-            @include layout-absolute(auto auto 0 100%);
+            @include layout-absolute(auto auto 0 100%, 0);
             margin-left: px2rem(30);
             line-height: px2rem(30);
             font-size: px2rem(24);

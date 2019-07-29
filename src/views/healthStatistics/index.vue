@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section health-statistics clearfix">
+    <div class="page-section health-statistics normal-page-box clearfix">
         <div class="tabs-wrap clearfix">
             <ul class="tabs-header flex-container">
                 <li :class="{'flex-1': true, 'active': item.value === type}" v-for="(item, index) in tabs" v-html="item.text" @click="switchTabs(item.value)"></li>
@@ -201,7 +201,4 @@
 </script>
 
 <style scoped>
-.health-statistics {
-    margin-top: 40px;
-}
 </style>

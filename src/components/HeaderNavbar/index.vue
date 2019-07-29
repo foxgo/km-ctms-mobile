@@ -46,6 +46,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .title >>> .mint-header-title{font-size:18px;}
+<style lang="scss" scoped>
+  
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="health-questions">
+	<div class="health-questions normal-page-box">
 		<div class="linkBox">
 			<ul>
 				<li v-for="item in linkerList">
@@ -7,7 +7,9 @@
 				</li>
 			</ul>
 		</div>
-		<router-view/>
+		<keep-alive>
+			<router-view/>
+		</keep-alive>
 	</div>
 </template>
 
@@ -43,9 +45,6 @@ export default {
 </script>
 
 <style>
-	.health-questions {
-		margin-top: 40px;
-	}
 	.linkBox {
 		width: 100%;
   		max-width: 10rem;

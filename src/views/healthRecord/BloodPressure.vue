@@ -66,7 +66,7 @@ export default {
     this.getData()
   },
   mounted() {
-    this.$refs.healthHeight.style.height = this.h + 'px'
+    this.$refs.healthHeight.style.height = (this.h - 154.0) + 'px'
     console.log(this.h)
   },
   methods: {

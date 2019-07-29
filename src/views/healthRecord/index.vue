@@ -64,17 +64,5 @@ export default {
 </script>
 
 <style scoped>
-.mint-navbar {
-  position: fixed;
-  top: 40px;
-  z-index: 3;
-  width: 100%;
-  height: 30px;
-  background-color: white;
-}
 
-.mint-navbar .mint-tab-item {
-  padding: 10px 0 0 0;
-  font-size: 18px;
-}
 </style>

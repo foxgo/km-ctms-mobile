@@ -20,6 +20,7 @@ $text-danger: #FF5050;
 $text-mute: #9f9f9f;
 
 //其他颜色
+$primary-color: #008dfd;
 $blue:#324157;
 $light-blue:#3A71A8;
 $red:#C03639;
@@ -34,6 +35,17 @@ $border-color-base: #ddd;
 $border-radius-base: 4px;
 $border-radius-sm: 2px;
 $border-radius-md: 5px;
+
+//占比
+$flex-column: 10;
+
+//间距
+$padding-small: 5px;
+$padding-base: 10px;
+$padding-medium: 15px;
+$padding-large: 20px;
+$padding-xl: 25px;
+$padding-xxl: 30px;
 
 //链接
 $link-color-base: #108ee9;
@@ -98,6 +110,286 @@ clearfix {
 
 .vertical-top {
     vertical-align: top !important;
+}
+
+.pad {
+    padding: $padding-base !important;
+}
+
+.pad-0 {
+    padding: 0 !important;
+}
+
+.pad-sm {
+    padding: $padding-small !important;
+}
+
+.pad-md {
+    padding: $padding-medium !important;
+}
+
+.pad-lg {
+    padding: $padding-large !important;
+}
+
+.pad-xl {
+    padding: $padding-xl !important;
+}
+
+.pad-xxl {
+    padding: $padding-xxl !important;
+}
+
+.pad-t {
+    padding-top: $padding-base !important;
+}
+
+.pad-t-0 {
+    padding-top: 0 !important;
+}
+
+.pad-t-sm {
+    padding-top: $padding-small !important;
+}
+
+.pad-t-md {
+    padding-top: $padding-medium !important;
+}
+
+.pad-t-lg {
+    padding-top: $padding-large !important;
+}
+
+.pad-t-xl {
+    padding-top: $padding-xl !important;
+}
+
+.pad-t-xxl {
+    padding-top: $padding-xxl !important;
+}
+
+.pad-r {
+    padding-right: $padding-base !important;
+}
+
+.pad-r-0 {
+    padding-right: 0 !important;
+}
+
+.pad-r-sm {
+    padding-right: $padding-small !important;
+}
+
+.pad-r-md {
+    padding-right: $padding-medium !important;
+}
+
+.pad-r-lg {
+    padding-right: $padding-large !important;
+}
+
+.pad-r-xl {
+    padding-right: $padding-xl !important;
+}
+
+.pad-r-xxl {
+    padding-right: $padding-xxl !important;
+}
+
+.pad-b {
+    padding-bottom: $padding-base !important;
+}
+
+.pad-b-0 {
+    padding-bottom: 0 !important;
+}
+
+.pad-b-sm {
+    padding-bottom: $padding-small !important;
+}
+
+.pad-b-md {
+    padding-bottom: $padding-medium !important;
+}
+
+.pad-b-lg {
+    padding-bottom: $padding-large !important;
+}
+
+.pad-b-xl {
+    padding-bottom: $padding-xl !important;
+}
+
+.pad-b-xxl {
+    padding-bottom: $padding-xxl !important;
+}
+
+.pad-l {
+    padding-left: $padding-base !important;
+}
+
+.pad-l-0 {
+    padding-left: 0 !important;
+}
+
+.pad-l-sm {
+    padding-left: $padding-small !important;
+}
+
+.pad-l-md {
+    padding-left: $padding-medium !important;
+}
+
+.pad-l-lg {
+    padding-left: $padding-large !important;
+}
+
+pad-l-xl {
+    padding-left: $padding-xl !important;
+}
+
+.pad-l-xxl {
+    padding-left: $padding-xxl !important;
+}
+
+.mrg {
+    margin: $padding-base !important;
+}
+
+.mrg-0 {
+    margin: 0 !important;
+}
+
+.mrg-sm {
+    margin: $padding-small !important;
+}
+
+.mrg-md {
+    margin: $padding-medium !important;
+}
+
+.mrg-lg {
+    margin: $padding-large !important;
+}
+
+.mrg-xl {
+    margin: $padding-xl !important;
+}
+
+.mrg-xxl {
+    margin: $padding-xxl !important;
+}
+
+.mrg-t {
+    margin-top: $padding-base !important;
+}
+
+.mrg-t-0 {
+    margin-top: 0 !important;
+}
+
+.mrg-t-sm {
+    margin-top: $padding-small !important;
+}
+
+.mrg-t-md {
+    margin-top: $padding-medium !important;
+}
+
+.mrg-t-lg {
+    margin-top: $padding-large !important;
+}
+
+.mrg-t-xl {
+    margin-top: $padding-xl !important;
+}
+
+.mrg-t-xxl {
+    margin-top: $padding-xxl !important;
+}
+
+.mrg-r {
+    margin-right: $padding-base !important;
+}
+
+.mrg-r-0 {
+    margin-right: 0 !important;
+}
+
+.mrg-r-sm {
+    margin-right: $padding-small !important;
+}
+
+.mrg-r-md {
+    margin-right: $padding-medium !important;
+}
+
+.mrg-r-lg {
+    margin-right: $padding-large !important;
+}
+
+.mrg-r-xl {
+    margin-right: $padding-xl !important;
+}
+
+.mrg-r-xxl {
+    margin-right: $padding-xxl !important;
+}
+
+.mrg-b {
+    margin-bottom: $padding-base !important;
+}
+
+.mrg-b-0 {
+    margin-bottom: 0 !important;
+}
+
+.mrg-b-sm {
+    margin-bottom: $padding-small !important;
+}
+
+.mrg-b-md {
+    margin-bottom: $padding-medium !important;
+}
+
+.mrg-b-lg {
+    margin-bottom: $padding-large !important;
+}
+
+.mrg-b-xl {
+    margin-bottom: $padding-xl !important;
+}
+
+.mrg-b-xxl {
+    margin-bottom: $padding-xxl !important;
+}
+
+.mrg-l {
+    margin-left: $padding-base !important;
+}
+
+.mrg-l-0 {
+    margin-left: 0 !important;
+}
+
+.mrg-l-sm {
+    margin-left: $padding-small !important;
+}
+
+.mrg-l-md {
+    margin-left: $padding-medium !important;
+}
+
+.mrg-l-lg {
+    margin-left: $padding-large !important;
+}
+
+.mrg-l-xl {
+    margin-left: $padding-xl !important;
+}
+
+.mrg-l-xxl {
+    margin-left: $padding-xxl !important;
 }
 
 .margin-horizontal-auto {
@@ -291,14 +583,26 @@ clearfix {
     align-items: center;
 }
 
-.page-box {
+.normal-page-box {
     background:#fafafa;
-    margin-top: 40px;
+    margin-top: 70px;
 
     @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
-      margin-top: 80px;
+      margin-top: 70px;
     }
     @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
       margin-top: 64px;
+    }
+}
+
+.root-page-box {
+    background:#fafafa;
+    margin-top: 70px;
+
+    @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
+      margin-top: 70px + 30px;
+    }
+    @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
+      margin-top: 64px + 30px;
     }
 }

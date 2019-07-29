@@ -1,5 +1,5 @@
 <template>
-  <div class="home page-box clearfix">
+  <div class="home root-page-box clearfix">
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">首页</mt-tab-item>
       <mt-tab-item id="2">商城</mt-tab-item>
@@ -37,7 +37,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.state.app.pageTitle = '全程健康管理';
+    this.$store.state.app.pageTitle = '健康管理';
   },
   methods: {
     
@@ -82,17 +82,5 @@ export default {
     display: none
   }
 
-  .mint-navbar {
-    position: fixed;
-    top: 40px;
-    z-index: 3;
-    width: 100%;
-    height: 30px;
-    background-color: white;
-  }
 
-  .mint-navbar .mint-tab-item {
-    padding: 10px 0 0 0;
-    font-size: 18px;
-  }
 </style>

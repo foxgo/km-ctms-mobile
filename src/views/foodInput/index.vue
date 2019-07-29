@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section food-input-section clearfix">
+    <div class="page-section food-input-section normal-page-box clearfix">
         <form @submit.prevent="search">
             <div class="search-wrap">
                 <input class="search-input" v-model="data.foodName" @focus="focus" @blur="blur"/>

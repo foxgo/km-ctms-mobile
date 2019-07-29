@@ -1,5 +1,5 @@
 <template>
-    <div class="health_evaluate">
+    <div class="health_evaluate normal-page-box">
       <div id="scoreTips" :style="{display: showScoreTips == true ? 'block' : 'none'}">
         <ul :class="showScoreTips == true ? 'isFixed' :''">
           <li>总分 <span style="background: rgb(220,103,17);">{{healthScore}}</span></li>

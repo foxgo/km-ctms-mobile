@@ -96,9 +96,10 @@ $food-recommend-pic-height: 120;
         }
 
         .confirm-bar {
-            margin-top: 10px;
+            margin-top: 20px;
             border-top: 1px solid #ececec;
             line-height: 45px;
+            height: 45px;
             text-align: center;
 
             > a {

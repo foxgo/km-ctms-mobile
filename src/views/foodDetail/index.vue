@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section daily-health food-detail-section clearfix">
+    <div class="page-section daily-health food-detail-section normal-page-box clearfix">
         <div class="full-height flex-container flex-direction-column">
             <div class="flex-1 flex-container flex-direction-column clearfix">
                 <div class="date-choose-wrap mrg-b-0" v-if="today">

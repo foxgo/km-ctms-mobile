@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section patient-info-section clearfix">
+    <div class="page-section patient-info-section normal-page-box clearfix">
         <div class="warning-tip">温馨提示: 完整的健康资料，将方便对您的健康做出准确的评估建议</div>
 
         <form @submit.prevent="save" class="form-con">
@@ -185,7 +185,4 @@
 </script>
 
 <style scoped>
-.patient-info-section {
-    margin-top: 40px;
-}
 </style>

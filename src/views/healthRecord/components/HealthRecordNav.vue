@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root-page-box">
     <ul>
       <li id="BloodPressure"><router-link to="BloodPressure">血压</router-link></li>
       <li><router-link to="BloodSugar">血糖</router-link></li>
@@ -33,8 +33,6 @@ export default {
 
 <style scoped lang="stylus">
   @import '~@/assets/styles/varibles.styl'
-div
-  margin-top: 70px
 ul
   display: flex
   height:px2rem(90)

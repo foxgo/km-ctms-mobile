@@ -30,5 +30,5 @@ export default {
   }
 
 }
-.app-main{margin-top:40px;}
+
 </style>

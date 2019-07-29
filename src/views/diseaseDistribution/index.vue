@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section disease-distribution">
+    <div class="page-section disease-distribution normal-page-box">
         <div class="map-wrap">
             <div id="map" class="bfc"></div>
 
@@ -501,7 +501,5 @@
 </script>
 
 <style scoped>
-.disease-distribution {
-    margin-top: 40px;
-}
+
 </style>
