@@ -98,7 +98,7 @@ export default {
         height:px2rem(55)
         line-height:px2rem(55)
         margin-left:px2rem(36)
-     &>div>div>.log_detailed
+      &>div>div>.log_detailed
         background-color:#fff
         border-top:1px solid #e2e2e3
         &>ul>li
@@ -119,9 +119,22 @@ export default {
             &>p:nth-child(3)
                 text-align:right
                 padding-right:px2rem(36)
+            &>.colorNormal
+                color:#00cbe9
+            &>.color2
+                color:#ffff86
+            &>.color3
+                color:#ffc635
+            &>.color4
+                color:#fe8b31
+            &>.color5
+                color:#ff3b3b
+            &>.color6
+                color:#50f3f3
   .icon-time
      font-size:px2rem(40)
      padding-right:px2rem(5)
      vertical-align :top
      color:#b5b5b5
+
 </style>

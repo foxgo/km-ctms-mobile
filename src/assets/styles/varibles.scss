@@ -1,0 +1,89 @@
+@function px2rem($px) {
+    $per-rem: 75;
+    $rem: $px / $per-rem;
+
+    @return $rem + rem;
+}
+
+/*
+ * 设备判断
+*/ 
+$breakpoints: (
+	'xs': 'only screen and ( min-width: 480px)',
+  	'sm': 'only screen and ( min-width: 768px)',
+  	'md': 'only screen and ( min-width: 992px)',
+  	'lg': 'only screen and ( min-width: 1200px)',
+
+	'iPhone4S': 'only screen and (device-height:480px) and (-webkit-min-device-pixel-ratio:2)',
+	'iPhone5': 'only screen and (device-height:568px) and (-webkit-min-device-pixel-ratio:2)',
+	'iPhone6_7_8': 'only screen and (device-height:667px) and (-webkit-min-device-pixel-ratio:2)',
+	'iPhone6P_7P_8P': 'only screen and (device-height:736px) and (-webkit-min-device-pixel-ratio:2)',
+	'iPhone_X_Xs': 'only screen and (device-width: 375px) and (device-height: 812px)',
+	'iPhone_XsMax': 'only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-min-device-pixel-ratio:3)',
+	'iPhone_XR': 'only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-min-device-pixel-ratio:2)',
+) !default;
+
+@mixin respond-to($breakpoint_list) {
+	@each $breakpoint in $breakpoint_list {
+		$query: map-get($breakpoints, $breakpoint);
+		// 这里是scss error提示估计大部分人（包括我）都没怎么使用过
+		@if not $query {
+		@error 'No value found for `#{$breakpoint}`. Please make sure it is 
+		defined in `$breakpoints` map.';
+		}
+		// 具体断点解释在这里，作者比较严谨，校验了$query合法性
+		@media #{if(type-of($query) == 'string', unquote($query), inspect($query))}
+		{
+			@content;
+		}
+	}
+}
+
+//快捷設置
+@mixin border($borderWidth: 1px, $borderStyle: solid, $borderColor: $border-color-base) {
+    border: $borderWidth $borderStyle $borderColor;
+}
+
+//圓角
+@mixin radius($radius: $border-radius-base) {
+    border-radius: $radius;
+}
+
+//行高與高度一致
+@mixin same-height($height) {
+    height: $height;
+    line-height: $height;
+}
+
+//设置定位位置
+@mixin position-set($set) {
+    $len: length($set);
+
+    @if $len >= 1 {
+        top: nth($set, 1);
+    }
+
+    @if $len >= 2 {
+        right: nth($set, 2);
+    }
+
+    @if $len >= 3 {
+        bottom: nth($set, 3);
+    }
+
+    @if $len >= 4 {
+        left: nth($set, 4);
+    }
+}
+
+@mixin layout-absolute($set:auto auto auto auto, $zIndex: 2) {
+    position: absolute;
+    @include position-set($set);
+    z-index: $zIndex;
+}
+
+@mixin layout-fixed($set:auto auto auto auto, $zIndex: 2) {
+    position: fixed;
+    @include position-set($set);
+    z-index: $zIndex;
+}

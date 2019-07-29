@@ -1,8 +1,8 @@
 {
   "name": "km-ctms-mobile",
   "version": "1.0.0",
-  "description": "ctms 移动端",
-  "author": "liumeifang",
+  "description": "健康管理",
+  "author": "km",
   "private": true,
   "scripts": {
     "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

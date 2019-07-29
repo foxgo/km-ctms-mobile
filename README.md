@@ -39,13 +39,6 @@ let baseUrl = "http://hmmobile.kmhealthcloud.com"       //生产
 两套请求接口都需要在请求头配置token，而且是两个不同的token值
 token暂定在打开页面时由上级调用者在`url`里作为参数传入
 
-开发模式下设置静态token值直接使用，设置token在`src>permission.js`
-```
-if (process.env.IS_MOCK) {
-  setToken('cdea40b5046a4335869970f18e848878')
-}
-```
-
 #### 3.request封装
 request使用的是`axios`框架，封装代码在`src>utils>request.js`
 
