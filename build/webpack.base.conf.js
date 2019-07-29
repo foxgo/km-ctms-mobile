@@ -101,7 +101,7 @@ module.exports = {
           },
           // 样式文件中调用雪碧图地址写法
           apiOptions: {
-              cssImageRef: "../../images/sprite.png?v=" + new Date().getTime()
+              cssImageRef: "../images/sprite.png?v=" + new Date().getTime()
           },
           spritesmithOptions: {
               algorithm: "top-down"
