@@ -31,7 +31,7 @@
     data(){
        return{
          h:document.documentElement.clientHeight || document.body.clientHeight,
-         items:[{ name:'总胆固醇',data:[]}],
+         items:[{ name:'胆固醇',data:[]}],
          min:0,
          max:15,
          interval:3,
