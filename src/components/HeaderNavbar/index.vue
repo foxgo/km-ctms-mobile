@@ -46,20 +46,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/styles/varibles';
-  .mint-header.title {
-    font-size: 17px;
-  }
-
-  .mint-header.title.is-fixed {
-    @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
-      padding-top: 60px;
-      padding-bottom: 20px;
-    }
-    @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
-      padding-top: 44px;
-      padding-bottom: 20px;
-    }
-  }
+<style scoped>
+  .title >>> .mint-header-title{font-size:18px;}
 </style>

@@ -8,13 +8,15 @@ import 'mint-ui/lib/style.css'
 import echarts from 'echarts'
 import globalMixin from "@/mixins/global";
 import install from "@/utils/install";
-import "@/assets/styles/index.scss";  //自定义mint-ui样式
+import "@/assets/styles/page/main.scss";
+import "@/styles/mint-ui.scss";  //自定义mint-ui样式
 
 import store from './store'
 import './icons' // icon
 import './permission' // 访问权限控制
 import './assets/styles/common.css'
 import './assets/styles/iconfont.css'
+import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import './assets/styles/iconfont/iconfont.js'
 

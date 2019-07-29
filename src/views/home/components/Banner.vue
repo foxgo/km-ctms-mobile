@@ -36,7 +36,7 @@ export default {
   methods: {
     autoPlay () {
       this.mark++;
-      if (this.mark === this.itemArray.length) {
+      if (this.mark === 3) {
         this.mark = 0
       }
     },
@@ -63,8 +63,14 @@ export default {
 }
 </script>
 
+
 <style scoped lang="stylus">
 @import '~@/assets/styles/varibles.styl'
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
   .banner {
     height: px2rem(320);
     margin: 0 auto;
@@ -86,7 +92,7 @@ export default {
     width: 100%;
     bottom: 10px;
     margin: 0 auto;
-    z-index: 0;
+    z-index: 10;
     text-align: center;
   }
   .bar span {

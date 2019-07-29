@@ -1,5 +1,5 @@
 <template>
-  <div class="home page-box clearfix">
+  <div class="home clearfix">
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">首页</mt-tab-item>
       <mt-tab-item id="2">商城</mt-tab-item>
@@ -77,10 +77,35 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style scoped>
+.home {
+  background:#fafafa;
+  margin-top: 40px;
+}
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
 
-  .home>a {
-    display: none
-  }
+.mint-navbar {
+  position: fixed;
+  top: 40px;
+  z-index: 3;
+  width: 100%;
+  height: 30px;
+  background-color: white;
+}
+
+.mint-navbar .mint-tab-item {
+  padding: 10px 0 0 0;
+  font-size: 18px;
+}
 
 </style>

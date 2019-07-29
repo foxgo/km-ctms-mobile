@@ -27,7 +27,7 @@
         padding: 0;
         width: px2rem(32);
         height: px2rem(32);
-        background: url("../images/radio.png") no-repeat left top;
+        background: url("../../images/radio.png") no-repeat left top;
         background-size: px2rem(32) px2rem(100);
         vertical-align: text-bottom;
         cursor: pointer;
@@ -52,7 +52,7 @@
     vertical-align: middle;
     width: px2rem(20);
     height: px2rem(22);
-    background: url("../images/arrow-left.png") no-repeat center bottom;
+    background: url("../../images/arrow-left.png") no-repeat center bottom;
     background-size: px2rem(20) px2rem(100);
 
     &.disabled {
@@ -65,7 +65,7 @@
     vertical-align: middle;
     width: px2rem(20);
     height: px2rem(22);
-    background: url("../images/arrow-right.png") no-repeat center bottom;
+    background: url("../../images/arrow-right.png") no-repeat center bottom;
     background-size: px2rem(20) px2rem(100);
 
     &.disabled, &.swiper-button-disabled {
