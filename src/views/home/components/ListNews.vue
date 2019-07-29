@@ -12,7 +12,7 @@
   </div>
   <div class="news-box">
     <ul class="news-list">
-      <li v-for="(item,index) in news" @click="itemClicked(item.ID)">
+      <li v-for="(item,index) in news" @click="itemClicked(item.ID, item.Title)">
         <img v-bind:src="item.MainImage" >
         <div class="titles-box">
           <h2>{{item.Title}}</h2>
@@ -57,7 +57,7 @@ export default {
       })
     },
 
-    itemClicked(newsID){
+    itemClicked(newsID, title){
       // window.location.href = "https://www.baidu.com"
       /* 总是获取空数据 不知道原因
       getHomeNewsDetail(newsID).then(response => {
@@ -72,8 +72,8 @@ export default {
           return response.data;
       }).then((data) => {
         const url = data.Data.SourceUrl
-          // console.log(url)
-          window.location.href = url
+          this.$root.loadUrlOutOfSite(title, url)
+          // window.location.href = url
           // this.$router.push({path:'/htmlPanel', query:{url}})
       }).catch(() => {
           console.log("请求出错");

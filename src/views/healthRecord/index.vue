@@ -14,6 +14,7 @@
 <script>
 import { Navbar, TabItem } from 'mint-ui'
 import HealthRecordNav from './components/HealthRecordNav'
+
 export default {
   name: 'Index',
   components: { HealthRecordNav,Navbar,TabItem },
@@ -50,15 +51,15 @@ export default {
       }
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    console.log(to);
-    //点击返回按钮后跳到首页
-    // if (Object.keys(to.params).length <= 0) {
-      // this.$router.back('/');
-    // }else{
-      next();
-    // }
-  }
+  // beforeRouteUpdate (to, from, next) {
+  //     //点击返回按钮后跳到首页
+  //     console.log(to)
+	//     if (Object.keys(to.query).length <= 0) {
+	//       this.$router.back();
+	//     }else{
+	//       next();
+	//     }
+	// },
 }
 </script>
 

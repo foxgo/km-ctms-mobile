@@ -2,13 +2,13 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
-import {Indicator} from "mint-ui";
+import {Indicator} from "mint-ui"
 
 let tempImage;
 
 let globalMixin = {
     data() {
-        return {};
+        return {}
     },
     computed: {},
     beforeCreate() {
@@ -70,6 +70,14 @@ let globalMixin = {
         },
         getTempImage() {
             return tempImage;
+        },
+        // 加载外网链接
+        loadUrlOutOfSite(title, url) {
+            const obj = {
+                'title': title,
+                'url': url
+            }
+            alert(JSON.stringify(obj))
         }
     }
 };
