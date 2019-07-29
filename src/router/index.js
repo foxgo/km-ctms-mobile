@@ -78,6 +78,12 @@ export const constantRouterMap = [
     meta: { title: 'OxygenManual', noCache: true }
   }, // 心率手动血氧
   {
+    path: '/TotalCholesterolManual',
+    component: () => import('@/views/healthRecord/TotalCholesterolManual'),
+    name: 'TotalCholesterolManual',
+    meta: { title: 'TotalCholesterolManual', noCache: true }
+  }, //手动输入胆固醇
+  {
     path: '/VitalCapacityManual',
     component: () => import('@/views/healthRecord/VitalCapacityManual'),
     name: 'VitalCapacityManual',

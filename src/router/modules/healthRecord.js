@@ -43,6 +43,12 @@ const healthRecordRouter =
         component: () => import('@/views/healthRecord/VitalCapacity'),
         name: 'VitalCapacity',
         meta: { title: 'VitalCapacity', noCache: true }
+      },
+      {
+        path: 'TotalCholesterol',
+        component: () => import('@/views/healthRecord/TotalCholesterol'),
+        name: 'TotalCholesterol',
+        meta: { title: 'TotalCholesterol', noCache: true }
       }
     ]
 

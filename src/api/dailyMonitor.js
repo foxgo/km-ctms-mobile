@@ -42,6 +42,13 @@ export function getVitalCapacityRecord() {
     params: {}
   })
 }
+export function getTCRecord() {
+  return request({
+    url: '/api/DailyMonitor/GetTCRecord',
+    method: 'get',
+    params: {}
+  })
+}
 
 export function saveBloodSugar(data) {
   return request({
@@ -85,6 +92,14 @@ export function saveStepRecord(data) {
 export function saveVitalCapacityRecord(data) {
   return request({
     url: '/api/DailyMonitor/SaveVitalCapacityRecord',
+    method: 'post',
+    data
+  })
+}
+
+export function saveTCRecord(data) {
+  return request({
+    url: '/api/DailyMonitor/SaveTCRecord',
     method: 'post',
     data
   })
