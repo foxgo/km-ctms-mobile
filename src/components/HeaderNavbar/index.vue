@@ -2,6 +2,9 @@
   <mt-header fixed :title="pageTitle" class="title">
     <router-link slot="left" to="">
       <mt-button icon="back" @click.native="routerGoBack"/>
+      <mt-button @click.native="gotoNative">
+        <img src="@/assets/images/healthEvaluate/close_ion.png" height="16" width="16" slot="icon">
+      </mt-button>
     </router-link>
   </mt-header>
 </template>
@@ -17,9 +20,26 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      
+    }
+  },
   methods:{
     routerGoBack(){
-      this.$router.go(-1)
+      console.log(this.$router.currentRoute.path)
+     
+      // 已到栈顶，无法继续回退
+      if(this.$router.currentRoute.path === '/') {
+        this.gotoNative()
+        return
+      }
+
+      this.$router.back()
+    },
+
+    gotoNative(){
+      alert(JSON.stringify({'action': 'gotoNative'}))
     }
   }
 

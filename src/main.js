@@ -8,8 +8,7 @@ import 'mint-ui/lib/style.css'
 import echarts from 'echarts'
 import globalMixin from "@/mixins/global";
 import install from "@/utils/install";
-import "@/assets/styles/page/main.scss";
-import "@/styles/mint-ui.scss";  //自定义mint-ui样式
+import "@/assets/styles/index.scss";
 
 import store from './store'
 import './icons' // icon

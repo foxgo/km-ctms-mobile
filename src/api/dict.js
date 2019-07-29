@@ -15,3 +15,11 @@ export function fetchList(data) {
     data
   })
 }
+
+export function fetchDict(data) {
+  return request({
+    url: '/api/Component/GetDictionary',
+    method: 'post',
+    data
+  })
+}

@@ -83,7 +83,8 @@ export default {
       }
 
       if(index === 2) {
-        window.location.href = "static/selfBodyCheck"
+        this.$root.loadUrlOutOfSite('部位自诊', window.location.host+'/static/selfBodyCheck')
+        // window.location.href = "static/selfBodyCheck"
       } else if(index === 4) {
         const postData ={
           "name" : this.$store.state.user.name,
@@ -100,8 +101,8 @@ export default {
         }).then((response) => {
           return response.data;
         }).then((data) => {
-            // console.log(JSON.stringify(data))
-            window.location.href = data.data
+            // window.location.href = data.data
+            this.$root.loadUrlOutOfSite('中医体质', data.data)
         }).catch(() => {
             console.log("请求出错");
         });
