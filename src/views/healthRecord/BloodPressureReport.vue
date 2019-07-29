@@ -138,6 +138,19 @@ export default {
           &>.reportContent
                margin-left:px2rem(90)
                width:px2rem(360)
+               &>ul
+                  &>.colorNormal>i
+                      background-color:#00cbe9
+                  &>.color2>i
+                      background-color:#ffff86
+                  &>.color3>i
+                      background-color:#ffc635
+                  &>.color4>i
+                      background-color:#fe8b31
+                  &>.color5>i
+                      background-color:#ff3b3b
+                  &>.color6>i
+                      background-color:#50f3f3
                &>ul>li
                    display:block
                    border-bottom:1px solid #ebebeb

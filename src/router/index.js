@@ -3,9 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import surveyRouter from './modules/survey'
 import healthRecordRouter from './modules/healthRecord'
-
 import healthEvaluateRouter from './modules/healthEvaluate'
 import { healthArchivesRouter, healthArchivesRouter2, BasicArchives } from './modules/healthArchives'
 import diseaseDistribution from "./modules/diseaseDistribution"; //疾病地理
@@ -141,7 +139,6 @@ export default new Router({
 
 // 动态路由表，在src/permission.js中动态添加，用以控制页面访问权限
 export const asyncRouterMap = [
-  surveyRouter,
   healthRecordRouter,
   healthEvaluateRouter,
   healthArchivesRouter2,
