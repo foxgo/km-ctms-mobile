@@ -15,7 +15,6 @@ import './icons' // icon
 import './permission' // 访问权限控制
 import './assets/styles/common.css'
 import './assets/styles/iconfont.css'
-import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import './assets/styles/iconfont/iconfont.js'
 

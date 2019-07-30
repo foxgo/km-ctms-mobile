@@ -1,9 +1,9 @@
 <template>
   <mt-header fixed :title="pageTitle" class="title">
     <router-link slot="left" to="">
-      <mt-button icon="back" @click.native="routerGoBack"/>
+      <mt-button class="default-back" icon="back" @click.native="routerGoBack"/>
       <mt-button @click.native="gotoNative">
-        <img src="@/assets/images/healthEvaluate/close_ion.png" height="16" width="16" slot="icon">
+        <img src="@/assets/images/home/closed.png" height="16" width="16" slot="icon">
       </mt-button>
     </router-link>
   </mt-header>
@@ -47,5 +47,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
+  .default-back {
+    padding: 4px 5px 4px 0;
+  }
+
+  .mint-button-icon img {
+    padding: 0px 5px 3px 3px;
+  }
 </style>

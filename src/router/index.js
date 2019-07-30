@@ -45,7 +45,7 @@ export const constantRouterMap = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { title: '全程健康管理', noCache: true, keepAlive: true }
+    meta: { title: '健康管理', noCache: true, keepAlive: true }
   },
   {
     path: '/BloodPressureManual',
