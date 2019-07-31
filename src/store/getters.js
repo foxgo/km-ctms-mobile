@@ -3,6 +3,7 @@ const getters = {
   language: state => state.app.language,
   pageTitle: state => state.app.pageTitle,
   device: state => state.app.device,
+  navigatorBack: state => state.app.navigatorBack,
   token: state => state.user.token,
   avatar: state => state.user.avatar,
   name: state => state.user.name,

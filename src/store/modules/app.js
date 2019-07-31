@@ -8,7 +8,8 @@ const app = {
     },
     device: 'desktop',
     language: Cookies.get('language') || 'en',
-    pageTitle: ''
+    pageTitle: '',
+    navigatorBack: 0
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -31,6 +32,9 @@ const app = {
     SET_LANGUAGE: (state, language) => {
       state.language = language
       Cookies.set('language', language)
+    },
+    Navigator_Back: (state) => {
+      state.navigatorBack++ // 自增只是用来修改值以便监听变化
     }
   },
   actions: {

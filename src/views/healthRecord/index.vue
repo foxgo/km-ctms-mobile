@@ -27,7 +27,15 @@ export default {
     // 修改导航标题
     this.$store.state.app.pageTitle = '健康测量'
   },
+  computed: {
+    navigatorBack() {
+      return this.$store.getters.navigatorBack
+    }
+  },
   watch:{
+    navigatorBack(val) {
+      this.$router.push('/')
+    },
     selected(newval,oldval){
       console.log(newval+"------"+oldval);
       this.selected = "3"
@@ -38,9 +46,7 @@ export default {
           })
           break;
         case '2':
-          // this.$router.push({
-          //   path:'/'
-          // })
+          alert(JSON.stringify({'action': 'gotoShoppingMall'}))
           break;
         case '3': break;
         case '4':     
@@ -50,16 +56,7 @@ export default {
           break;
       }
     }
-  },
-  // beforeRouteUpdate (to, from, next) {
-  //     //点击返回按钮后跳到首页
-  //     console.log(to)
-	//     if (Object.keys(to.query).length <= 0) {
-	//       this.$router.back();
-	//     }else{
-	//       next();
-	//     }
-	// },
+  }
 }
 </script>
 

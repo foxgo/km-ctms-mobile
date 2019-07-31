@@ -40,7 +40,7 @@ export default {
     this.$store.state.app.pageTitle = '健康管理';
   },
   methods: {
-    
+
   },
   beforeRouteLeave (to, from, next) {
     // 判断是否可以跳转
@@ -51,21 +51,18 @@ export default {
   },
   watch:{
     selected(newval,oldval){
-      console.log(newval+"------"+oldval);
       this.selected = "1"
       switch (newval) {
         case '1': break;
         case '2':
-          // this.$router.push({
-          //   path:'/'
-          // })
+          alert(JSON.stringify({'action': 'gotoShoppingMall'}))
           break;
         case '3':
           this.$router.push({
             path:'/healthRecord'
           })
           break;
-        case '4':     
+        case '4':
           // this.$router.push({
           //   path:'/'
           // })
@@ -79,7 +76,7 @@ export default {
 
 <style lang="scss" scoped>
   .home>a {
-    display: none
+    // display: none
   }
 
 

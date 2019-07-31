@@ -48,24 +48,30 @@ export function toThousandslsFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
 
-/* zhumeng 日期格式转换*/
-export function formatDate(date, fmt) {
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+/* 日期字符串 格式化*/
+export function getFormatDate(dateString, fmt) {
+  dateString = dateString || ''
+  if (dateString === '' || dateString == null || dateString === '0001-01-01T00:00:00') {
+    return ''
   }
 
+  return formatDate(handleDateString(dateString), fmt)
+}
+
+/* 日期 格式化*/
+export function formatDate(date, fmt) {
   const o = {
-
     'M+': date.getMonth() + 1,
-
     'd+': date.getDate(),
-
     'h+': date.getHours(),
-
     'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    'S': date.getMilliseconds()
+  }
 
-    's+': date.getSeconds()
-
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
 
   for (const k in o) {
@@ -79,31 +85,27 @@ export function formatDate(date, fmt) {
   return fmt
 }
 
-function padLeftZero(str) {
-  return ('00' + str).substr(str.length)
+// 处理时间戳以适配safari浏览器
+function handleDateString(str) {
+  if (str.indexOf('T') > 0) {
+    str = str.split('T')
+  }
+  else {
+    str = str.split(' ')
+  }
+  var date = new Date()
+  var dateArr = str[0].split('-')
+  var timeArr = [0, 0, 0]
+  if (str.length === 2) {
+    timeArr = str[1].split(':')
+  }
+  date.setFullYear(dateArr[0], dateArr[1] - 1, dateArr[2])
+  date.setHours(timeArr[0], timeArr[1], timeArr[2], 0)
+  return date
 }
 
-/* zhumeng 日期格式转换*/
-export function dateFormat(value, fmt) {
-  const getDate = new Date(value)
-  const o = {
-    'M+': getDate.getMonth() + 1,
-    'd+': getDate.getDate(),
-    'h+': getDate.getHours(),
-    'm+': getDate.getMinutes(),
-    's+': getDate.getSeconds(),
-    'q+': Math.floor((getDate.getMonth() + 3) / 3),
-    'S': getDate.getMilliseconds()
-  }
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (getDate.getFullYear() + '').substr(4 - RegExp.$1.length))
-  }
-  for (const k in o) {
-    if (new RegExp('(' + k + ')').test(fmt)) {
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-    }
-  }
-  return fmt
+function padLeftZero(str) {
+  return ('00' + str).substr(str.length)
 }
 
 /**
