@@ -116,8 +116,10 @@ export default {
           for (var i in that.bloodSugarReport.ResultPercentList) {
             that.value[i] = that.bloodSugarReport.ResultPercentList[i].Percentage;//  获取圆环name
           }
+          //血糖值
           that.barData[0].data = [that.bloodSugarReport.MaxBloodSugar, that.bloodSugarReport.MinBloodSugar];
-          that.averageData[0].data = [that.bloodSugarReport.AverFasting, that.bloodSugarReport.AverBeforeLunch, that.bloodSugarReport.AverAfterSleep, that.bloodSugarReport.AverAfterLunch];
+          //平均值 //空腹，餐前，餐后，睡前
+          that.averageData[0].data =  [that.bloodSugarReport.AverFasting, that.bloodSugarReport.AverBeforeLunch, that.bloodSugarReport.AverAfterLunch, that.bloodSugarReport.AverAfterSleep];
         }else {
            console.log('[ReturnMessage] ' + data.ReturnMessage);
         }

@@ -22,20 +22,43 @@ export default {
   },
   data() {
     return {
-      elId: ''
+      elId: '',
+      chartObj:null,
+      option:{},
+      getColor:['#00cbe9', '#ffc635', '#fe8b31', '#ff3b3b', '#ffff86', '#50f3f3'] //  正常 偏高 偏低 正常 正常高值  重度  中度 轻度
+    }
+  },
+  watch:{
+     name(val){
+       this.drawARing(val,'')
+     },
+    value(val){
+      this.drawARing('',val)
     }
   },
   created() {
     this.elId = uuidv1() // 获取随机id
   },
+  methods: {
+    drawARing(name='',value='') {
+      this.name = name !='' ? name:this.name
+      this.value = value !='' ? value: this.value
+      // 测量圆环
+      var data = [] // 获取数据
+      for (let i = 0; i < this.value.length; i++) {
+        data[i] = Object.assign({ value: this.value[i], name: '', itemStyle: { normal: { color: this.getColor[i] }}})
+      }
+      console.log('data:' + this.value)
+      this.option.series[0].name = this.name
+      this.option.series[0].data = data
+      this.chartObj.setOption(this.option)
+    }
+  },
   mounted() {
-    // 测量圆环
-    const getColor = ['#00cbe9', '#ffc635', '#fe8b31', '#ff3b3b', '#ffff86', '#50f3f3'] //  正常 偏高 偏低 正常 正常高值  重度  中度 轻度
-    var data = [] // 获取数据
-    for (let i = 0; i < this.value.length; i++) {
-      data[i] = Object.assign({ value: this.value[i], name: '', itemStyle: { normal: { color: getColor[i] }}})
-    } console.log('data:' + this.value)
-    const option = { // 创建图表配置数据
+    // 初始化图表
+    this.chartObj = this.$echarts.init(document.getElementById(this.elId))
+
+    this.option = { // 创建图表配置数据
       tooltip: {
         show: false,
         trigger: 'item'
@@ -76,13 +99,11 @@ export default {
               show: false
             }
           },
-          data: data
+          data:[]
         }
       ]
     }
-    // 初始化图表
-    const chartObj = this.$echarts.init(document.getElementById(this.elId))
-    chartObj.setOption(option)
+    this.drawARing()
   }
 }
 </script>
