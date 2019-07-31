@@ -50,6 +50,22 @@ export function getTCRecord() {
   })
 }
 
+export function getLastBloodPressure() {
+  return request({
+    url: '/api/DailyMonitor/GetLastBloodPressure',
+    method: 'get',
+    params: {}
+  })
+}
+
+export function getLastBloodSugar() {
+  return request({
+    url: '/api/DailyMonitor/GetLastBloodSugar',
+    method: 'get',
+    params: {}
+  })
+}
+
 export function saveBloodSugar(data) {
   return request({
     url: '/api/DailyMonitor/SaveBloodSugar',
