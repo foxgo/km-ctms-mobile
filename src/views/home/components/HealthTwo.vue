@@ -5,7 +5,7 @@
         <div class="item_div borderBottom1">
           <div @click="pushPage(1)">
             <h2>血压监测</h2>
-            <p>112/78 mmHg</p>
+            <p>{{bloodPressure.Systolic}}/{{bloodPressure.Diastolic}} mmHg</p>
           </div>
           <img class="listImg" src="@/assets/images/home/addition.png" />
           <!--<svg class="icon" aria-hidden="true">
@@ -17,7 +17,7 @@
         <div class="item_div borderBottom1">
           <div @click="pushPage(2)">
             <h2>血糖监测</h2>
-            <p>5.3 mmol/L</p>
+            <p>{{bloodSugar.Sugar}} mmol/L</p>
           </div>
           <img class="listImg" src="@/assets/images/home/addition.png" />
           <!--<svg class="icon" aria-hidden="true">
@@ -30,8 +30,24 @@
 </template>
 
 <script>
+import { getLastBloodPressure,getLastBloodSugar } from '@/api/dailyMonitor'
 export default {
   name: 'HealthTwo',
+  data() {
+    return {
+      bloodPressure: {
+        Systolic: null,
+        Diastolic: null
+      },
+      bloodSugar: {
+        Sugar: null
+      }
+    }
+  },
+  created() {
+    this.getLastBloodPressure()
+    this.getLastBloodSugar()
+  },
   methods: {
     pushPage(index) {
       var pageRoutes = {
@@ -40,7 +56,41 @@ export default {
       }
 
       this.$router.push({ path: pageRoutes[index] })
-    }
+    },
+    getLastBloodPressure() {
+      let that = this
+      that.listLoading = true
+      getLastBloodPressure().then(response => {
+        let data = response.data
+        if(data.IsSuccess){
+          that.bloodPressure = data.ReturnData
+        }else{
+          console.log('[ReturnMessage] ' + data.ReturnMessage)
+        }
+        that.flag = true
+        that.listLoading = false
+      }, error => {
+        that.listLoading = false
+        console.log('[error] ' + error)
+      })
+    },
+    getLastBloodSugar() {
+      let that = this
+      that.listLoading = true
+      getLastBloodSugar().then(response => {
+        let data = response.data
+        if(data.IsSuccess){
+          that.bloodSugar = data.ReturnData
+        }else{
+          console.log('[ReturnMessage] ' + data.ReturnMessage)
+        }
+        that.flag = true
+        that.listLoading = false
+      }, error => {
+        that.listLoading = false
+        console.log('[error] ' + error)
+      })
+  }
   }
 }
 </script>
