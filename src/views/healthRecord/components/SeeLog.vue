@@ -28,13 +28,13 @@
   </div>
 </template>
 
-<script>import { formatDate } from '../../../filters'
+<script>import { getFormatDate } from '../../../filters'
 export default {
   name: 'SeeLog',
   filters: {
     formatDate(time) {
-      var date = new Date(time)
-      return formatDate(date, 'yyyy-MM-dd')
+      // var date = new Date(time)
+      return getFormatDate(time, 'yyyy-MM-dd')
     },
     formatTime(time) {
       var date = new Date(time);

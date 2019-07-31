@@ -4,7 +4,7 @@
 
 <script>
 import uuidv1 from 'uuid/v1' // 引入uuid文件
-import { formatDate } from '../../../filters'
+import { getFormatDate } from '../../../filters'
 export default {
   name: 'LineChart',
   props: { // 接受父组件传递来的数据
@@ -54,11 +54,11 @@ export default {
   },
   computed: {
     ft() {
-      return formatDate(new Date(this.lastTime), 'yyyy-MM-dd hh:mm')
+      return getFormatDate(this.lastTime, 'yyyy-MM-dd hh:mm')
     },
     formatDate() {
       for (var i in this.checkTime) {
-        this.checkTime[i] = formatDate(new Date(this.checkTime[i]), 'yyyy-MM-dd hh:mm')
+        this.checkTime[i] = getFormatDate(this.checkTime[i], 'yyyy-MM-dd hh:mm')
       }
       return this.checkTime
     }
@@ -84,7 +84,7 @@ export default {
         left: 'right',
         subtext: ''
       }, {
-        text: formatDate(new Date(this.lastTime), 'yyyy-MM-dd hh:mm'),
+        text: this.lastTime != null ? getFormatDate(this.lastTime, 'yyyy-MM-dd hh:mm'):'',
         textStyle: {
           color: '#666', // 颜色
           fontWeight: 'normal', // 粗细

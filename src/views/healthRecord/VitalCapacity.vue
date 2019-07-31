@@ -4,7 +4,7 @@
       <h2 class="lately_title">最近肺活量</h2>
       <ul>
         <li>
-          <p>{{ vitalCapacityRecord.VitalCapacity }}<span>ml</span></p>
+          <p>{{ vitalCapacityRecord.VitalCapacity > 0 ? vitalCapacityRecord.VitalCapacity:'' }}<span>ml</span></p>
         </li>
         <li>
           <p class="blood-status">{{ vitalCapacityRecord.Result }}</p>

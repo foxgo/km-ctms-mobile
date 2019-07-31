@@ -36,9 +36,8 @@ export default {
   data() {
     return {
       h: document.documentElement.clientHeight || document.body.clientHeight,
-      items: [{ name: '收缩压', data: [89, 90, 120, 90, 110, 89, 120, 89, 90, 90] }, { name: '舒张压', data: [119, 30, 80, 90, 100, 79, 80, 99, 120] }],
-      // items: [{ name: '收缩压', data: [] }, { name: '舒张压', data: [] }],
-      lastTime: '2017-10-19 10:23',
+      items: [{ name: '收缩压', data: [] }, { name: '舒张压', data: [] }],
+      lastTime: null,
       flag: false,
       min: 60,
       max: 210,
@@ -48,8 +47,8 @@ export default {
         SystolicList: [],
         DiastolicList: [],
         CheckTimeList: [],
-        Systolic: 150,
-        Diastolic: 30,
+        Systolic: null,
+        Diastolic: null,
         Pulse: 0,
         LastTestTime: null,
         Result: null,

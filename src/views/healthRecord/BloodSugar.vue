@@ -7,7 +7,7 @@
           <p class="sugar">{{ bloodSugarRecord.SugarType }}</p>
         </li>
         <li>
-          <p>{{ bloodSugarRecord.Sugar }}<span>mmol/L</span></p>
+          <p>{{ bloodSugarRecord.Sugar > 0 ? bloodSugarRecord.Sugar:'' }} <span>mmol/L</span></p>
         </li>
         <li>
           <p class="blood-status">{{ bloodSugarRecord.Result }}</p>
@@ -44,7 +44,7 @@ export default {
         SugarList: [],
         CheckTimeList: [],
         SugarTypeList: [],
-        Sugar: 3.1,
+        Sugar: null,
         LastTestTime: null,
         Result: null,
         Imei: null,

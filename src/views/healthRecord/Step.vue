@@ -4,7 +4,7 @@
       <h2 class="lately_title">最近步数</h2>
       <ul>
         <li>
-          <p>{{ stepReocrd.Step }}<span>步</span></p>
+          <p>{{ stepReocrd.Step > 0 ? stepReocrd.Step:'' }}<span>步</span></p>
         </li>
         <li>
           <p class="blood-status">{{ stepReocrd.Result }}</p>

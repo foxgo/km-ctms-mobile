@@ -4,7 +4,7 @@
       <h2 class="lately_title">最近血氧</h2>
       <ul>
         <li>
-          <p>{{ bloodOxygenRecord.Oxygen }}<span>%</span></p>
+          <p>{{ bloodOxygenRecord.Oxygen > 0 ? bloodOxygenRecord.Oxygen:'' }}<span>%</span></p>
         </li>
         <li>
           <p class="blood-status">{{ bloodOxygenRecord.Result }}</p>
@@ -31,7 +31,7 @@ export default {
     return {
       h: document.documentElement.clientHeight || document.body.clientHeight,
       items: [{ name: '血氧', data: [] }],
-      lastTime: '2017-10-19 10:23',
+      lastTime:null,
       min: 0,
       max: 100,
       interval: 10, // 间隔
