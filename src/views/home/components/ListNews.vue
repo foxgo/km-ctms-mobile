@@ -71,10 +71,8 @@ export default {
       axios(process.env.BASE_API_APP + "/api/News/GetNewsDetail?id=" + newsID).then((response) => {
           return response.data;
       }).then((data) => {
-        const url = data.Data.SourceUrl
-          this.$root.loadUrlOutOfSite(title, url)
-          // window.location.href = url
-          // this.$router.push({path:'/htmlPanel', query:{url}})
+          const url = data.Data.SourceUrl
+          this.$root.actionToNative('gotoOuterSiteURL', title, url)
       }).catch(() => {
           console.log("请求出错");
       });

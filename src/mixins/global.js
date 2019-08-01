@@ -71,9 +71,10 @@ let globalMixin = {
         getTempImage() {
             return tempImage;
         },
-        // 加载外网链接
-        loadUrlOutOfSite(title, url) {
+        // 对原生统一调用方式
+        actionToNative(action, title, url) {
             const obj = {
+                'action': action,
                 'title': title,
                 'url': url
             }

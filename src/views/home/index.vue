@@ -55,7 +55,7 @@ export default {
       switch (newval) {
         case '1': break;
         case '2':
-          alert(JSON.stringify({'action': 'gotoShoppingMall'}))
+          this.$root.actionToNative('gotoShoppingMall')
           break;
         case '3':
           this.$router.push({

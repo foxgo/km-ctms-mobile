@@ -49,7 +49,7 @@ export default {
     },
 
     gotoNative(){
-      alert(JSON.stringify({'action': 'gotoNative'}))
+      this.$root.actionToNative('gotoNative')
     }
   }
 
