@@ -64,10 +64,10 @@ const user = {
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
+        // getUserInfo(state.token).then(response => {
 
           // 使用静态数据来关闭用户角色功能
-          response = {
+          let response = {
             'status': 200,
             'statusText': 'OK',
             data: {
@@ -98,7 +98,7 @@ const user = {
         }).catch(error => {
           reject(error)
         })
-      })
+      // })
     },
 
     // 第三方验证登录
