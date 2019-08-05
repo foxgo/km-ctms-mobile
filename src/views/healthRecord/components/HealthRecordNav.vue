@@ -1,5 +1,6 @@
-<template>
+<template> 
   <div class="root-page-box">
+    <health-record></health-record>
     <ul>
       <li id="BloodPressure"><router-link to="BloodPressure">血压</router-link></li>
       <li><router-link to="BloodSugar">血糖</router-link></li>
@@ -12,15 +13,21 @@
   </div>
 </template>
 
+
 <script>
 
+import HealthRecord from "../../home/components/HealthRecord";
+
 export default {
-  name: 'HealthRecordNav',
+  name: 'HealthRecordNav', 
   data() {
     return {
       showBoxId: '0',
       selected: 'BloodPressure'
     }
+  },
+  components:{
+    HealthRecord
   },
   methods: {
     // 切换

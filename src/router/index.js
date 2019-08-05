@@ -36,16 +36,17 @@ export const constantRouterMap = [
   //   component: () => import('@/views/login/index'),
   //   hidden: true
   // },
-  // {
-  //   path: '/authredirect',
-  //   component: () => import('@/views/login/authredirect'),
-  //   hidden: true
-  // },
   {
     path: '/',
     name: 'Home',
     component: Home,
     meta: { title: '健康管理', noCache: true, keepAlive: true }
+  },
+  {
+    path: '/familyMembers',
+    name: 'FamilyMembers',
+    component: () => import('@/views/FamilyMembers'),
+    meta: { title: '家庭成员', keepAlive: true }
   },
   {
     path: '/BloodPressureManual',
@@ -123,11 +124,6 @@ export const constantRouterMap = [
     component: () => import('@/views/errorPage/401'),
     hidden: true
   },
-  {
-    path: '/htmlPanel',
-    component: () => import('@/components/HtmlPanel'),
-    hidden: true
-  }, // 外部html页面嵌套壳
   {
     path: '/lifeCycle',
     component: () => import('@/views/lifeCycle'),

@@ -50,9 +50,7 @@ export default {
           break;
         case '3': break;
         case '4':     
-          // this.$router.push({
-          //   path:'/'
-          // })
+          this.$router.push({ path:'/familyMembers' })
           break;
       }
     }

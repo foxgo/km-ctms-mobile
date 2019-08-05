@@ -23,21 +23,11 @@ export default {
 <style scoped >
 	.suggetion_content_text {
 	    line-height: 22px;
-	    padding-left: 10px;
-	    padding-right: 10px;
+	    padding: 10px;
 	    color: rgb(51,51,51);
 	    text-align: left;
 	    font-size: 14px;
 	}
-	.suggetion_content_text {
-	    line-height: 22px;
-	    padding-left: 10px;
-	    padding-right: 10px;
-	    color: rgb(51,51,51);
-	    text-align: left;
-	    font-size: 14px;
-	}
-
 	.noRecord_background {
     	text-align:center;
     	margin-top:40px;

@@ -34,6 +34,30 @@ export function getFamilyMemberList() {
   })
 }
 
+/** 判断手机号码或身份证号在家庭成员中是否存在（目前需求只用到身份证号）
+ * AccountType 1-手机号  2-身份证
+ * AccountName 手机号或者身份证的值
+ */
+export function getFamilyMemberIsExists(accountType, accountName) {
+  return request({
+    method: 'get',
+    url: '/api/PersonFamily/ExistsFamilyMember',
+    params: { 'AccountType': accountType, 'AccountName': accountName }
+  })
+}
+
+/** 判断手机号码或身份证号的档案是否存在
+ * AccountType 1-手机号  2-身份证
+ * AccountName 手机号或者身份证的值
+ */
+export function getAccountIsExists(accountType, accountName, personID) {
+  return request({
+    method: 'get',
+    url: '/api/Person/ExistsAccount',
+    params: { 'AccountType': accountType, 'AccountName': accountName, 'PersonID': personID}
+  })
+}
+
 /**
  * 新增家庭成员
  * @业务流程
@@ -82,26 +106,13 @@ export function createFamilyMember(data) {
   })
 }
 
-/** 判断手机号码或身份证号在家庭成员中是否存在（目前需求只用到身份证号）
- * AccountType 1-手机号  2-身份证
- * AccountName 手机号或者身份证的值
+/** 删除家庭成员（只是从当前家庭中移除，用户档案依然存在）
+ * PersonFamilyID
  */
-export function getFamilyMemberIsExists(accountType, accountName) {
+export function deleteFamilyMember(data) {
   return request({
-    method: 'get',
-    url: '/api/PersonFamily/ExistsFamilyMember',
-    params: { 'AccountType': accountType, 'AccountName': accountName }
-  })
-}
-
-/** 判断手机号码或身份证号的档案是否存在
- * AccountType 1-手机号  2-身份证
- * AccountName 手机号或者身份证的值
- */
-export function getAccountIsExists(accountType, accountName, personID) {
-  return request({
-    method: 'get',
-    url: '/api/Person/ExistsAccount',
-    params: { 'AccountType': accountType, 'AccountName': accountName, 'PersonID': personID}
+    url: '/api/PersonFamily/DelFamilyMember',
+    method: 'post',
+    data
   })
 }

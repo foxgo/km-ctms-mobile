@@ -99,10 +99,11 @@ import { Toast } from 'mint-ui'
 import { getHealthEvaluateInfo } from '@/api/healthEvaluate'
 import { ScoreAlertView } from './components/ScoreAlertView/scoreAlertView'
 
-import EattingSuggest from "./components/EattingSuggest";
-import SportSuggest from "./components/SportSuggest";
-import MentalSuggest from "./components/MentalSuggest";
-import SocietySuggest from "./components/SocietySuggest";
+import GoodsSuggest from "./components/GoodsSuggest"
+import EattingSuggest from "./components/EattingSuggest"
+import SportSuggest from "./components/SportSuggest"
+import MentalSuggest from "./components/MentalSuggest"
+import SocietySuggest from "./components/SocietySuggest"
 
 let mySwiper;
 
@@ -134,6 +135,7 @@ export default {
     }
   },
   components: {
+      GoodsSuggest,
       EattingSuggest,
       SportSuggest,
       MentalSuggest,
