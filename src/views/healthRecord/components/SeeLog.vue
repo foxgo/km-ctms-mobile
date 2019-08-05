@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script>import { getFormatDate } from '../../../filters'
+<script>import { getFormatDate } from '@/utils/dateFilter.js'
 export default {
   name: 'SeeLog',
   filters: {

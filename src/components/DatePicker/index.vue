@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../filters'
+import { formatDate } from '../../utils/dateFilter.js'
 export default {
   name: 'DatePicker',
   filters: {

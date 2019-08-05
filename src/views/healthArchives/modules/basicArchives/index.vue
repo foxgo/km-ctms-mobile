@@ -71,7 +71,8 @@
 import DatePicker from '@/components/DatePicker'
 import AreaPicker from '@/components/AreaPicker'
 import { Toast,DatetimePicker,Actionsheet,MessageBox } from 'mint-ui'
-import { dateFormat,isPhoneNo,isCardNo,isCardNoStrict,limitStringLength } from '@/filters'
+import { isPhoneNo,isCardNo,isCardNoStrict,limitStringLength } from '@/utils/stringFilter.js'
+import { dateFormat } from '@/utils/dateFilter.js'
 import { getBasicHealthArchivesInfo,postBasicHealthArchivesInfo } from '@/api/healthArchives'
 import { createFamilyMember,getFamilyMemberIsExists,getAccountIsExists } from '@/api/familyMember'
 

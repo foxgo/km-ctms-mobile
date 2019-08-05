@@ -41,7 +41,7 @@
 
 <script>
 import { getSuggest } from '@/api/suggest'
-import { formatDate } from '../../filters'
+import { formatDate } from '@/utils/dateFilter.js'
 export default {
   name: 'Suggest',
   data() {

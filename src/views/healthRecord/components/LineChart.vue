@@ -4,7 +4,7 @@
 
 <script>
 import uuidv1 from 'uuid/v1' // 引入uuid文件
-import { getFormatDate } from '../../../filters'
+import { getFormatDate } from '@/utils/dateFilter.js'
 export default {
   name: 'LineChart',
   props: { // 接受父组件传递来的数据
