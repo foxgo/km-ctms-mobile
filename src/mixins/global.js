@@ -2,11 +2,11 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
-import {Indicator} from "mint-ui"
+import { Indicator } from 'mint-ui'
 
-let tempImage;
+let tempImage
 
-let globalMixin = {
+const globalMixin = {
     data() {
         return {}
     },
@@ -17,61 +17,68 @@ let globalMixin = {
     mounted() {},
     methods: {
         // 加载loading
-        showLoading(text = "正在加载……") {
+        showLoading(text = '正在加载……') {
             Indicator.open({
                 text,
-                spinnerType: "fading-circle"
-            });
+                spinnerType: 'fading-circle'
+            })
         },
         // 隐藏 loading
         hideLoading() {
-            Indicator.close();
+            Indicator.close()
         },
         // 设置标题
         setPageTitle(title) {
-            this.$store.state.app.pageTitle = title;
+            this.$store.state.app.pageTitle = title
         },
         //获取路由
         getRouterPath(routerObj) {
-            let routes = this.$router.options.routes;
-            let path = "", router, params, query;
+            const routes = this.$router.options.routes
+            let path = "", router, params, query
 
-            if(typeof routerObj == "object") {
-                router = routes.find((n) => n.name === routerObj.name);
-                params = routerObj.params;
-                query = routerObj.query;
+            if(typeof routerObj === 'object') {
+                router = routes.find((n) => n.name === routerObj.name)
+                params = routerObj.params
+                query = routerObj.query
 
-                path = router.path;
+                path = router.path
 
                 if(params) {
-                    for(let [key, value] of Object.entries(params)){
-                        path = path.replace(new RegExp(`:${key}(?=([/\:]|$))`), value);
+                    for(const [key, value] of Object.entries(params)) {
+                        path = path.replace(new RegExp(`:${key}(?=([/\:]|$))`), value)
                     }
                 }
 
                 if(query) {
-                    let queryStr = [];
+                    const queryStr = []
 
-                    for(let [key, value] of Object.entries(query)){
-                        queryStr.push(`${key}=${value}`);
+                    for(const [key, value] of Object.entries(query)) {
+                        queryStr.push(`${key}=${value}`)
                     }
 
-                    path += "?" + queryStr.join("&");
+                    path += '?' + queryStr.join('&')
                 }
             } else {
-                router = routes.find((n) => n.name === routerObj);
-                path = router.path;
+                router = routes.find((n) => n.name === routerObj)
+                path = router.path
             }
 
-            return path;
+            return path
         },
         setTempImage(img) {
-            tempImage = img;
+            tempImage = img
         },
         getTempImage() {
-            return tempImage;
+            return tempImage
         },
-        // 对原生统一调用方式
+        
+        /* 对原生统一调用方式
+           有以下4种事件类型：
+            - gotoNative -- 'X'关闭按钮点击后退出H5页面
+            - gotoShoppingMall -- 原生跳转到健康商城
+            - gotoOuterSiteURL -- 跳转到外部站点
+            - gotoDoctorOnline -- 在线问诊
+        */
         actionToNative(action, title, url) {
             const obj = {
                 'action': action,
@@ -81,6 +88,6 @@ let globalMixin = {
             alert(JSON.stringify(obj))
         }
     }
-};
+}
 
-export default globalMixin;
+export default globalMixin
