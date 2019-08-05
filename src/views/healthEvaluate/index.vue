@@ -33,14 +33,14 @@
           </div>
         </div>
         <div id="score_comment">
-          <span id="middle_span_comment">注: 您本次评估的健康档案信息完整度为40%,评估时间为2019-04-04。信息越完整,评估越精准! 建议完善信息后再次评估</span>
+          <span>注: 您本次评估的健康档案信息完整度为40%,评估时间为2019-04-04。信息越完整,评估越精准! 建议完善信息后再次评估</span>
         </div>
         <div style="background-color: rgb(242,242,242); height: 10px"/>
       </section>
 
       <!-- 中部:各种建议 -->
       <section id="middle">
-        <div id="suggetion" class="clearfix">
+        <div id="suggetion-titles-box" class="clearfix">
           <ul :class="showScoreTips == true ? 'isFixed' :''">
             <!--<li>
                 <router-link :to="{name:linkerList[0].name, params:{suggestionData:dietSuggestion,suggestionDetailData:dietSuggestionDetail}}" active-class="seleted_li_a">{{linkerList[0].title}}</router-link>
@@ -89,8 +89,6 @@
               </div>
             </div>
           </div>
-
-          <!--<router-view/>-->
         </div>
       </section>
     </div>
@@ -133,8 +131,6 @@ export default {
       sportSuggestion:'',
       mentalSuggestion:'',
       societySuggestion:'',
-
-      
     }
   },
   components: {
@@ -168,7 +164,7 @@ export default {
 
         mySwiper = this.$createSwiper("#health-evaluate-swiper", options);
     },
-      //设置当前标签内容
+    //设置当前标签内容
     setCurrentTab(index) {
         if(mySwiper) {
             mySwiper.slideTo(index);
@@ -177,7 +173,7 @@ export default {
     scrollHandle:function () {
       let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;  
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      let offsetTop = document.querySelector('#suggetion').offsetTop - 30;
+      let offsetTop = document.querySelector('#suggetion-titles-box').offsetTop - 100;
       scrollTop > offsetTop ? this.showScoreTips = true : this.showScoreTips = false
 
     },
@@ -213,7 +209,7 @@ export default {
          this.socialHealthScore = data.SocialResult.Score;
 
          let time = data.PersonDeseaseCategory.ModifiedTime.split('T')[0];
-         document.getElementById('middle_span_comment').innerHTML =
+         document.getElementById('score_comment').childNodes[0].innerHTML =
          '注: 您本次评估的健康档案信息完整度为' + data.DataIntegrity + '%,评估时间为' + time + '。信息越完整,评估越精准! 建议完善信息后再次评估';
 
          // 疾病风险因子  var colorArr = ["0.3","0.6"];
@@ -242,7 +238,6 @@ export default {
          }
          
          // 心理 level: {1:低,2:中,3:优}
-      
          function getLevel (result) {
              switch(result) {
                 case 1:
@@ -324,10 +319,6 @@ export default {
 </script>
 
 <style scoped >
-/*@import '~@/assets/styles/varibles.styl'*/
-.health_evaluate {
-		margin-top: 40px;
-	}
 
 #score_synthesize {
   padding-top: 10px;
@@ -343,7 +334,8 @@ export default {
 }
 
 .head_content_text {
-  color: red; font-size: 16px;
+  color: red; 
+  font-size: 16px;
 }
 
 #score_details {
@@ -353,13 +345,10 @@ export default {
 }
 
 #score_details svg {
-  /*background-color: rgba(170,170,170,0.6);*/
-
   width:300px;
   height:200px;
   /*根据尺寸计算坐标*/
   margin: calc((280px - 200px)/2) calc(50% - 200px);
-
 }
 
 .report_radius {
@@ -377,21 +366,21 @@ export default {
 /*顶部--生理分数*/
 #report_radius_1 {
   background-color: rgb(37,191,255);
-  top: 70px;
+  top: 100px;
   right: calc(50% - 45px);
   right:-webkit-calc(50% - 45px);
 }
 
 #report_radius_2 {
   background-color: rgb(255, 164, 57);
-  top: 200px;
+  top: 230px;
   left: calc(50% - 130px);
   left:-webkit-calc(50% - 130px);
 }
 
 #report_radius_3 {
   background-color: rgb(0, 200, 132);
-  top: 200px;
+  top: 230px;
   right: calc(50% - 130px);
   right:-webkit-calc(50% - 130px);
 }
@@ -409,28 +398,26 @@ export default {
 }
 
 #score_comment {
-  padding-bottom: 15px;
-  padding-left: 10px;
-}
-#middle_span_comment {
+  padding:0 10px 10px 10px;
   color: rgb(153, 153, 153);
   font-size: 14px;
+  line-height: 18px;
   font-family: HiraginosansGB-W3;
 }
 
-div#suggetion ul {
+div#suggetion-titles-box ul {
   width: 100%;
-  /*height: 30px;*/
+  background-color: #Fff;
 }
 
-div#suggetion ul li {
+div#suggetion-titles-box ul li {
   float: left;  /* 向左漂移，将竖排变为横排 */
   width: 25%;
   height: 30px;
   border-bottom: 0.5px rgb(200, 200, 200) solid;
 }
 
-div#suggetion ul li a {
+div#suggetion-titles-box ul li a {
   text-align: center;
   color: rgb(102, 102, 102);
   font-size: 15px;
@@ -440,21 +427,22 @@ div#suggetion ul li a {
   text-decoration: none;
 }
 
-div#suggetion ul li a.seleted_li_a, div#suggetion ul li a:active  {
+div#suggetion-titles-box ul li a.seleted_li_a, div#suggetion-titles-box ul li a:active  {
   color: rgb(0, 141, 253);
   border-bottom: 2px rgb(0, 141, 253) solid;
 }
 
-div#suggetion .isFixed {
+/* 顶部悬浮框 */
+div#scoreTips .isFixed {
   position:fixed;
-  background-color:#Fff;
-  top:30px;
+  top:70px;
   z-index:998;
 }
 
-div#scoreTips .isFixed {
+div #suggetion-titles-box .isFixed {
   position:fixed;
-  top:0;
+  background-color:#Fff;
+  top:100px;
   z-index:999;
 }
 

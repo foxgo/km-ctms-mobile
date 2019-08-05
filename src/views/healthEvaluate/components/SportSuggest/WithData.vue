@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<div style="padding-top:30px;"></div>
 		<div class="sport_plan_header">
 			<div class="sportImg_container"><img v-bind:src="require('@/assets/images/healthEvaluate/sport/sportIcon.png')"/></div>
 			<div class="sport_title_text">您最近一周的有氧运动计划</div>
@@ -15,7 +14,7 @@
 				<div class="sport_subtitle_text">{{dayItem.SportType ? 'min' : '&nbsp;'}}</div>
 			</div>
 		</div>
-		<div class="sport_plan_state sport_content_text" style="margin:10px; height: 0.3rem">按照上述安排进行锻炼，您本周可以通过运动消耗热量：<strong>{{suggestion.Calory}}</strong>Kcal，相当于减少脂肪：<strong>{{suggestion.Fat}}</strong>g
+		<div class="sport_plan_state sport_content_text">按照上述安排进行锻炼，您本周可以通过运动消耗热量：<strong>{{suggestion.Calory}}</strong>Kcal，相当于减少脂肪：<strong>{{suggestion.Fat}}</strong>g
 		</div>
 		<div style="background-color: rgb(242,242,242); height: 10px; margin-top:15px;">
 		</div>
@@ -66,7 +65,7 @@ export default {
 </script>
 
 <style scoped >
-	.sport_title_text {
+.sport_title_text {
     color: rgb(51,51,51);
     font-size: 15px;
 }
@@ -124,7 +123,11 @@ export default {
     padding-top: 5px;
 }
 
+.sport_plan_state.sport_content_text {
+	height: 40px;
+}
 .sport_plan_state strong  {
-    color:rgb(0, 141, 253);
+	color:rgb(0, 141, 253);
+	
 }
 </style>

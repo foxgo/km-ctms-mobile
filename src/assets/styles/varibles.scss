@@ -28,8 +28,8 @@ $breakpoints: (
 		$query: map-get($breakpoints, $breakpoint);
 		// 这里是scss error提示估计大部分人（包括我）都没怎么使用过
 		@if not $query {
-		@error 'No value found for `#{$breakpoint}`. Please make sure it is 
-		defined in `$breakpoints` map.';
+		    @error 'No value found for `#{$breakpoint}`. Please make sure it is 
+		            defined in `$breakpoints` map.';
 		}
 		// 具体断点解释在这里，作者比较严谨，校验了$query合法性
 		@media #{if(type-of($query) == 'string', unquote($query), inspect($query))}
@@ -59,6 +59,7 @@ $breakpoints: (
 @mixin position-set($set) {
     $len: length($set);
 
+    //nth() 函数用来指定列表中某个位置的值
     @if $len >= 1 {
         top: nth($set, 1);
     }

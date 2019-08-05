@@ -21,6 +21,7 @@ $text-mute: #9f9f9f;
 
 //其他颜色
 $primary-color: #008dfd;
+$background-color: #fafafa;
 $blue:#324157;
 $light-blue:#3A71A8;
 $red:#C03639;
@@ -63,7 +64,14 @@ $screen-sm-min: $screen-sm !default;
 $screen-md-min: $screen-md !default;
 $screen-lg-min: $screen-lg !default;
 
-clearfix {
+//导航栏高度（刘海屏与普通屏）
+$navBar-height-liuHai: 70px;
+$navBar-height-normal: 64px;
+
+//主页顶部的tab标签高度
+$rootpage-tab-height: 30px;
+
+.clearfix {
     &:before,
     &:after {
         content: " ";
@@ -584,29 +592,29 @@ pad-l-xl {
 }
 
 .normal-page-box {
-    background:#fafafa;
-    margin-top: 70px;
+    background:$background-color;
+    margin-top: $navBar-height-liuHai;
 
     @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
-      margin-top: 70px;
+      margin-top: $navBar-height-liuHai;
     }
     @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
-      margin-top: 64px;
+      margin-top: $navBar-height-normal;
     }
 }
 
 .root-page-box {
-    background:#fafafa;
-    margin-top: 70px;
+    background:$background-color;
+    margin-top: $navBar-height-liuHai;
 
     @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
-      margin-top: 70px + 30px;
+      margin-top: $navBar-height-liuHai + $rootpage-tab-height;
     }
     @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
-      margin-top: 64px + 30px;
+      margin-top: $navBar-height-normal + $rootpage-tab-height;
     }
 }
 
 .health_content {
-    background-color:#f5f5f5
+    background-color:$background-color
 }

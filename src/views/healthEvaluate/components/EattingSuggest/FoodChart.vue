@@ -59,7 +59,7 @@ export default {
 	color: rgb(51,51,51);
 	line-height: 20px;
 	padding-left: 10px;
-	padding-top: 40px;
+	padding-top: 10px;
 	/*white-space:pre-wrap;*/
 }
 
