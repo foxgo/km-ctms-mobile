@@ -11,6 +11,7 @@ const user = {
     gender: '',
     birthDate: '',
     avatar: '',
+    memberId: 0,
     introduction: '',
     roles: [],
     setting: {

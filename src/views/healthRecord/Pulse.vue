@@ -25,9 +25,11 @@
 <script>
 import LineChart from './components/LineChart'
 import { getHeartRateRecord } from '@/api/dailyMonitor'
+import mixinswitch from "@/mixins/monitor-switch"
 export default {
   name: 'BloodPressure',
   components: { LineChart },
+  mixins: [mixinswitch],
   data() {
     return {
       h: document.documentElement.clientHeight || document.body.clientHeight,
@@ -56,6 +58,13 @@ export default {
   },
   mounted() {
     this.$refs.healthHeight.style.height = (this.h - 154.0) + 'px'
+  },
+  watch: {
+    memberId: function(newValue,olodValue) {
+      if(newValue > 0 && newValue != olodValue){
+        this.getData()
+      }
+    }
   },
   methods: {
     getData() {

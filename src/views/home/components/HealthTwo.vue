@@ -31,8 +31,10 @@
 
 <script>
 import { getLastBloodPressure,getLastBloodSugar } from '@/api/dailyMonitor'
+import mixinswitch from "@/mixins/monitor-switch"
 export default {
   name: 'HealthTwo',
+  mixins: [mixinswitch],
   data() {
     return {
       bloodPressure: {
@@ -47,6 +49,14 @@ export default {
   created() {
     this.getLastBloodPressure()
     this.getLastBloodSugar()
+  },
+  watch: {
+    memberId: function(newValue,olodValue) {
+      if(newValue > 0 && newValue != olodValue){
+        this.getLastBloodPressure()
+        this.getLastBloodSugar()
+      }
+    }
   },
   methods: {
     pushPage(index) {

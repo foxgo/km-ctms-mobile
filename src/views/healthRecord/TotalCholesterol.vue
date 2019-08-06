@@ -25,9 +25,11 @@
   
   import LineChart from './components/LineChart'
   import { getTCRecord } from '@/api/dailyMonitor'
+  import mixinswitch from "@/mixins/monitor-switch"
   export default {
     name: 'TotalCholesterol',
     components :{ LineChart },
+    mixins: [mixinswitch],
     data(){
        return{
          h:document.documentElement.clientHeight || document.body.clientHeight,
@@ -52,6 +54,13 @@
     },
     mounted(){
        this.$refs.healthHeight.style.height = this.h +'px'
+    },
+    watch: {
+      memberId: function(newValue,olodValue) {
+        if(newValue > 0 && newValue != olodValue){
+          this.getData()
+        }
+      }
     },
     methods:{
       getData(){

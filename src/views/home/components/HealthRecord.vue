@@ -100,7 +100,7 @@ export default {
       getSwitchFamilyMember(member.memberID).then(response => {
         if (response.data.IsSuccess) {
           console.log('切换成员成功: ' + member.name + ' ' + member.phone + ' ' + member.gender)
-
+            
           // 更新H5-token
           const token = response.data.ReturnData.Token
           setToken_H5(token)
@@ -110,6 +110,7 @@ export default {
           that.$store.state.user.name = that.actionSheetData.name = member.name
           that.$store.state.user.phone = member.phone
           that.$store.state.user.gender = member.gender
+          that.$store.state.user.memberId = member.memberID
 
           // 获取切换后用户的信息，正式更换用户数据（包含了头像、生日）
           getBasicHealthArchivesInfo().then(response => {
@@ -128,6 +129,7 @@ export default {
           }).catch(error => {
             Toast(error);
           })
+          
         }else {
           Toast(response.data.ReturnMessage);
         }
