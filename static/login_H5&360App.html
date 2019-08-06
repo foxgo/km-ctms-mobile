@@ -78,28 +78,11 @@
 
     <script>
         // 默认开发环境
-        var baseURL = "http://10.2.32.49:8082";
-        var seletedButton = document.getElementById("button-0");
+        var baseURL = "http://test-hmmobile.kmhealth360.com";
+        var seletedButton = document.getElementById("button-1");
         seletedButton.style.backgroundColor = "#c06c6c";
 		
-		/*const keyUrl = {
-		    0:"http://10.2.32.49:8082",
-			1:"http://test-hmmobile.kmhealth360.com",
-			2:"http://pre-hmmobile.kmhealth360.com",
-			3:"http://hmmobile.kmhealthcloud.com"
-		}*/
-		const keyUrl = new Map()
-		.set('0',"http://10.2.32.49:8082")
-		.set('1',"http://test-hmmobile.kmhealth360.com")
-		.set('2',"http://pre-hmmobile.kmhealth360.com")
-		.set('3',"http://hmmobile.kmhealthcloud.com");
-		
-		function getUrl(index){
-		    return keyUrl[index] || [];
-		}
-		
         function envSwitch(index){
-            //baseURL = getUrl(index);
 			switch(index) {
 			    case 0:
                     baseURL = "http://10.2.32.49:8082";
