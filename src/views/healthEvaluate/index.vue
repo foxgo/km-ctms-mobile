@@ -35,6 +35,18 @@
         <div id="score_comment">
           <span>注: 您本次评估的健康档案信息完整度为40%,评估时间为2019-04-04。信息越完整,评估越精准! 建议完善信息后再次评估</span>
         </div>
+
+        <div class="button-box"><img src="">
+          <div style="float:left;" @click="gotoHealthAdvisory()">
+            <img src="@/assets/images/healthEvaluate/healthAdvisory.png">
+            <p>健康咨询</p>
+          </div>
+          <div style="float:right;" @click="gotoFinishArchieve()">
+            <img src="@/assets/images/healthEvaluate/finishArchieve.png">
+            <p>完善资料</p>
+          </div>
+        </div>
+
         <div style="background-color: rgb(242,242,242); height: 10px"/>
       </section>
 
@@ -67,11 +79,19 @@
             <li>
               <a :class="{'seleted_li_a': 3 === currentTabIndex}" href="javascript:" @click="setCurrentTab(3)">{{linkerList[3].title}}</a>
             </li>
+            <li>
+              <a :class="{'seleted_li_a': 4 === currentTabIndex}" href="javascript:" @click="setCurrentTab(4)">{{linkerList[4].title}}</a>
+            </li>
           </ul>
         </div>
         <div class="clearfix">
           <div class="swiper-container" id="health-evaluate-swiper" v-if="loadComplete">
             <div class="swiper-wrapper">
+
+              <div class="swiper-slide">
+                <goods-suggest :suggestionData="mentalSuggestion" />
+              </div>
+
               <div class="swiper-slide">
                 <eatting-suggest :suggestionData="dietSuggestion" :suggestionDetailData="dietSuggestionDetail" />
               </div>
@@ -87,6 +107,7 @@
               <div class="swiper-slide">
                 <society-suggest :suggestionData="societySuggestion" />
               </div>
+
             </div>
           </div>
         </div>
@@ -114,6 +135,7 @@ export default {
       loadComplete: false, //是否已加载
       currentTabIndex: 0, // 当前标签
       linkerList: [
+        { title: '推荐商品', name: 'GoodsSuggest' },
         { title: '饮食建议', name: 'EattingSuggest' },
         { title: '运动建议', name: 'SportSuggest' },
         { title: '心理建议', name: 'MentalSuggest' },
@@ -178,6 +200,13 @@ export default {
       let offsetTop = document.querySelector('#suggetion-titles-box').offsetTop - 100;
       scrollTop > offsetTop ? this.showScoreTips = true : this.showScoreTips = false
 
+    },
+
+    gotoHealthAdvisory() {
+      // this.$router
+    },
+    gotoFinishArchieve() {
+      // this.$router
     },
 
     loadData() {
@@ -321,6 +350,11 @@ export default {
 </script>
 
 <style scoped >
+.health_evaluate ul {
+  margin-block-start:0;
+  margin-block-end:0;
+  padding-inline-start:0;
+}
 
 #score_synthesize {
   padding-top: 10px;
@@ -405,6 +439,33 @@ export default {
   font-size: 14px;
   line-height: 18px;
   font-family: HiraginosansGB-W3;
+  text-align: left;
+}
+
+.button-box {
+  width: 90%;
+  height: 44px;
+  margin-left: 5%;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.button-box div {
+  width: 44%;
+  height: 100%;
+  box-shadow: 0 0 8px 1px #eceaea;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.button-box div img {
+  width: 30px;
+  height: 30px;
+}
+.button-box div p {
+  padding-left: 10%;
 }
 
 div#suggetion-titles-box ul {
@@ -414,7 +475,7 @@ div#suggetion-titles-box ul {
 
 div#suggetion-titles-box ul li {
   float: left;  /* 向左漂移，将竖排变为横排 */
-  width: 25%;
+  width: 20%;
   height: 30px;
   border-bottom: 0.5px rgb(200, 200, 200) solid;
 }
@@ -434,18 +495,18 @@ div#suggetion-titles-box ul li a.seleted_li_a, div#suggetion-titles-box ul li a:
   border-bottom: 2px rgb(0, 141, 253) solid;
 }
 
-/* 顶部悬浮框 */
-div#scoreTips .isFixed {
-  position:fixed;
-  top:70px;
-  z-index:998;
-}
-
 div #suggetion-titles-box .isFixed {
   position:fixed;
   background-color:#Fff;
   top:100px;
   z-index:999;
+}
+
+/* 顶部悬浮框 */
+div#scoreTips .isFixed {
+  position:fixed;
+  top:70px;
+  z-index:998;
 }
 
 div#scoreTips ul {
@@ -464,6 +525,7 @@ div#scoreTips ul li {
 div#scoreTips ul li span {
   display:inline-block; 
   vertical-align:baseline;
+  text-align: center;
   font-size: 12px;
   width: 24px;
   height: 24px;
