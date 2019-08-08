@@ -5,7 +5,7 @@ Vue.use(Router)
 
 import healthRecordRouter from './modules/healthRecord'
 import healthEvaluateRouter from './modules/healthEvaluate'
-import { healthArchivesRouter, healthArchivesRouter2, BasicArchives } from './modules/healthArchives'
+import { healthArchivesRouter, healthArchivesRouter2 } from './modules/healthArchives'
 import diseaseDistribution from "./modules/diseaseDistribution"; //疾病地理
 import dailyHealth from "./modules/dailyHealth"; //每日健康
 
@@ -143,7 +143,7 @@ export default new Router({
 export const asyncRouterMap = [
   healthRecordRouter,
   healthEvaluateRouter,
+  healthArchivesRouter,
   healthArchivesRouter2,
-  BasicArchives,
   { path: '*', redirect: '/404', hidden: true }
 ]
