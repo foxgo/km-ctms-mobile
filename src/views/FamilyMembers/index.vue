@@ -1,16 +1,24 @@
 <template>
     <div class="normal-page-box">
+        <a class="km-header-bar" @click="addMember" style="color:white;">添加新成员</a>
         <ul>
-            <li v-for="(item, index) in dataList" v-bind:key="index"  @click="memberArchieve()">
-                <div class="image-box"><img v-bind:src=defaultAvator></div>
-                <div class="label-box">
-                    <p>{{item.Name}} <span>&nbsp;{{item.Age}}岁</span></p>
-                    <h6>默认</h6>
+            <li class="list-item" v-for="(item, index) in dataList" data-type="0" :key="index">
+                <!-- item 内容 -->
+                <div class="item-content-box" @touchstart.capture="touchStart" @touchmove.capture="touchMove" @touchend.capture="touchEnd" @click="itemClicked">
+                    <div class="image-box"><img v-bind:src=defaultAvator></div>
+                    <div class="label-box">
+                        <p>{{item.Name}} <span>&nbsp;{{item.Age}}岁</span></p>
+                        <h6>默认</h6>
+                    </div>
+                    <div class="phonenum-box">{{item.Phone}}</div>
                 </div>
-                <div class="phonenum-box">{{item.Phone}}</div>
+                <!--  删除按钮 -->
+                <div class="delete" @click="deleteItem" :data-index="index">取消关注</div>
             </li>
         </ul>
     </div>
+
+    
 </template>
     
 <script>
@@ -22,6 +30,9 @@ export default {
         return {
             defaultAvator: require('@/assets/images/home/profile.png'),
             dataList: [],
+
+            startX: 0,
+            endX: 0,
         }
     },
     mounted() {
@@ -32,37 +43,136 @@ export default {
 
         loadData() {
             const that = this
+            this.$root.showLoading()
+
             getFamilyMemberList().then(response => {
                 that.dataList = response.data.ReturnData
-                console.log(that.dataList)
+                this.$root.hideLoading()
             }).catch(error => {
+                this.$root.hideLoading()
                 Toast('网络错误')
             })
         },
 
         //跳转家庭成员档案
         memberArchieve() {
-
+            this.$router.push('/healthArchives')
         },
 
         //新增成员
         addMember() {
+            if (this.dataList.length >= 10) {
+                Toast("家庭成员数量不能超过10人")
+                return
+            }
+            this.$router.push('/healthArchives/basicArchives/addMember')
+        },
 
+        itemClicked() {
+            if (this.checkSlide()) {
+                this.resetSlide()
+            }else {
+                this.memberArchieve()
+            }
+        },
+
+        // 滑动开始
+        touchStart(e) {
+            this.startX = e.touches[0].clientX
+        },
+        // 正在滑动
+        touchMove(e) {
+            // 当前滑动的父级元素
+            // const parentElement = e.currentTarget.parentElement
+            // 实时修改父级元素的位置
+            //
+            // if (parentElement.dataset.type == 0 && this.startX - this.endX > 10) {
+            //     const element = e.currentTarget
+            //     element.style.right = "30px"
+            // }
+        },
+        // 滑动结束
+        touchEnd(e) {
+            // 当前滑动的父级元素
+            const parentElement = e.currentTarget.parentElement
+            // 记录结束位置
+            this.endX = e.changedTouches[0].clientX
+            // 左滑
+            if (parentElement.dataset.type == 0 && this.startX - this.endX > 30) {
+                this.resetSlide()
+                parentElement.dataset.type = 1
+            }
+            // 右滑
+            if (parentElement.dataset.type == 1 && this.startX - this.endX < -30) {
+                this.resetSlide()
+                parentElement.dataset.type = 0
+            }
+            this.startX = 0
+            this.endX = 0
+        },
+
+        // 判断当前是否有滑块处于滑动状态
+        checkSlide() {
+            const listItems = document.querySelectorAll('.list-item')
+            // 复位
+            for (var i = 0; i < listItems.length; i ++) {
+                if (listItems[i].dataset.type == 1) {
+                    return true
+                }
+            }
+            return false
+        },
+
+        // 复位滑动状态
+        resetSlide() {
+            const listItems = document.querySelectorAll('.list-item')
+            // 复位
+            for (var i = 0; i < listItems.length; i ++) {
+                listItems[i].dataset.type = 0
+            }
+        },
+
+        // 删除
+        deleteItem(e) {
+            // 当前索引
+            const index = e.currentTarget.dataset.index
+            // 复位
+            this.resetSlide
+            // 删除
+            this.dataList.splice(index,1)
         }
     }
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
     $cell-height: 2.0rem;
-    $img-box-height: 1.5rem;
+    $img-box-height: 1.4rem;
     $label-box-height: 1.3rem;
 
+    ul {
+        padding-top: 0.2rem;
+        background-color: white;
+    }
+
     li {
+        position: relative;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+
         height: $cell-height;
         text-align: left;
         border-bottom: solid 0.5px #f3f0f0;
-        background-color: white;
+
+        &[data-type="0"] {
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+        }
+
+        &[data-type="1"]{
+            transform: translate3d(-2.4rem,0,0);
+            -webkit-transform: translate3d(-2.4rem,0,0);
+        }
 
         .image-box {
             display: inline-block;
@@ -71,7 +181,7 @@ export default {
             width: $img-box-height;
             height: $img-box-height;
             border-radius: 50%;
-            margin-left:0.3rem;
+            margin-left:0.4rem;
 
             // 垂直居中
             position:relative;
@@ -94,7 +204,7 @@ export default {
             width: 40%;
             height: $label-box-height;
             // background-color: red;
-            margin-left:0.2rem;
+            margin-left:0.3rem;
 
             // 垂直居中
             position:relative;
@@ -103,8 +213,8 @@ export default {
             vertical-align: center;
 
             p {
-                font-size: 0.5rem;
-                font-weight: 500;
+                font-size: 0.42rem;
+                font-weight: 400;
 
                 span {
                     font-size: 0.4rem;
@@ -124,15 +234,29 @@ export default {
             float: right;
             margin-right:0.3rem;
 
-            font-size: 0.4rem;
+            font-size: 0.42rem;
             line-height: 0.4rem;
+            // font-weight: lighter;
             width: 30%;
-            color: #333;
+            color: #666;
             text-align: right;
 
             // 垂直居中
             position:relative;
             top: ($cell-height - 0.4rem)/2;
+        }
+
+        .delete {
+            width: 2.4rem;
+            height: $cell-height;
+            background: #ccc;
+            font-size: 0.42rem;
+            color: #fff;
+            text-align: center;
+            line-height: $cell-height;
+            position: absolute;
+            top:0;
+            right: -2.4rem;
         }
     }
     
