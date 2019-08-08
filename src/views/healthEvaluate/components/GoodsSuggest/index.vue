@@ -75,7 +75,7 @@ Dimensions: {
 */
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .goods-list-box ul {
         margin-left: 2%;
     }

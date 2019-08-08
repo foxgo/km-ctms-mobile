@@ -1,6 +1,6 @@
 <template>
     <div>
-      <ul class="living-habit">
+      <ul class="living-habit normal-page-box">
         <li class="row-background" v-for="item in liveData"  v-on:click="toUrl(item.to)" >
           <div class="ul-center">
             <ul>
@@ -82,7 +82,9 @@ export default {
 </script>
 
 <style scoped>
-
+.living-habit {
+  padding-top: 0.1rem;
+}
 .living-habit .row-background {
   background: linear-gradient(105deg, transparent 45px, #fff 0);
   border: none;

@@ -1,10 +1,10 @@
 <template>
 <keep-alive>
-  <div class="content-box">
+  <div class="content-box normal-page-box">
     <h5>家族病史<span> 您的父母亲、兄弟姐妹、祖父母是否患有以下疾病?</span></h5>
     <ul class="selections_ul" id="fSelectList">
       <li id="0" @click="fItemClicked">无</li>
-      <li v-for="item in diseaseList" v-bind:id="item.HealthTypeID" @click="fItemClicked">{{item.HealthTypeName}}</li>
+      <li v-for="(item,index) in diseaseList" :key="index" :id="item.HealthTypeID" @click="fItemClicked">{{item.HealthTypeName}}</li>
     </ul>
 
     <div id="gxyBox" class="switchItemBox" style="display: none">
@@ -254,10 +254,12 @@ export default {
 </script>
 
 <style scoped>
-div {
-  width: 92%;
-  margin: 0 auto;
-  padding-top: 0.2rem;
+
+.content-box {
+  /* width: 92%;
+  margin-left: 4%; */
+  /* padding-top: 0.2rem; */
+  padding: 0.1rem 0.3rem;
 }
 div h4 {
   font-size: 0.4rem;
@@ -268,7 +270,6 @@ div h4 {
   display: inline-block;
   vertical-align: middle;
 }
-
 h5 {
   font-size: 0.4266666666666667rem;
   color: #ff9600;
