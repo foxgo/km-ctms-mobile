@@ -1,5 +1,5 @@
 <template>
-    <div class="basic-file">
+    <div class="basic-file normal-page-box">
       <ul>
         <li class="clearfix" ref="realname">
           <p class="red_star"><span>*</span>真实姓名</p>
@@ -168,14 +168,19 @@ export default {
         },
       },
       mounted() {
-        if(this.$route.params.pagetype === 'addMember'){
+        const pagetype = this.$route.params.pagetype
+        if(pagetype === 'addMember') {
           this.showPhoneCell = true;
           this.showLivingAreaCell = true;
           this.showLivingAddressCell = true;
           this.$store.state.app.pageTitle = '新增成员';
         } 
+        else if(pagetype === 'edit') {
+          this.$store.state.app.pageTitle = '基础档案';
+          this.getBasicPersonInfo();
+        }
         // 调查问卷、查看档案
-        else if(this.$route.params.pagetype == null){
+        else {
           this.getBasicPersonInfo();
         }
       },
@@ -396,7 +401,6 @@ export default {
 .basic-file {
   width: 100%;
   max-width: 10rem;
-  margin: 0 auto;
   background-color: #fff;
 }
 .basic-file ul {
