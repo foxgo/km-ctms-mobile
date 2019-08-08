@@ -29,7 +29,7 @@ service.interceptors.request.use(
   error => {
     // Do something with request error
     console.log('[error] ' + error) // for debug
-    Promise.reject(error)
+    return Promise.reject(error)
   }
 )
 
@@ -43,9 +43,9 @@ service.interceptors.response.use(
    * 以下代码均为样例，请结合自生需求加以修改，若不需要，则可删除
    */
   response => {
-    if (process.env.IS_MOCK) {
-      return response
-    }
+    return response
+
+    /* 返回数据统一处理
     const res = response.data
     if (res.code !== 20000) {
       Toast({
@@ -71,6 +71,7 @@ service.interceptors.response.use(
     } else {
       return response.data
     }
+    */
   },
   error => {
     console.log('[error] ' + error) // for debug
