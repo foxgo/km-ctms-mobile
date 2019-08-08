@@ -34,11 +34,11 @@ export default {
   name: 'HealthOne',
   methods: {
     pushPage(index) {
-      var pageRoutes = {
-        1: '/healthEvaluate',
-        2: '/TCMphysique',
+      if (index === 1) {
+        this.$router.push('/healthEvaluate')
+      }else{
+        this.$root.actionToNative('gotoDoctorOnline', '在线问诊')
       }
-      this.$router.push({ path: pageRoutes[index] })
     }
   }
 }
