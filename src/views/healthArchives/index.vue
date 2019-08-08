@@ -1,5 +1,5 @@
 <template>
-    <div class="content-box">
+    <div class="normal-page-box">
       <div class="blue">
         <div class="animate-box">
           <div class="circleProgress_wrapper">
@@ -16,7 +16,7 @@
       </div>
 
       <ul class="health-file">
-        <li class="row-background" v-for="item in healthFile" @click="toUrl(item.to)">
+        <li class="row-background" v-for="(item,key) in healthFile" :key="key" @click="toUrl(item.to)">
           <div class="ul-center">
             <ul>
               <li class="li01">
@@ -59,7 +59,7 @@ export default {
           text:"基础档案",
           img: require("@/assets/images/healthArchives/folder.png"),
           percent: "10",
-          to: "/healthArchives/basicArchives"
+          to: "/healthArchives/basicArchives/edit"
         },
         "1": {
           text:"生活习惯",
@@ -172,7 +172,7 @@ export default {
 <style scoped>
 .blue {
   width: 100%;
-  height: 7.133333333333333rem;
+  height: 6rem;
   background-color: #008dfd;;
 }
 
@@ -187,7 +187,7 @@ export default {
   left: 50%;
   top: 50%;
   /*translate(x,y) 括号的百分比数据，会以本身的长宽做参考，比如，本身的长为100px，高为100px. 那填(50%,50%)就是向右，向下移动50px，添加负号就是向着相反的方向移动*/
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-55%);
 }
 
 .rightcircle {
