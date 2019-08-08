@@ -16,15 +16,15 @@
 <script>
 
 export default {
-	name: "HealthArchives",
+	name: "HealthArchives2",
 	data() {
 		return {
 			linkerList: [
-		        { title: '基础信息', name: 'BasicArchives' },
-		        { title: '饮食', name: 'EatingHabits' },
-		        { title: '运动', name: 'Labor' },
-		        { title: '吸烟饮酒', name: 'Drinking&Smoking' },
-		        { title: '健康史', name: 'HealthHistory' }
+		        { title: '基础信息', name: 'BasicArchives2' },
+		        { title: '饮食', name: 'EatingHabits2' },
+		        { title: '运动', name: 'Labor2' },
+		        { title: '吸烟饮酒', name: 'Drinking&Smoking2' },
+		        { title: '健康史', name: 'HealthHistory2' }
 		      ],
 		}
 	},
