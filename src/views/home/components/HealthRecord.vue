@@ -92,7 +92,7 @@ export default {
           return;
         }
 
-        this.$router.push('/basicArchives/addMember')
+        this.$router.push('/healthArchives/basicArchives/addMember')
         return;
       }
 
