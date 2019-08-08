@@ -167,7 +167,7 @@ export default {
     this.$store.state.app.pageTitle = '健康评估'
     this.loadData();
 
-    window.addEventListener('scroll',this.scrollHandle,true);
+    window.addEventListener('scroll',this.scrollHandle);
   },
   methods: {
     //创建滑动
@@ -203,10 +203,10 @@ export default {
     },
 
     gotoHealthAdvisory() {
-      // this.$router
+      this.$root.actionToNative('gotoDoctorOnline', '在线问诊')
     },
     gotoFinishArchieve() {
-      // this.$router
+      this.$router.push('/healthArchives/basicArchives/edit')
     },
 
     loadData() {
