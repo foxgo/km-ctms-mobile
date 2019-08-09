@@ -16,7 +16,7 @@
       </div>
 
       <ul class="health-file">
-        <li class="row-background" v-for="(item,key) in healthFile" :key="key" @click="toUrl(item.to)">
+        <li class="row-background" v-for="(item,key) in healthFile" :key="key" @click="toUrl(item)">
           <div class="ul-center">
             <ul>
               <li class="li01">
@@ -61,18 +61,21 @@ export default {
           text:"基础档案",
           img: require("@/assets/images/healthArchives/folder.png"),
           percent: "10",
+          name: 'BasicArchives',
           to: "/healthArchives/basicArchives"
         },
         "1": {
           text:"生活习惯",
           img: require("@/assets/images/healthArchives/coffee.png"),
           percent: "10",
+          name: 'LifeHabits',
           to: "/healthArchives/lifeHabits"
         },
         "2": {
           text:"健康史",
           img: require("@/assets/images/healthArchives/pulse.png"),
           percent: "10",
+          name: 'HealthHistory',
           to: "/healthArchives/healthHistory"
         },
       }
@@ -82,8 +85,8 @@ export default {
     this.$store.state.app.pageTitle = '健康档案'
   },
   methods: {
-    toUrl(path) {
-      this.$router.push({ path: path, query:{ memberId: this.memberId }})
+    toUrl(item) {
+      this.$router.push({ name: item.name, params:{ memberId: this.memberId }})
     },
 
     //获取信息完整度
