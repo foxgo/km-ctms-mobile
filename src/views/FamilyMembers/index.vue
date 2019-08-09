@@ -1,10 +1,10 @@
 <template>
-    <div class="normal-page-box">
+    <div class="member-list-box normal-page-box">
         <a class="km-header-bar" @click="addMember" style="color:white;">添加新成员</a>
         <ul>
             <li class="list-item" v-for="(item, index) in dataList" data-type="0" :key="index">
                 <!-- item 内容 -->
-                <div class="item-content-box" @touchstart.capture="touchStart" @touchmove.capture="touchMove" @touchend.capture="touchEnd" @click="itemClicked">
+                <div class="item-content-box" @touchstart.capture="touchStart" @touchmove.capture="touchMove" @touchend.capture="touchEnd" @click="itemClicked(item.MemberID)">
                     <div class="image-box"><img v-bind:src=defaultAvator></div>
                     <div class="label-box">
                         <p>{{item.Name}} <span>&nbsp;{{item.Age}}岁</span></p>
@@ -13,7 +13,7 @@
                     <div class="phonenum-box">{{item.Phone}}</div>
                 </div>
                 <!--  删除按钮 -->
-                <div class="delete" @click="deleteItem" :data-index="index">取消关注</div>
+                <div class="delete" @click="deleteItem(item)" :data-index="index">取消关注</div>
             </li>
         </ul>
     </div>
@@ -22,6 +22,7 @@
 </template>
     
 <script>
+import { MessageBox } from 'mint-ui'
 import { getFamilyMemberList, createFamilyMember, deleteFamilyMember } from '@/api/familyMember.js'
 
 export default {
@@ -37,7 +38,7 @@ export default {
     },
     mounted() {
         this.$store.state.app.pageTitle = "家庭成员"
-        this.loadData()
+        // this.loadData()
     },
     methods: {
 
@@ -55,8 +56,9 @@ export default {
         },
 
         //跳转家庭成员档案
-        memberArchieve() {
-            this.$router.push('/healthArchives')
+        memberArchieve(memberId) {
+            //此处只能使用params传参，使用query会造成返回时找不到上级页面
+            this.$router.push({name:'HealthArchives', params:{memberId}})
         },
 
         //新增成员
@@ -68,11 +70,11 @@ export default {
             this.$router.push('/healthArchives/basicArchives/addMember')
         },
 
-        itemClicked() {
+        itemClicked(memberId) {
             if (this.checkSlide()) {
                 this.resetSlide()
             }else {
-                this.memberArchieve()
+                this.memberArchieve(memberId)
             }
         },
 
@@ -133,14 +135,25 @@ export default {
         },
 
         // 删除
-        deleteItem(e) {
-            // 当前索引
-            const index = e.currentTarget.dataset.index
-            // 复位
-            this.resetSlide
-            // 删除
-            this.dataList.splice(index,1)
+        deleteItem(item) {
+            const target = event.currentTarget
+            MessageBox.confirm('取消关注家庭成员').then(action => {
+                deleteFamilyMember(item.PersonFamilyID).then(response => {
+                    // 当前索引
+                    const index = target.dataset.index
+                    // 复位
+                    this.resetSlide
+                    // 删除
+                    this.dataList.splice(index,1)
+                })
+            }).catch(error => { });
+            
         }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            vm.loadData()
+        });
     }
 }
 </script>
@@ -149,6 +162,12 @@ export default {
     $cell-height: 2.0rem;
     $img-box-height: 1.4rem;
     $label-box-height: 1.3rem;
+
+    .member-list-box {
+        // 此设置用于阻止手机上的侧滑删除出现全屏横滑问题
+        overflow-x:hidden; 
+        width:100%;
+    }
 
     ul {
         padding-top: 0.2rem;
@@ -247,6 +266,11 @@ export default {
         }
 
         .delete {
+            position: absolute;
+            top:0;
+            right: -2.4rem;
+            overflow: hidden;
+
             width: 2.4rem;
             height: $cell-height;
             background: #ccc;
@@ -254,9 +278,7 @@ export default {
             color: #fff;
             text-align: center;
             line-height: $cell-height;
-            position: absolute;
-            top:0;
-            right: -2.4rem;
+            
         }
     }
     
