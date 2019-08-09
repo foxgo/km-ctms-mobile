@@ -19,7 +19,7 @@
         <li class="clearfix" ref="birthDate">
           <p class="red_star"><span>*</span>出生年月</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
-          <date-picker :settingTime="allData.Birthdate" class="pc-box" @showTime="showTime"/>
+          <date-picker :settingTime="allData.Birthdate" :startDate="new Date('1930-01-01')" class="pc-box" @showTime="showTime"/>
         </li>
         <li class="clearfix">
           <p>身高</p>

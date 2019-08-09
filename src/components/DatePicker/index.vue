@@ -25,7 +25,7 @@ export default {
   props:['settingTime','startDate'], // 手动设置显示的时间
   data() {
     return {
-      // startDate: new Date('01 01,1930'),
+      // startDate: new Date('1930-01-01'),
       time: null
     }
   },
