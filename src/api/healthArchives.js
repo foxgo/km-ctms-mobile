@@ -53,10 +53,11 @@ export function getLifeHabitsInfo(memberId) {
 }
 
 // 获取该家庭成员的饮食习惯
-export function getPersonEatHabit() {
+export function getPersonEatHabit(memberId) {
   return request({
     method: 'get',
-    url: '/api/LifeStyle/GetPersonEatHabit'
+    url: '/api/LifeStyle/GetPersonEatHabit',
+    params: { 'memberId': memberId }
   })
 }
 // 上传该家庭成员的饮食习惯
@@ -69,10 +70,11 @@ export function postPersonEatHabit(data) {
 }
 
 // 获取该家庭成员的体力活动和运动信息
-export function getPersonSport() {
+export function getPersonSport(memberId) {
   return request({
     method: 'get',
-    url: '/api/LifeStyle/GetPersonSport'
+    url: '/api/LifeStyle/GetPersonSport',
+    params: { 'memberId': memberId }
   })
 }
 // 上传该家庭成员的体力活动和运动信息
@@ -85,10 +87,11 @@ export function postPersonSport(data) {
 }
 
 // 获取该家庭成员的吸烟饮酒信息
-export function getPersonSmokeDrink() {
+export function getPersonSmokeDrink(memberId) {
   return request({
     method: 'get',
-    url: '/api/LifeStyle/GetPersonSmokeDrink'
+    url: '/api/LifeStyle/GetPersonSmokeDrink',
+    params: { 'memberId': memberId }
   })
 }
 // 上传该家庭成员的吸烟饮酒信息
