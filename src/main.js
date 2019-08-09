@@ -20,7 +20,7 @@ import './assets/styles/iconfont/iconfont.js'
 
 // 全部调用前端数据
 if (process.env.IS_MOCK) {
-  import('./mock')
+  // import('./mock')
 }
 
 // 遍历meta里面设置页面的title
