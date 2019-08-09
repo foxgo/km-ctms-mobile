@@ -6,15 +6,10 @@
           <div class="wb"></div>
           <input type="text" v-model.lazy="allData.Name"/>
         </li>
-        <li class="clearfix" v-show="showPhoneCell" ref="phone">
-          <p class="red_star"><span>*</span>手机号</p>
-          <div class="wb"></div>
-          <input type="number" maxlength="11" v-model.number="allData.Phone"/>
-        </li>
         <li class="clearfix" ref="cardID">
           <p>身份证</p>
           <div class="wb"></div>
-          <input type="text" maxlength="18" :readonly="cardIdEnableEdit ? false :'readonly'" v-model="allData.PersonNo"/>
+          <input type="text" maxlength="18" :readonly="'readonly'" v-model="allData.PersonNo"/>
         </li>
         <li class="clearfix">
           <p class="red_star"><span>*</span>性别</p>
@@ -25,16 +20,6 @@
           <p class="red_star"><span>*</span>出生年月</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
           <date-picker :settingTime="allData.Birthdate" class="pc-box" @showTime="showTime"/>
-        </li>
-        <li v-show="showLivingAreaCell" class="clearfix">
-          <p>居住地</p>
-          <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
-          <area-picker class="pc-box" @showAreaData="showAreaData"/>
-        </li>
-        <li v-show="showLivingAddressCell" class="clearfix">
-          <p>详细地址</p>
-          <div class="wb"></div>
-          <input type="text" v-model.lazy="province_city_county_obj.DetailedAddress"/>
         </li>
         <li class="clearfix">
           <p>身高</p>
@@ -69,30 +54,20 @@
 
 <script>
 import DatePicker from '@/components/DatePicker'
-import AreaPicker from '@/components/AreaPicker'
 import { Toast,DatetimePicker,Actionsheet,MessageBox } from 'mint-ui'
 import { isPhoneNo,isCardNo,isCardNoStrict,limitStringLength } from '@/utils/stringFilter.js'
 import { dateFormat } from '@/utils/dateFilter.js'
 import { getBasicHealthArchivesInfo,postBasicHealthArchivesInfo } from '@/api/healthArchives'
-import { createFamilyMember,getFamilyMemberIsExists,getAccountIsExists } from '@/api/familyMember'
 
 export default {
   name: "BasicArchives",
-  components: { DatePicker, AreaPicker },
+  components: { DatePicker },
   data() {
     return {
       memberId: '',
 
-      showPhoneCell:false, //是否显示手机号输入框
-      showLivingAreaCell:false, //是否显示居住地选择框
-      showLivingAddressCell:false, //是否显示详细地址输入框
-
       province_city_county_obj:{},  //接收省份信息
       allData: {},  //省份以外的全部信息
-
-      autoInputCardID: '', //标记账号，用来处理检测到账号已存在而连续弹窗的问题
-      autoInputName: '', //标记账号，用来处理检测到账号已存在而连续弹窗的问题
-      cardIdEnableEdit: true, //身份证是否可以编辑，成功设置过后不能再编辑
       
       genderActions: [
         { name: '男',indexValue:'1',method:this.selectGender },
@@ -107,67 +82,6 @@ export default {
       ],
       marriedSheetVisible: false,
     }
-  },
-  computed:{
-    cardIDNumber(){
-      return this.allData.PersonNo
-    },
-    phoneNumber(){
-      return this.allData.Phone
-    }
-  },
-  watch: {
-    cardIDNumber(val) {
-      if(val != "" && val.length == 15 || val.length == 18){
-        if(isCardNoStrict(val)) {
-          var birthDate, gender
-          // 解析身份证的生日与性别
-          if(val.length === 15) {
-            birthDate = '19' + val.substr(6, 6)
-            gender = val.substr(val.length-1, 1)
-          }else{
-            birthDate = val.substr(6, 8)
-            gender = val.substr(val.length-2, 1)%2 === 1 ? '1' : '2'
-          }
-
-          // 提取身份证的生日、性别，调用回调函数刷新组件
-          this.showTime(birthDate.substring(0,4) + '-' + birthDate.substring(4,6) + '-' + birthDate.substring(6,8))
-          const genderIndex = parseInt(gender)%2 ? 0 : 1
-          this.selectGender(this.genderActions[genderIndex])
-
-          
-          // 检测家庭成员是否已经存在，修改时不再做检测
-          if(!this.showPhoneCell) { return }
-          if(this.autoInputCardID && this.autoInputCardID === val) { return }
-          this.autoInputCardID = ''
-
-          const that = this;
-          getFamilyMemberIsExists(2,val)
-          .then(function(response){
-            that.familyMemberExistHandler(2, response,val)
-          })
-        }
-      }
-    },
-    phoneNumber(val) {
-      if(!this.showPhoneCell) { return }
-      const tmpVal = val + ''
-      if(tmpVal != "" && tmpVal.length >= 11){ 
-        if(isPhoneNo(tmpVal)) {
-          // 检测家庭成员是否已经存在
-          if(this.autoInputPhone && this.autoInputPhone === tmpVal) { return }
-          this.autoInputPhone = ''
-
-          const that = this;
-          getFamilyMemberIsExists(1,tmpVal)
-          .then(function(response){
-            that.familyMemberExistHandler(1, response, tmpVal)
-          })
-        } else {
-          Toast("请填写正确格式的手机号！")
-        }
-      }
-    },
   },
   mounted() {
     
@@ -185,10 +99,6 @@ export default {
 
     showTime(time) { //选择生日回调
       this.allData.Birthdate = time
-    },
-    showAreaData(province_city_country_obj) { //选择居住地回调
-      console.log(JSON.stringify(province_city_country_obj))
-      this.province_city_county_obj = province_city_country_obj
     },
     selectGender(value){ //选择性别回调
       this.$refs.gender.innerText = value.name;
@@ -227,17 +137,6 @@ export default {
         this.warningAnimation(this.$refs.realname)
         return;
       }
-      if(this.allData.Phone == null || this.allData.Phone == "" || !isPhoneNo(this.allData.Phone)) {
-        Toast("请填写你的手机号！");
-        this.warningAnimation(this.$refs.phone)
-        return;
-      }
-      if(this.allData.PersonNo != null && this.allData.PersonNo != "" ) {
-        if (!isCardNo(this.allData.PersonNo)) {
-          Toast("请填写正确格式的身份证！");
-          return;
-        }
-      }
       if(this.allData.Gender == null) {
         Toast("请选择你的性别！");
         this.warningAnimation(this.$refs.gender)
@@ -258,78 +157,35 @@ export default {
       }
 
       let that = this;
-      var address = {}
-      if(that.province_city_county_obj.province) {
-        address = {
-          ProvinceID: that.province_city_county_obj.province.id,//省份ID
-          CityID: that.province_city_county_obj.city.id,//市ID
-          CountyID: that.province_city_county_obj.county.id,//三级市ID
-          DetailedAddress: that.province_city_county_obj.DetailedAddress
-        }
-      }
-      
       var upData = {
         Name: that.allData.Name,
         PersonNo: that.allData.PersonNo,
+        Phone: that.allData.Phone,
         Height: that.allData.Height,
         Weight: that.allData.Weight,
         MarriageStatus: that.allData.MarriageStatus,
         Gender: that.allData.Gender,
-        Birthdate:  that.allData.BirthDate,
-        Phone: that.allData.Phone,
-        Address: address,
-        IsFamilyMember: that.showPhoneCell // true 表示新增
+        Birthdate:  that.allData.Birthdate,
+        Address: that.allData.Address,
+        IsFamilyMember: false // false 表示编辑
       };
 
-      if(this.$route.params.pagetype === 'addMember'){ // 新增家庭成员
-        console.log(JSON.stringify(upData))
-
-        if (!upData.PersonNo) {
-          createFamilyMember(upData)
-          .then(function(response){
-              if (response.data.IsSuccess === true) {
-                Toast("新增家庭成员成功！");
-              }else{
-                Toast(response.data.ReturnMessage);
-              }
-          }).catch(function(error){
-            Toast(error.message);
-          })
-        } else {
-          MessageBox.confirm("身份证号一旦设置将不能再修改").then(action => {
-            createFamilyMember(upData)
-            .then(function(response){
-                if (response.data.IsSuccess === true) {
-                  Toast("新增家庭成员成功！");
-                }else{
-                  Toast(response.data.ReturnMessage);
-                }
-            }).catch(function(error){
-              Toast(error.message);
-            })
-          }).catch(err => {})
-        }
-      } else {
-        const that = this
-        that.$root.showLoading()
-        
-        // 提交基本信息
-        postBasicHealthArchivesInfo(upData)
-        .then(function(response){
-            that.$root.hideLoading()
-            if (response.data.IsSuccess === true) {
-              Toast("保存成功！");
-              let getData = response.data.ReturnData;
-              //身份证能否编辑
-              that.cardIdEnableEdit = !getData.PersonNo||getData.PersonNo.length<15
-            }else{
-              Toast(response.data.ReturnMessage);
-            }
-        }).catch(function(error){
+      that.$root.showLoading()
+      
+      // 提交基本信息
+      postBasicHealthArchivesInfo(upData)
+      .then(function(response){
           that.$root.hideLoading()
-          Toast(error.message);
-        })
-      }
+          if (response.data.IsSuccess === true) {
+            Toast("保存成功！");
+            let getData = response.data.ReturnData;
+          }else{
+            Toast(response.data.ReturnMessage);
+          }
+      }).catch(function(error){
+        that.$root.hideLoading()
+        Toast(error.message);
+      })
     },
 
     warningAnimation(element) {
@@ -339,59 +195,8 @@ export default {
       }, 1000);
     },
 
-    // 检测家庭成员是否存在的回调，回调中再次检测了账号是否存在
-    familyMemberExistHandler(type, response, inputVal) {
-      if (response.data.IsSuccess === true) {
-        const data = response.data.ReturnData;
-        if(!!data && !!data.Name){ // 已有家庭成员,弹框提醒
-          console.log(data)
-
-          var tipMessage = (type===1?"手机号":"身份证号") + "已存在家庭档案中，姓名【" + data.Name + "】," + (data.PersonNo ? "身份证号【"+data.PersonNo+"】,":"") + "手机号【" + data.Phone + "】,请重新输入"
-          MessageBox.confirm(tipMessage).then(action => {
-            if(type === 1){
-              this.allData.Phone = ''
-            }else if(type === 2) {
-              this.allData.PersonNo = ''
-            }
-          });
-          this.isAccountExist = false
-        }else{
-          const that = this
-          // 检测该账号是否已存在
-          getAccountIsExists(type,inputVal)
-          .then(function(response){
-            const data = response.data.ReturnData;
-            if(!!data && !!data.Name){ // 已有该账号,弹框提醒
-              console.log(data)
-
-              var tipMessage = (type===1?"手机号":"身份证号") + "已存在账号系统中，姓名【" + data.Name + "】," + (data.PersonNo ? "身份证号【"+data.PersonNo+"】,":"") + "手机号【" + data.Phone + "】,是否显示档案？"
-              MessageBox.confirm(tipMessage).then(action => {
-                that.isAccountExist = true
-                // 用返回的数据填入输入框
-                that.allData = data
-                that.autoInputPhone = data.Phone
-                that.autoInputCardID = data.PersonNo
-
-                that.handleGender_MarriageStatus_PersonNoEdit()
-              }).catch(err => { 
-                if (err == 'cancel') { //取消的回调
-                  if(type === 1){
-                    that.allData.Phone = ''
-                  }else if(type === 2) {
-                    that.allData.PersonNo = ''
-                  }
-                } 
-              });
-            }
-          })
-        }
-      }
-    },
-
     // 处理性别、婚姻、身份证能否编辑这几个需要过滤的值
     handleGender_MarriageStatus_PersonNoEdit() {
-      //身份证能否编辑
-      this.cardIdEnableEdit = !this.allData.PersonNo||this.allData.PersonNo.length<15
       //性别
       if(this.allData.Gender == 1) {
         this.$refs.gender.innerText = "男";
@@ -405,30 +210,14 @@ export default {
         let index = marriageStatus/10 -1;
         this.$refs.marriageData.innerText = textArr[index];
       }
-      //生日
-
-      //地址
+      
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.$store.state.app.pageTitle = '基础档案';
       vm.memberId = to.query.memberId
-
-      const pagetype = to.params.pagetype
-      if(pagetype === 'addMember') {
-        vm.showPhoneCell = true;
-        vm.showLivingAreaCell = true;
-        vm.showLivingAddressCell = true;
-        vm.$store.state.app.pageTitle = '新增成员';
-      } 
-      else if(pagetype === 'edit') {
-        vm.$store.state.app.pageTitle = '基础档案';
-        vm.getBasicPersonInfo();
-      }
-      // 调查问卷、查看档案
-      else {
-        vm.getBasicPersonInfo();
-      }
+      vm.getBasicPersonInfo()
     })
   }
 }
