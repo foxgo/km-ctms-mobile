@@ -30,12 +30,13 @@ export function getHomeNewsDetail(newsID) {
 }
 
 // 获取成员信息
-export function getPersonInfo() {
+export function getPersonInfo(MemberID) {
   /* -3过期 -2-不合法 -1-异常发生 0-成功 3-错误 */
   return request({
     url: '/api/Patient/Info',
     method: 'get',
-    is360AppAPI: true
+    is360AppAPI: true,
+    MemberID
   })
 }
 
