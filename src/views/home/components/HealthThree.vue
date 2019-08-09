@@ -102,7 +102,7 @@ export default {
           return response.data;
         }).then((data) => {
             // window.location.href = data.data
-            this.$root.actionToNative('中医体质', data.data)
+            this.$root.actionToNative('gotoOuterSiteURL', '中医体质', data.data)
         }).catch(() => {
             console.log("请求出错");
         });
