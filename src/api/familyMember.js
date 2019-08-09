@@ -59,7 +59,8 @@ export function getAccountIsExists(accountType, accountName, personID) {
 }
 
 /**
- * 新增家庭成员
+ * 新增/更新家庭成员
+ * IsFamilyMember 为 true 表示新增
  * @业务流程
  *    1.手机号码、身份证号码输入，同步检测输入合法性
  *    2.身份证号码输入合法后开始检测身份证号是否在家庭成员中已经存在 `ExistsFamilyMember`
@@ -109,10 +110,10 @@ export function createFamilyMember(data) {
 /** 删除家庭成员（只是从当前家庭中移除，用户档案依然存在）
  * PersonFamilyID
  */
-export function deleteFamilyMember(data) {
+export function deleteFamilyMember(PersonFamilyID) {
   return request({
     url: '/api/PersonFamily/DelFamilyMember',
-    method: 'post',
-    data
+    method: 'get',
+    params: { 'PersonFamilyID': PersonFamilyID }
   })
 }
