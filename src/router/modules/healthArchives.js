@@ -11,10 +11,11 @@
 const healthArchivesRouter =
   {
     path: '/healthArchives',
-    component: { template: '<router-view />' },
+    component: { template: '<keep-alive> <router-view /> </keep-alive>' },
     children: [
       {
         path: '',
+        name: 'HealthArchives',
         component: () => import('@/views/healthArchives'),
         meta: { title: '健康档案', noCache: true }
       },
