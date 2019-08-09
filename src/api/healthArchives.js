@@ -1,10 +1,11 @@
 import request from '@/utils/request'
 
 // 获取该家庭成员的个人档案和问卷完整度
-export function getHealthArchivesInfo() {
+export function getHealthArchivesInfo(memberId) {
   return request({
     method: 'get',
-    url: '/api/Person/GetPersonCompleteInfo'
+    url: '/api/Person/GetPersonCompleteInfo',
+    params: { 'memberId': memberId }
   })
 }
 
@@ -26,10 +27,11 @@ export function getQuestionSelections(data) {
 }
 
 // 获取该家庭成员的个人基础信息
-export function getBasicHealthArchivesInfo() {
+export function getBasicHealthArchivesInfo(memberId) {
   return request({
     method: 'get',
-    url: '/api/Person/GetPersonInfo'
+    url: '/api/Person/GetPersonInfo',
+    params: { 'memberId': memberId }
   })
 }
 // 上传该家庭成员的个人基础档案
@@ -42,10 +44,11 @@ export function postBasicHealthArchivesInfo(data) {
 }
 
 // 获取该家庭成员的生活习惯调查问卷填写完整度
-export function getLifeHabitsInfo() {
+export function getLifeHabitsInfo(memberId) {
   return request({
     method: 'get',
-    url: '/api/Person/GetLifeComplete'
+    url: '/api/Person/GetLifeComplete',
+    params: { 'memberId': memberId }
   })
 }
 
@@ -98,18 +101,20 @@ export function postPersonSmokeDrink(data) {
 }
 
 // 获取该家庭成员的疾病类型
-export function getHealthTypes() {
+export function getHealthTypes(memberId) {
   return request({
     method: 'get',
-    url: '/api/HealthType'
+    url: '/api/HealthType',
+    params: { 'memberId': memberId }
   })
 }
 
 // 获取该家庭成员的健康史信息
-export function getHealthHistory() {
+export function getHealthHistory(memberId) {
   return request({
     method: 'get',
-    url: '/api/HealthHistory'
+    url: '/api/HealthHistory',
+    params: { 'memberId': memberId }
   })
 }
 // 上传该家庭成员的健康史信息
