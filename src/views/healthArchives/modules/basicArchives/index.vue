@@ -216,7 +216,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.$store.state.app.pageTitle = '基础档案';
-      vm.memberId = to.query.memberId
+      vm.memberId = to.params.memberId
       vm.getBasicPersonInfo()
     })
   }
