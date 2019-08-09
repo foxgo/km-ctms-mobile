@@ -5,7 +5,7 @@
         <div class="item_div borderBottom1">
           <div @click="pushPage(1)">
             <h2>血压监测</h2>
-            <p>{{bloodPressure.Systolic}}/{{bloodPressure.Diastolic}} mmHg</p>
+            <p v-if="bloodPressure.Systolic > 0 && bloodPressure.Diastolic > 0">{{bloodPressure.Systolic}}/{{bloodPressure.Diastolic}} mmHg</p>
           </div>
           <img class="listImg" src="@/assets/images/home/addition.png" />
           <!--<svg class="icon" aria-hidden="true">
@@ -17,7 +17,7 @@
         <div class="item_div borderBottom1">
           <div @click="pushPage(2)">
             <h2>血糖监测</h2>
-            <p>{{bloodSugar.Sugar}} mmol/L</p>
+            <p v-if="bloodSugar.Sugar > 0">{{bloodSugar.Sugar}} mmol/L</p>
           </div>
           <img class="listImg" src="@/assets/images/home/addition.png" />
           <!--<svg class="icon" aria-hidden="true">
