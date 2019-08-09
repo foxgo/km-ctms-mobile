@@ -1,9 +1,7 @@
 /*
-健康档案页面有两套方案，现在使用的是第二套 `@/views/healthArchives/index2.vue`
-但是新增成员时🈶需要用到填写基础信息页面。
-
-所以根据实际情况声明了2套路由：
+健康档案页面有两套方案
 `healthArchivesRouter`、`healthArchivesRouter2`
+
 现在用的：
 `healthArchivesRouter`
 */
@@ -19,12 +17,6 @@ const healthArchivesRouter =
         component: () => import('@/views/healthArchives'),
         meta: { title: '健康档案' }
       },
-      /*
-        需要传 pagetype 参数，用于区分新增成员和问卷调查
-        新增成员： addMember
-        问卷调查： 可以不用传
-        查看档案： edit
-      */
       {
         path: 'basicArchives',
         name: 'BasicArchives',
