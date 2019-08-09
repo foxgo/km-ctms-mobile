@@ -146,7 +146,7 @@ export default {
               
               let fSelectList = document.getElementById('fSelectList');
               let dSelectList = document.getElementById('dSelectList');
-
+              
               let FHealthCategoryIDs = data.FHealthCategoryIDs
               if (!!FHealthCategoryIDs && FHealthCategoryIDs.length > 0) {
                 if (FHealthCategoryIDs[0] === 0) {
@@ -154,10 +154,13 @@ export default {
                   element.classList.add("active");
                 } else {
                   var idArray = data.FHealthCategoryIDs;
+                  
                   for(var i = 0; i < idArray.length; i++){
                     let eid = idArray[i]
                     let element = fSelectList.querySelector("li[id=\"" + eid + "\"]");
-                    element.classList.add("active");
+                    if (!!element) {
+                      element.classList.add("active");
+                    }
                   }
                 }
               }
@@ -172,7 +175,9 @@ export default {
                   for(var i = 0; i < idArray.length; i++){
                     let eid = idArray[i];
                     let element = dSelectList.querySelector("li[id=\""+  eid + "\"]");
-                    element.classList.add("active");
+                    if (!!element) {
+                      element.classList.add("active");
+                    }
                   }
                 }
               }
