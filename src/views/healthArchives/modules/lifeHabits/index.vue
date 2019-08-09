@@ -1,7 +1,7 @@
 <template>
     <div>
       <ul class="living-habit normal-page-box">
-        <li class="row-background" v-for="item in liveData"  v-on:click="toUrl(item.to)" >
+        <li class="row-background" v-for="item in liveData"  v-on:click="toUrl(item)" >
           <div class="ul-center">
             <ul>
               <li class="li01"><img v-bind:src="item.img" class="listImg"></li>
@@ -38,19 +38,22 @@ export default {
           text:"饮食习惯",
           img: require("@/assets/images/healthArchives/life1@2x.png"),
           percent: "0",
+          name: 'EatingHabits',
           to: "/healthArchives/lifeHabits/eatingHabits"
         },
         "1": {
           text:"体力活动与运动",
           img: require("@/assets/images/healthArchives/life2@2x.png"),
           percent: "0",
+          name: 'Labor',
           to: "/healthArchives/lifeHabits/labor"
         },
         "2": {
           text:"吸烟饮酒",
           img: require("@/assets/images/healthArchives/life3@2x.png"),
           percent: "0",
-          to: "/healthArchives/lifeHabits/Drinking&Smoking"
+          name: 'Drinking&Smoking',
+          to: "/healthArchives/lifeHabits/drinking&Smoking"
         },
       }
     }
@@ -59,8 +62,8 @@ export default {
     this.$store.state.app.pageTitle = '生活习惯';
   },
   methods: {
-    toUrl(path) {
-      this.$router.push({ path: path, query:{memberId: this.memberId} })
+    toUrl(item) {
+      this.$router.push({ name: item.name, params:{memberId: this.memberId} })
     },
     
     loadData() {
