@@ -20,12 +20,18 @@
 </template>
 
 <script>
-import areaData from './areaData_id.json' //引入省市区数据
+import areaData from '@/data/areaData_id.json' //引入省市区数据
 import { Picker } from 'mint-ui'
 export default {
     name: 'AreaPicker',
     components: {
       'mt-picker': Picker
+    },
+    props: {
+        pro_city_county_obj: {
+            type: Object,
+            default: {}
+        }
     },
     data() {
         return {
@@ -63,7 +69,21 @@ export default {
             ],
   
             province_city_county_string:'',
+
+            /*
+            {"province":{"value":"北京市","id":"110000000000"},
+            "city":{"value":"市辖区","id":"110100000000"},
+            "county":{"value":"东城区","id":"110101000000"}}
+            */
             province_city_county_obj:{}
+        }
+    },
+    watch: {
+        pro_city_county_obj(newVal) {
+            if (!!newVal && Object.keys(newVal).length >= 3) {
+                const obj = newVal
+                this.province_city_county_string = obj.province.value + ' ' + obj.city.value + ' ' + obj.county.value
+            }
         }
     },
     mounted(){
