@@ -79,11 +79,12 @@ const globalMixin = {
             - gotoOuterSiteURL -- 跳转到外部站点
             - gotoDoctorOnline -- 在线问诊
         */
-        actionToNative(action, title, url) {
+        actionToNative(action, title, url, paramObj) {
             const obj = {
                 'action': action,
                 'title': title,
-                'url': url
+                'url': url,
+                'params': paramObj
             }
             alert(JSON.stringify(obj))
         }
