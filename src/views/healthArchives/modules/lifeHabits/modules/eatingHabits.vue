@@ -1,6 +1,6 @@
 <template>
   <keep-alive>
-    <div class="content-box smoking">
+    <div class="content-box normal-page-box">
       <LifeHabitSelectionItem v-for="(item,index) in dataArr" :key="index" :itemData="item" :indexInList="index" v-on:listenToItem="itemEvent"></LifeHabitSelectionItem>
       <input type="submit" class="submit-btn" value="保存" v-on:click="setPersonEatHabit" />
     </div>
@@ -17,6 +17,7 @@ export default {
   name: "EatingHabits",
   data() {
     return {
+      memberId: '',
       dataArr :[
         { "id_key":"CM33.014",
           "key":"WeeklyVegetables",
@@ -61,12 +62,12 @@ export default {
     LifeHabitSelectionItem
   },
   mounted() {
-    // this.$store.state.app.pageTitle = '饮食习惯';
-    this.getSelectionData();
+    this.$store.state.app.pageTitle = '饮食习惯';
+    this.loadData();
   },
   methods: {
     //根据指定id获取题目
-    getSelectionData(){
+    loadData(){
       let that = this;
       let upData = new Array();
       that.dataArr.forEach(function (value,i) {
@@ -155,6 +156,12 @@ export default {
       console.log('itemCode==' + itemCode);
     }
 
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.memberId = to.query.memberId
+      vm.loadData()
+    })
   }
 }
 </script>

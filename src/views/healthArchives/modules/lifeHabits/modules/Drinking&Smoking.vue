@@ -1,6 +1,6 @@
 <template>
   <keep-alive>
-    <div class="content-box" v-cloak>
+    <div class="content-box normal-page-box"  v-cloak>
       <LifeHabitSelectionItem 
         v-for="(item,index) in dataArr" 
         :key="index" 
@@ -24,6 +24,7 @@ export default {
   name: "drinkingSmoking",
   data() {
     return {
+      memberId:'',
       dataArr :[
         { "id_key":"CM37.15",
           "key":"IsSmoking",
@@ -69,12 +70,11 @@ export default {
     LifeHabitSelectionItem
   },
   mounted() {
-    // this.$store.state.app.pageTitle = '吸烟饮酒';
-    this.loadSelectionData();
+    this.$store.state.app.pageTitle = '吸烟饮酒';
   },
   methods: {
     //根据指定id获取题目
-    loadSelectionData(){
+    loadData(){
       let that = this;
       let upData = new Array();
       that.dataArr.forEach(function (value,i) {
@@ -177,6 +177,12 @@ export default {
       }
 
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.memberId = to.query.memberId
+      vm.loadData()
+    })
   }
 }
 </script>

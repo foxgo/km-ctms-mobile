@@ -1,6 +1,6 @@
 <template>
   <keep-alive>
-    <div class="content-box smoking">
+    <div class="content-box normal-page-box">
       <LifeHabitSelectionItem v-for="(item,index) in dataArr" :key="index" :itemData="item" :indexInList="index" :maxItems="index==dataArr.length-1 ? 3 : 1" v-on:listenToItem="itemEvent"></LifeHabitSelectionItem>
       <input type="submit" class="submit-btn" value="保存" v-on:click="setPersonSport"/>
     </div>
@@ -17,6 +17,7 @@ export default {
   name: "Labor",
   data() {
     return {
+      memberId: '',
       dataArr :[
           { "id_key":"CM33.003",
             "key":"IsExercise",
@@ -53,13 +54,12 @@ export default {
       LifeHabitSelectionItem
   },
   mounted() {
-    // this.$store.state.app.pageTitle = '体力活动与运动';
-    this.loadSelectionData();
+    this.$store.state.app.pageTitle = '体力活动与运动';
   },
   methods: {
 
     //根据指定id获取题目
-    loadSelectionData(){
+    loadData(){
       let that = this;
       let upData = new Array();
       that.dataArr.forEach(function (value,i) {
@@ -163,6 +163,12 @@ export default {
         console.log('indexInList==' + indexInList);
         console.log('itemCode==' + itemCode);
       }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.memberId = to.query.memberId
+      vm.loadData()
+    })
   }
 }
 </script>

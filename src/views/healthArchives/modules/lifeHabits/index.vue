@@ -31,6 +31,8 @@ export default {
   name: "LivingHabit",
   data() {
     return {
+      memberId: '',
+
       liveData: {
         "0": {
           text:"饮食习惯",
@@ -54,29 +56,32 @@ export default {
     }
   },
   mounted() {
-    // this.$store.state.app.pageTitle = '生活习惯';
-    this.getLivingHabit();
+    this.$store.state.app.pageTitle = '生活习惯';
   },
   methods: {
     toUrl(path) {
-      this.$router.push({ path: path })
+      this.$router.push({ path: path, query:{memberId: this.memberId} })
     },
     
-    getLivingHabit() {
+    loadData() {
       let that = this;
-      getLifeHabitsInfo()
-      .then(function(response){
-        if (!response.data.IsSuccess) {
-          that.liveData[0].percent = response.data.ReturnData.Diet;
-          that.liveData[1].percent = response.data.ReturnData.Motion;
-          that.liveData[2].percent = response.data.ReturnData.SmokeDrink;
-        }else {
+      getLifeHabitsInfo(that.memberId).then(function(response){
+        if (response.data.IsSuccess) {
+          that.liveData[0].percent = response.data.ReturnData.Diet || '0';
+          that.liveData[1].percent = response.data.ReturnData.Motion || '0';
+          that.liveData[2].percent = response.data.ReturnData.SmokeDrink || '0';
+        } else {
           Toast(response.data.ReturnMessage);
+          console.log(JSON.stringify(that.liveData))
         }
-      }).catch(function(error){
-        Toast(error.message);
-      });
+      })
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.memberId = to.query.memberId
+      vm.loadData()
+    })
   }
 }
 </script>

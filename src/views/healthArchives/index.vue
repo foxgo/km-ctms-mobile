@@ -53,6 +53,8 @@ export default {
         Gender: "1",
         Birthday: '00',
         DataIntegrity: '0',
+
+        memberId: ''
       },
       healthFile: {
         "0": {
@@ -78,19 +80,17 @@ export default {
   },
   mounted() {
     this.$store.state.app.pageTitle = '健康档案'
-    this.getInfoComplete();
   },
   methods: {
     toUrl(path) {
-      this.$router.push({ path: path })
+      this.$router.push({ path: path, query:{ memberId: this.memberId }})
     },
 
     //获取信息完整度
     getInfoComplete() {
-
       let that = this;
-      getHealthArchivesInfo()
-      .then(response => {
+      getHealthArchivesInfo(that.memberId)
+      .then(response => { 
         
         if (response.data.IsSuccess) {
           const data = response.data.ReturnData;
@@ -165,6 +165,14 @@ export default {
       return animat;
     },
 
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!vm.memberId){
+        vm.memberId = to.params.memberId
+      }
+      vm.getInfoComplete()
+    })
   }
 }
 </script>

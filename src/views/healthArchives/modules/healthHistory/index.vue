@@ -44,14 +44,15 @@ export default {
   name: "HealthHistory",
   data() {
     return {
+      memberId: '',
+
       diseaseList: {},
       BothDiabetes: false,
       BothHypertensive: false,
     }
   },
   mounted() {
-    // this.$store.state.app.pageTitle = '健康史';
-    this.getData();
+    this.$store.state.app.pageTitle = '健康史'
   },
   methods: {
     //家庭病史
@@ -133,13 +134,13 @@ export default {
     },
 
     //获取数据
-    getData() {
+    loadData() {
       let that = this;
-      getHealthTypes().then(function(response){
+      getHealthTypes(that.memberId).then(function(response){
         if (response.data.IsSuccess === true) {
           that.diseaseList = response.data.ReturnData;
-
-          getHealthHistory().then(function (resp) {
+          
+          getHealthHistory(that.memberId).then(function (resp) {
             if (resp.data != null) {
               var data = resp.data;
               
@@ -249,6 +250,12 @@ export default {
       });
     },
 
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.memberId = to.query.memberId
+      vm.loadData()
+    })
   }
 }
 </script>
@@ -256,9 +263,6 @@ export default {
 <style scoped>
 
 .content-box {
-  /* width: 92%;
-  margin-left: 4%; */
-  /* padding-top: 0.2rem; */
   padding: 0.1rem 0.3rem;
 }
 div h4 {
