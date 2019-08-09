@@ -1,12 +1,12 @@
 <template>
     <div class="goods-list-box">
         <ul>
-            <li v-for="(item, index) in dataList" v-bind:key="index" @click="gotoProductURL(item.ProductName, item.ProductURl)">
+            <li v-for="(item, index) in suggestionData" v-bind:key="index" @click="gotoProductURL(item)">
                 <div class="img-box"><img v-bind:src="item.Image" /></div>
                 <h2>{{item.ProductName}}</h2>
                 <p class="mark">{{item.Remark}}</p>
-                <div class="price-box" v-if="item.Price"><h6>￥{{item.Price || '-'}}&nbsp;&nbsp;<strike>{{item.originalcost ? '￥'+item.originalcost : ''}}</strike></h6></div>
-                <p class="sales">{{item.Specifications}}<span>已卖出{{item.Salesvolume || '-'}}件</span></p>
+                <div class="price-box"><h6>{{item.Price ? '￥' + item.Price : ' ' }}&nbsp;&nbsp;<strike>{{item.originalcost ? '￥'+item.originalcost : ''}}</strike></h6></div>
+                <p class="sales">{{item.Specifications ? (item.Specifications + '已卖出' + item.Salesvolume + '件') : ''}}<span></span></p>
             </li>
         </ul>
     </div>
@@ -15,64 +15,45 @@
 <script>
 export default {
     name: "GoodsList",
-    props: {
-        suggestionData: '',
-        dataList:{
-            type: Array,
-            // required: true,
-            default: function() {
-                return [
-                    {
-                        'Image': 'http://5b0988e595225.cdn.sohucs.com/c_fill,w_150,h_100,g_faces,q_70/images/20180323/b78eb3f67ee64f8b844651fa62b92978.jpeg',
-                        'ProductName': '神器',
-                        'Specifications': '1盒/10克',
-                        'Remark': '好东西',
-                        'Price': '123',
-                        'originalcost': '223',
-                        'Salesvolume': '101'
-                    },
-                    {
-                        'Image': 'http://5b0988e595225.cdn.sohucs.com/c_fill,w_150,h_100,g_faces,q_70/images/20180323/b78eb3f67ee64f8b844651fa62b92978.jpeg',
-                        'ProductName': '神器',
-                        'Specifications': '1盒/10克',
-                        'Remark': '好东西',
-                        'Price': '123',
-                        'originalcost': '223',
-                        'Salesvolume': '101'
-                    },
-                    {
-                        'Image': 'http://5b0988e595225.cdn.sohucs.com/c_fill,w_150,h_100,g_faces,q_70/images/20180323/b78eb3f67ee64f8b844651fa62b92978.jpeg',
-                        'ProductName': '神器',
-                        'Specifications': '1盒/10克',
-                        'Remark': '好东西',
-                        'Price': '123',
-                        'originalcost': '223',
-                        'Salesvolume': '101'
-                    }
-                ]
-            }
-
-        }
-    },
+    props: ['suggestionData'],
+    //      [
+    //          {
+    //             "ID": 1411,
+    //             "DimensionTypeCode": "CM05.01.01",
+    //             "DimensionTypeName": "疾病",
+    //             "DimensionID": 0,
+    //             "DimensionName": "脑卒中",
+    //             "ProductType": "设备",
+    //             "ProductID": 53,
+    //             "ShoppingMallProductID": null,
+    //             "ProductURl": null,
+    //             "ProductName": "电脑中频",
+    //             "Specifications": null,
+    //             "Price": null,
+    //             "originalcost": null,
+    //             "Salesvolume": null,
+    //             "Remark": "用于治疗康复理疗保健的一种先进医疗设备",
+    //             "Image": "http://hc003teststore.blob.core.chinacloudapi.cn/productimg/20190808115148276.jpg",
+    //             "GroupID": 2,
+    //             "OrganizationID": 32,
+    //             "OrganizationName": null,
+    //             "CreatedBy": -1,
+    //             "CreatedTime": "2019-08-08T11:51:49",
+    //             "ModifiedBy": -1,
+    //             "ModifiedTime": "2019-08-08T11:51:49",
+    //             "IsDeleted": false,
+    //             "Order": 0,
+    //             "Status": false
+    //         }
+    //     ]
     methods:{
-        gotoProductURL:function(title, url){
-            if (!!url) {
-                this.$root.actionToNative('', title, url)
+        gotoProductURL:function(item){
+            if (!!item) {
+                this.$root.actionToNative('gotoShoppingMall', item.ProductName, item.ProductURl, {'gooID': item.ID})
             }
        }
     }
 }
-/* 
-Dimensions: {
-    Image
-    ProductName
-    Specifications
-    Remark
-    Price
-    originalcost
-    Salesvolume
-}
-*/
 </script>
 
 <style lang="scss" scoped>
@@ -84,15 +65,16 @@ Dimensions: {
         height: 2.4rem;
         text-align: left;
         padding: 0.4rem 0;
-        border-bottom: solid 1px #e2e0e0;
+        border-bottom: solid 1px #f1eeee;
     }
     li .img-box {
         width: 2.4rem;
         height: 2.4rem;
         display: inline-block;
         float: left;
+        margin-left: 0.2rem;
         // background: #ff4848;
-        // border: solid 1px #d2d2d2;
+        // border: solid 1px #dad6d6;
         
         position: relative;
     }
@@ -111,7 +93,7 @@ Dimensions: {
         display: inline-block;
         float: left;
         font-size: 0.36rem;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 0.36rem;
         text-indent: 0.4rem;
     }
