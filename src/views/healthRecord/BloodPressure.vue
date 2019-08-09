@@ -82,23 +82,23 @@ export default {
   },
   methods: {
     getData() {
-      let that = this;
+      let that = this
       that.listLoading = true;
       getBloodPressureRecord().then(response => {
-        let data = response.data;
+        let data = response.data
         if(data.IsSuccess){
-              that.bloodPressureRecord = data.ReturnData;
-              that.items[0].data = data.ReturnData.SystolicList;
-              that.items[1].data = data.ReturnData.DiastolicList;
+            that.bloodPressureRecord = data.ReturnData
+            that.items[0].data = data.ReturnData.SystolicList;
+            that.items[1].data = data.ReturnData.DiastolicList;
         }else{
            console.log('[ReturnMessage] ' + data.ReturnMessage);
            //that.$MessageBox("提示",data.ReturnMessage);
         }
-        that.flag = true;
-        that.listLoading = false;
+        that.flag = true
+        that.listLoading = false
       }, error => {
-        that.listLoading = false;
-        console.log('[error] ' + error); // for debug
+        that.listLoading = false
+        console.log('[error] ' + error) // for debug
       })
     }
   }

@@ -13,13 +13,13 @@
       </li>
       <li>
         <div class="text-tit"><span>*</span>测量时间</div>
-        <date-picker class="text-input" @showTime="showTime" />
+        <date-picker class="text-input" :startDate="new Date()" @showTime="showTime" />
         <div class="company"><i class="iconfont">&#xe64a;</i></div>
       </li>
     </ul>
     <input type="submit" class="manual-btn" value="保存" @click="saveData">
   </div>
-</template>
+</template> 
 
 <script>
 import { Toast } from 'mint-ui'

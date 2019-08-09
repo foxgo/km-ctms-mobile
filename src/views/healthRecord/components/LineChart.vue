@@ -49,7 +49,11 @@ export default {
   data() {
     return {
       elId: '',
-      dd: this.lastTime
+      dd: this.lastTime,
+      chartObj:null,
+      option:{},
+      data:[], // 提炼接收到的数据
+      name:[]
     }
   },
   computed: {
@@ -66,17 +70,46 @@ export default {
   created() {
     this.elId = uuidv1() // 获取随机id
   },
+  watch:{
+    items(val){
+       this.drawLineChart(val,'','')
+    },
+    lastTime(val){
+      this.drawLineChart('',val,'')
+    },
+    checkTime(val){
 
+      this.drawLineChart('','',val)
+
+    }
+  },
+  methods: {
+    drawLineChart(items='',lastTime='',checkTime='') {
+
+      this.items  = items !='' ? items:this.items 
+      this.lastTime  = lastTime !='' ? lastTime:this.lastTime 
+      this.checkTime  = checkTime !='' ? checkTime:this.checkTime 
+      this.formatDate
+      this.ft
+      this.data = []
+      this.name = []
+      this.items.forEach(el => {
+        this.data.push(el.data)
+        this.name.push(el.name)
+      })
+      this.option.xAxis.data = this.checkTime
+      this.option.title[1].text = this.lastTime != null ? getFormatDate(this.lastTime, 'yyyy-MM-dd hh:mm'):''
+      this.option.series[0].name = this.name[0]
+      this.option.series[0].data = this.data[0]
+       this.option.series[1].name = this.name[1]
+      this.option.series[1].data = this.data[1]
+      this.chartObj.setOption(this.option)
+    }
+  },
   mounted() {
-    this.formatDate
-    this.ft
-    var data = [] // 提炼接收到的数据
-    var name = []
-    this.items.forEach(el => {
-      data.push(el.data)
-      name.push(el.name)
-    }) // 循环
-    const option = { // 创建图表配置数据
+    // 初始化图表
+    this.chartObj = this.$echarts.init(document.getElementById(this.elId))
+    this.option = { // 创建图表配置数据
       color: ['#0b7cff', '#74cf56', '#428BCA'],
       title: [{
         text: '',
@@ -177,7 +210,7 @@ export default {
         }
       },
       series: [{
-        name: name[0],
+        name: this.name[0],
         type: 'line',
         // stack: '总量',
         label: {
@@ -187,9 +220,9 @@ export default {
           }
         },
         showAllSymbol: true,
-        data: data[0]
+        data: this.data[0]
       }, {
-        name: name[1],
+        name: this.name[1],
         type: 'line',
         label: {
           normal: {
@@ -198,14 +231,11 @@ export default {
           }
         },
         showAllSymbol: true,
-        data: data[1]
+        data: this.data[1]
       //  areaStyle: {}
       }]
-
     }
-    // 初始化图表
-    const chartObj = this.$echarts.init(document.getElementById(this.elId))
-    chartObj.setOption(option)
+    this.drawLineChart()
   }
 }
 </script>
