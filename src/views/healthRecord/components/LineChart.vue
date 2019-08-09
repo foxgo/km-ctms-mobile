@@ -72,23 +72,20 @@ export default {
   },
   watch:{
     items(val){
-       this.drawLineChart(val,'','')
+       this.items  = val
+       this.drawLineChart()
     },
     lastTime(val){
-      this.drawLineChart('',val,'')
+      this.lastTime  = val
+      this.drawLineChart()
     },
     checkTime(val){
-
-      this.drawLineChart('','',val)
-
+      this.checkTime  = val 
+      this.drawLineChart()
     }
   },
   methods: {
-    drawLineChart(items='',lastTime='',checkTime='') {
-
-      this.items  = items !='' ? items:this.items 
-      this.lastTime  = lastTime !='' ? lastTime:this.lastTime 
-      this.checkTime  = checkTime !='' ? checkTime:this.checkTime 
+    drawLineChart() {
       this.formatDate
       this.ft
       this.data = []
@@ -101,7 +98,7 @@ export default {
       this.option.title[1].text = this.lastTime != null ? getFormatDate(this.lastTime, 'yyyy-MM-dd hh:mm'):''
       this.option.series[0].name = this.name[0]
       this.option.series[0].data = this.data[0]
-       this.option.series[1].name = this.name[1]
+      this.option.series[1].name = this.name[1]
       this.option.series[1].data = this.data[1]
       this.chartObj.setOption(this.option)
     }
@@ -126,6 +123,24 @@ export default {
         left: 'right',
         top: 0,
         subtext: '可左右滑动查看'
+      }, 
+      {
+        text: '查看报告',
+        textStyle: {
+          color: '#008dff', // 颜色
+          align:'center',
+          fontWeight: 'bold', // 粗细
+          fontSize: 18, // 大小
+          width :'3.093333333333333rem',
+          height:'0.8rem',
+          borderColor: '#6bb0fe',
+          borderWidth:'1px',
+          borderRadius:'120px'
+        },
+        left: 'center',
+        top: 0,
+        link: "javascript: alert('a')",
+        target: "self"// 保证不会在新的窗口弹出
       }],
       tooltip: {
         trigger: 'axis',

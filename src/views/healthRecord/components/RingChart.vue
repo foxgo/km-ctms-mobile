@@ -30,19 +30,19 @@ export default {
   },
   watch:{
      name(val){
-       this.drawARing(val,'')
+       this.name = val
+       this.drawARing()
      },
     value(val){
-      this.drawARing('',val)
+      this.value = val
+      this.drawARing()
     }
   },
   created() {
     this.elId = uuidv1() // 获取随机id
   },
   methods: {
-    drawARing(name='',value='') {
-      this.name = name !='' ? name:this.name
-      this.value = value !='' ? value: this.value
+    drawARing() {
       // 测量圆环
       var data = [] // 获取数据
       for (let i = 0; i < this.value.length; i++) {

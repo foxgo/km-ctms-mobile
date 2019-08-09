@@ -24,9 +24,9 @@
       <router-link :to="{name:'BloodPressureManual'}">手动输入</router-link>
       <router-link :to="{name:'BloodPressureManual'}">设备输入</router-link>
     </div>
-    <div class="report_btn">
+    <!-- <div class="report_btn">
        <router-link :to="{name:'BloodPressureReport'}">查看报告</router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
