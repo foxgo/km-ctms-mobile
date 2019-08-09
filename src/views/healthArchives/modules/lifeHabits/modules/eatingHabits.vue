@@ -97,7 +97,7 @@ export default {
     //获取饮食数据
     getEatHabit() {
       let that = this;
-      getPersonEatHabit()
+      getPersonEatHabit(that.memberId)
       .then(function(response){
         if (response.data.IsSuccess === true) {
           let getData = response.data.ReturnData;
@@ -124,6 +124,7 @@ export default {
     setPersonEatHabit() {
       let that = this;
       var upData = new Object();
+      upData.memberId = that.memberId
       for(var i = 0, length1 = this.dataArr.length; i < length1; i++){
         let item = this.dataArr[i];
         let key = item.key;
