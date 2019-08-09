@@ -31,7 +31,7 @@ const healthArchivesRouter =
       },
       {
         path: 'lifeHabits',
-        component: { template: '<router-view />' },
+        component: { template: '<keep-alive> <router-view /> </keep-alive>' },
         children: [
           {
             path: '',

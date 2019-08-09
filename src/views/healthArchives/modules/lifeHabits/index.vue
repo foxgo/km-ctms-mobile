@@ -82,7 +82,9 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.memberId = to.params.memberId
+      if (!vm.memberId) {
+        vm.memberId = to.params.memberId
+      }
       vm.loadData()
     })
   }

@@ -181,7 +181,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.memberId = to.query.memberId
+      vm.memberId = to.params.memberId
       vm.loadData()
     })
   }
