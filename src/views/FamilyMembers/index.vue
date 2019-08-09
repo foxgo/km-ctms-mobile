@@ -67,7 +67,7 @@ export default {
                 Toast("家庭成员数量不能超过10人")
                 return
             }
-            this.$router.push('/healthArchives/basicArchives/addMember')
+            this.$router.push('/healthArchives/addMember')
         },
 
         itemClicked(memberId) {
