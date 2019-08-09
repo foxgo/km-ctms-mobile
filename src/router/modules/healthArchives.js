@@ -35,24 +35,24 @@ const healthArchivesRouter =
         children: [
           {
             path: '',
-            name: 'lifeHabits',
+            name: 'LifeHabits',
             component: () => import('@/views/healthArchives/modules/lifeHabits'),
             meta: { title: '生活习惯', noCache: true }
           },
           {
             path: 'eatingHabits',
-            name: 'eatingHabits',
+            name: 'EatingHabits',
             component: () => import('@/views/healthArchives/modules/lifeHabits/modules/eatingHabits'),
             meta: { title: '饮食习惯', noCache: true }
           },
           {
             path: 'labor',
-            name: 'labor',
+            name: 'Labor',
             component: () => import('@/views/healthArchives/modules/lifeHabits/modules/labor'),
             meta: { title: '体力活动与运动', noCache: true }
           },
           {
-            path: 'Drinking&Smoking',
+            path: 'drinking&Smoking',
             name: 'Drinking&Smoking',
             component: () => import('@/views/healthArchives/modules/lifeHabits/modules/Drinking&Smoking'),
             meta: { title: '吸烟饮酒', noCache: true }
@@ -61,6 +61,7 @@ const healthArchivesRouter =
       },
       {
         path: 'healthHistory',
+        name: 'HealthHistory',
         component: () => import('@/views/healthArchives/modules/healthHistory'),
         meta: { title: '健康史', noCache: true }
       }
