@@ -142,11 +142,11 @@ export default {
           
           getHealthHistory(that.memberId).then(function (resp) {
             if (resp.data != null) {
-              var data = resp.data;
+              var data = resp.data.ReturnData;
               
               let fSelectList = document.getElementById('fSelectList');
               let dSelectList = document.getElementById('dSelectList');
-              if (data.FHealthCategoryIDs.length>2) {
+              if (!!data.FHealthCategoryIDs && data.FHealthCategoryIDs.length > 2) {
                 var idString = data.FHealthCategoryIDs;
                 idString = idString.substring(1,idString.length-1);
                 idString = idString.replace(" ","");
@@ -159,7 +159,7 @@ export default {
                 }
               }
               
-              if (data.DHealthCategoryIDs.length>2) {
+              if (!!data.DHealthCategoryIDs && data.DHealthCategoryIDs.length>2) {
                 var idString = data.DHealthCategoryIDs;
                 idString = idString.substring(1,idString.length-1);
                 idString = idString.replace(" ","");
@@ -181,25 +181,25 @@ export default {
               if (li_g.className == "active") {
                 document.getElementById('gxyBox').style.display = 'block';
               }
-
+              debugger
               //是否父母都有糖尿病史 true：是，false 否
               that.BothDiabetes = data.BothDiabetes;
               let element_t;
               let bothDiabetes = document.getElementById('diabetes_ul');
               if (that.BothDiabetes === 'true') {
                 element_t = bothDiabetes.children[0];
-              } else if (that.BothDiabetes === 'false') {
+              } else {
                 element_t = bothDiabetes.children[1];
               }
               element_t.classList.add("active");
-
+              
               //是否父母都有高血压史 true：是，false 否
               that.BothHypertensive = data.BothHypertensive;
               let element_g;
               let bothHypertensive = document.getElementById('gxy_ul');
               if (that.BothHypertensive === 'true') {
                 element_g = bothHypertensive.children[0];
-              } else if (that.BothHypertensive === 'false') {
+              } else {
                 element_g = bothHypertensive.children[1];
               }
               element_g.classList.add("active");
