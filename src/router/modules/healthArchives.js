@@ -17,19 +17,25 @@ const healthArchivesRouter =
         path: '',
         name: 'HealthArchives',
         component: () => import('@/views/healthArchives'),
-        meta: { title: '健康档案', noCache: true }
+        meta: { title: '健康档案' }
       },
       /*
-        需要传pagetype参数，用于区分新增成员和问卷调查
+        需要传 pagetype 参数，用于区分新增成员和问卷调查
         新增成员： addMember
         问卷调查： 可以不用传
         查看档案： edit
       */
       {
-        path: 'basicArchives/:pagetype',
+        path: 'basicArchives',
         name: 'BasicArchives',
         component: () => import('@/views/healthArchives/modules/basicArchives'),
-        meta: { title: '基础档案', noCache: true }
+        meta: { title: '基础档案' }
+      },
+      {
+        path: 'addMember',
+        name: 'AddMember',
+        component: () => import('@/views/healthArchives/modules/basicArchives/addMember'),
+        meta: { title: '新增成员' }
       },
       {
         path: 'lifeHabits',
