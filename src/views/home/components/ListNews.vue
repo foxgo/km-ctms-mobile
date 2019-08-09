@@ -122,18 +122,20 @@ export default {
         height px2rem(180)
         border-top 1px solid #eee
         align-items center
-        box-sizing:border-box
+        box-sizing border-box
+        background white
+
         img
           width px2rem(220)
-          height px2rem(150)
+          height px2rem(140)
           float left
-          margin 0px px2rem(15)
+          margin 0px px2rem(25)
         .titles-box
           display flex
           flex-direction column
           justify-content space-between
           align-items flex-start
-          height px2rem(150)
+          height px2rem(140)
           h2
             font-size px2rem(26px)
             font-weight 500
@@ -141,12 +143,12 @@ export default {
             word-wrap break-word
             overflow hidden
             text-align left 
-            line-height px2rem(32px)
+            line-height px2rem(35px)
             padding-right px2rem(15)
-            padding-top px2rem(5)
+            padding-top px2rem(4)
           p
             color:#7b95b8
-            text-align left 
+            text-align left
             line-height px2rem(28)
             font-size px2rem(22)
           p:last-child
