@@ -37,19 +37,19 @@ export default {
         "0": {
           text:"饮食习惯",
           img: require("@/assets/images/healthArchives/life1@2x.png"),
-          percent: "10",
+          percent: "0",
           to: "/healthArchives/lifeHabits/eatingHabits"
         },
         "1": {
           text:"体力活动与运动",
           img: require("@/assets/images/healthArchives/life2@2x.png"),
-          percent: "10",
+          percent: "0",
           to: "/healthArchives/lifeHabits/labor"
         },
         "2": {
           text:"吸烟饮酒",
           img: require("@/assets/images/healthArchives/life3@2x.png"),
-          percent: "10",
+          percent: "0",
           to: "/healthArchives/lifeHabits/Drinking&Smoking"
         },
       }
