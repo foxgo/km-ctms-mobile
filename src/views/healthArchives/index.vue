@@ -61,7 +61,7 @@ export default {
           text:"基础档案",
           img: require("@/assets/images/healthArchives/folder.png"),
           percent: "10",
-          to: "/healthArchives/basicArchives/edit"
+          to: "/healthArchives/basicArchives"
         },
         "1": {
           text:"生活习惯",
