@@ -65,6 +65,8 @@ $borderRadius : 10px;
 }
 
 .mint-header.title.is-fixed {
+  z-index: 5;
+
   @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
     padding-top: 50px;
     padding-bottom: 20px;

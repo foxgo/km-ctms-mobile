@@ -3,6 +3,7 @@
  */
 
 import { Indicator } from 'mint-ui'
+import { getHealthArchivesInfo } from '@/api/healthArchives'
 
 let tempImage
 
@@ -65,9 +66,44 @@ const globalMixin = {
 
             return path
         },
+        //获取档案信息请求
+        getHealthArchivesInfo() {
+            return getHealthArchivesInfo().then((res) => {
+                this.$store.state.personInfo.info = res.data.ReturnData;
+
+                return this.$store.state.personInfo.info;
+            });
+        },
+        //获取档案信息
+         getPersonInfo() {
+            return new Promise(async (resolve, reject) => {
+                let personInfo = this.$store.state.personInfo.info;
+
+                if(this.$utils.isEmpty(personInfo)) {
+                    personInfo = await this.getHealthArchivesInfo();
+
+                    if(personInfo.Birthday) {
+                        let startTime = new Date(personInfo.Birthday); // 开始时间
+                        let endTime = new Date(); // 结束时间
+                        let usedTime = endTime - startTime; // 相差的毫秒数
+                        let usedYears = usedTime/(1000*60*60*24*365);
+
+                        personInfo.Age = parseInt(usedYears);
+                    }
+                }
+
+                if(this.$utils.isEmpty(personInfo)) {
+                    reject(personInfo);
+                } else {
+                    resolve(personInfo);
+                }
+            }).catch(() => {});
+        },
+        //设置缓存的图片文件（食物录入）
         setTempImage(img) {
             tempImage = img
         },
+        //设获取缓存的图片文件（食物录入）
         getTempImage() {
             return tempImage
         },

@@ -1,0 +1,71 @@
+.range-choose {
+    position: relative;
+    padding: px2rem(20) 0;
+
+    .range-list {
+        position: relative;
+
+        > li {
+            float: left;
+            position: relative;
+            height: px2rem(33);
+
+            &:before {
+                display: block;
+                content: "";
+                border-radius: 1px;
+                width: 1px;
+                height: px2rem(10);
+                background: #ababab;
+            }
+
+            &.long-item:before {
+                border-radius: 2px;
+                width: 2px;
+                height: px2rem(33);
+            }
+
+            .range-text {
+                margin-left: -5px;
+                font-size: $font-size-small;
+            }
+        }
+    }
+
+    .range-btn {
+        @include layout-absolute(px2rem(10) auto auto 0);
+        width: px2rem(60);
+        height: px2rem(60);
+
+        &:before {
+            display: block;
+            content: "";
+            @include layout-absolute(px2rem(10) auto auto 0);
+            border-radius: 3px;
+            width: 3px;
+            height: px2rem(40);
+            background: $text-primary-second;
+        }
+    }
+
+    .range-tip {
+        @include layout-absolute(px2rem(-30) auto auto -50%);
+        border-radius: px2rem(8);
+        width: px2rem(82);
+        height: px2rem(35);
+        line-height: px2rem(35);
+        color: #fff;
+        text-align: center;
+        background: $text-primary-second;
+    }
+
+    .mt-range {
+        @include layout-absolute(0);
+        width: 100%;
+
+        .mt-range-thumb {
+            background: none;
+            box-shadow: none;
+        }
+    }
+}

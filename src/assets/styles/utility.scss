@@ -13,6 +13,7 @@ $text-body-primary: #666;
 $text-body-second: #333;
 
 $text-primary: #2283f5;
+$text-primary-second: #008dfd;
 $text-success: #67C23A;
 $text-info: #71ACFF;
 $text-warning: #f09b06;
@@ -417,6 +418,10 @@ pad-l-xl {
     color: $text-primary;
 }
 
+.text-primary-second {
+    color: $text-primary-second;
+}
+
 .text-success {
     color: $text-success;
 }
@@ -589,6 +594,10 @@ pad-l-xl {
 
 .align-items-center {
     align-items: center;
+}
+
+.flex-1 {
+    flex: 1;
 }
 
 .normal-page-box {

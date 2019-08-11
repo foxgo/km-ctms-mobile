@@ -76,7 +76,7 @@ export default {
       var pageRoutes = {
         1: '/dailyHealth',
         2: '/selfBodyCheck',
-        3: '/diseaseNormal',
+        3: '/commonDisease',
         4: '/TCMphysique',
         5: '/diseaseDistribution',
         6: '/lifeCycle'

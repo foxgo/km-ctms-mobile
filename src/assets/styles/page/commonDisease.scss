@@ -1,0 +1,126 @@
+.common-disease-section {
+    text-align: left;
+    line-height: 1.5;
+    font-size: $font-size-base;
+    color: #fff;
+
+    .disease-wrap {
+        position: relative;
+        margin: px2rem(50) auto 0;
+        width: px2rem(650);
+    }
+
+    .people-body {
+        margin: 0 auto;
+        width: px2rem(330);
+        height: px2rem(940);
+        background: url("../images/commonDisease/male.png") no-repeat;
+        background-size: px2rem(330) px2rem(940);
+
+        &.female {
+            width: px2rem(369);
+            height: px2rem(938);
+            background: url("../images/commonDisease/female.png") no-repeat;
+            background-size: px2rem(369) px2rem(938);
+        }
+    }
+
+    .disease-item {
+        @include layout-absolute(auto auto auto auto);
+
+        .disease-tag {
+            position: relative;
+            z-index: 5;
+            border-radius: px2rem(50);
+            width: px2rem(180);
+            height: px2rem(50);
+            line-height: px2rem(50);
+            background: $text-primary-second;
+        }
+
+        .disease-tag-icon {
+            float: left;
+            margin: 1px 0 0 1px;
+        }
+
+        .disease-tag-label {
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .disease-line {
+            @include layout-absolute(50% auto);
+            width: px2rem(180);
+            height: 1px;
+            background: #2f5faf;
+
+            &:after {
+                display: inline-block;
+                vertical-align: top;
+                content: "";
+                @include layout-absolute(-1px 0);
+                border-radius: 100%;
+                width: 4px;
+                height: 4px;
+                background: #2f5faf;//#2f5faf #7889a0
+            }
+        }
+    }
+
+    .left-disease-list {
+        @include layout-absolute(0 auto auto 0);
+
+        .disease-line {
+            left: px2rem(170);
+        }
+    }
+
+    .right-disease-list {
+        @include layout-absolute(0 0 auto auto);
+
+        .disease-item {
+            right: 0;
+        }
+
+        .disease-line {
+            right: px2rem(170);
+
+            &:after {
+                @include layout-absolute(px2rem(-3) auto auto 0);
+            }
+        }
+    }
+
+    .gender-switch {
+        @include layout-absolute(auto 0 px2rem(120) auto);
+
+        .switch-btn {
+            display: block;
+            margin-bottom: px2rem(20);
+            border-radius: px2rem(60);
+            width: px2rem(120);
+            height: px2rem(60);
+            line-height: px2rem(60);
+            font-size: $font-size-medium;
+            color: #fff;
+            text-align: center;
+            background: #c4c4c4;
+            cursor: pointer;
+
+            &.active {
+                background: $text-primary-second;
+            }
+        }
+    }
+
+    .link-btn {
+        display: block;
+        border-radius: px2rem(80);
+        height: px2rem(80);
+        line-height: px2rem(80);
+        font-size: $font-size-medium;
+        color: #fff;
+        text-align: center;
+        background: $text-primary-second;
+    }
+}

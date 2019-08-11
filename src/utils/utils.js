@@ -296,6 +296,28 @@ let utils = {
         }
 
         return key;
+    },
+    //根据年龄获取时期
+    getPeriod(age) {
+        let str = "";
+
+        if(age < 4) {
+            str = "幼儿期";
+        } else if(age < 7) {
+            str = "学龄前期";
+        }  else if(age < 13) {
+            str = "学龄期";
+        } else if(age < 18) {
+            str = "少年期";
+        } else if(age < 40) {
+            str = "青年期";
+        }  else if(age < 64) {
+            str = "中年期";
+        } else {
+            str = "老年期";
+        }
+
+        return str;
     }
 };
 
