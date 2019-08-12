@@ -1,9 +1,10 @@
 <template>
   <div class="picker-box">
-    <div @click="showPicker"><span v-if="time>0">{{ time | formatDate }}</span><span v-else>请选择时间</span></div>
+    <div @click="showPicker"><span v-if="time">{{ time | localFormatDate }}</span><span v-else>请选择时间</span></div>
     <mt-datetime-picker
       ref="dataPicker"
       :start-date="startDate"
+      :end-date="new Date()"
       type="date"
       year-format="{value} 年"
       month-format="{value} 月"
@@ -14,18 +15,17 @@
 
 <script>
 import { formatDate } from '../../utils/dateFilter.js'
+
 export default {
   name: 'DatePicker',
   filters: {
-    formatDate(time) {
-      var date = new Date(time)
-      return formatDate(date, 'yyyy-MM-dd')
+    localFormatDate(time) {
+      return formatDate(time, 'yyyy-MM-dd')
     }
   },
-  props:['settingTime','startDate'], // 手动设置显示的时间
+  props:['settingTime','startDate'], // 手动设置显示的时间  new Date('1930-01-01')
   data() {
     return {
-      // startDate: new Date('1930-01-01'),
       time: null
     }
   },
@@ -35,9 +35,11 @@ export default {
     }
   },
   methods: {
+    
     showPicker() {
       this.$refs.dataPicker.open()
     },
+
     handleChange(value) {
       this.time = value
       this.$emit('showTime', formatDate(new Date(this.time), 'yyyy-MM-dd hh:mm:ss')) // 把值传给父级
