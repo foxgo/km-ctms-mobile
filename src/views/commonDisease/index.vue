@@ -67,19 +67,19 @@
             this.$root.getPersonInfo().then((data) => {
                 let json = {
                     age: data.Age,
-                    gender: data.Gender,
-                    period: this.$utils.getPeriod(data.Age)
+                    gender: data.Gender
                 };
 
                 if(typeof this.age !== "undefined" && typeof this.sex !== "undefined") {
                     json = {
                         age: this.age,
-                        gender: this.sex,
-                        period: this.$utils.getPeriod(this.age)
+                        gender: this.sex
                     };
                 }
 
-                let period = this.$utils.getPeriod(json.age);
+                let result = this.$utils.getPeriod(json);
+                let period = result.pageData.period;
+                json.period = period;
                 this.gender = json.gender;
                 this.data = json;
 

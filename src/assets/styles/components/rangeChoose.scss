@@ -60,7 +60,7 @@
     }
 
     .mt-range {
-        @include layout-absolute(0);
+        @include layout-absolute(0,  3);
         width: 100%;
 
         .mt-range-thumb {

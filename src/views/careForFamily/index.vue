@@ -24,6 +24,14 @@
                     </div>
                 </div>
 
+                <div class="field-row clearfix" v-if="data.age < 3">
+                    <label class="field-label">月份</label>
+
+                    <div class="field-con">
+                        <range-choose v-model="data.month" :min="0" :max="12" unit="月"/>
+                    </div>
+                </div>
+
                 <template v-if="$utils.getMapKey(genderMap, data.gender) === 'female' && canPregnant">
                     <div class="field-row clearfix" >
                         <label class="field-label">怀孕</label>
@@ -39,7 +47,7 @@
                         <label class="field-label">孕周</label>
 
                         <div class="field-con">
-                            <range-choose v-model="data.week" :min="10" :max="40" unit="周"/>
+                            <range-choose v-model="data.week" :min="5" :max="42" unit="周"/>
                         </div>
                     </div>
                 </template>
@@ -64,6 +72,7 @@
         age: 20,
         isPregnant: false,
         week: 0,
+        month: 0,
         gender: "1"
     };
 
@@ -80,7 +89,7 @@
             canPregnant() {
                 let canPregnant = (this.data.age > 20 && this.data.age < 50);
 
-                return canPregnant
+                return canPregnant;
             }
         },
         watch: {
@@ -126,7 +135,16 @@
 
                 if(this.$utils.getMapKey(genderMap, query.gender) !== "female" || !query.isPregnant) {
                     delete query.week;
-                    delete query.isPregnant;
+                }
+
+                if(query.age > 3) {
+                    delete query.month;
+                }
+
+                delete query.isPregnant;
+
+                for(let pro in query) {
+                    query[pro] = Number(query[pro]);
                 }
 
                 let router = {

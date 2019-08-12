@@ -85,6 +85,9 @@ export default {
       if(index === 2) {
         this.$root.actionToNative('gotoOuterSiteURL', '部位自诊', window.location.host+'/static/selfBodyCheck/index.html')
         // window.location.href = "static/selfBodyCheck"
+      } else if(index === 3) {
+          //呀！您还处于幼儿期，请预防...、...等常见疾病
+          this.$router.push({ path: pageRoutes[index] });
       } else if(index === 4) {
         const postData ={
           "name" : this.$store.state.user.name,
