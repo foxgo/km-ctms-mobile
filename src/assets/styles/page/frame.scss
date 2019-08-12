@@ -1,15 +1,3 @@
-.km-header-bar {
-    @include layout-fixed(0 10px auto auto, 3);
-    @include respond-to(iPhone_X_Xs iPhone_XsMax iPhone_XR){
-        @include layout-fixed(30px 10px auto auto, 3);
-    }
-    @include respond-to(iPhone5 iPhone6_7_8 iPhone6P_7P_8P){
-        @include layout-fixed(20px 10px auto auto, 3);
-    }
-    line-height: 40px;
-    color: #fff;
-    font-size: px2rem(32);
-}
 
 .page-infinite-loading {
     padding-top: 20px;
