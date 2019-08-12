@@ -1,5 +1,7 @@
 <template>
   <div class="home root-page-box clearfix">
+    <a class="km-header-bar" href="./static/login_H5&360App.html" style="color:white;">登录</a>
+    
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">首页</mt-tab-item>
       <mt-tab-item id="2">商城</mt-tab-item>
@@ -7,7 +9,6 @@
       <mt-tab-item id="4">家庭成员</mt-tab-item>
     </mt-navbar>
 
-    <a class="km-header-bar" href="./static/login_H5&360App.html" style="color:white;">登录</a>
     <banner />
     <health-record />
     <health-one />
