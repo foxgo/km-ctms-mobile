@@ -83,7 +83,7 @@ export default {
       }
 
       if(index === 2) {
-        this.$root.actionToNative('gotoOuterSiteURL', '部位自诊', window.location.host+'/static/selfBodyCheck')
+        this.$root.actionToNative('gotoOuterSiteURL', '部位自诊', window.location.host+'/static/selfBodyCheck/index.html')
         // window.location.href = "static/selfBodyCheck"
       } else if(index === 4) {
         const postData ={
@@ -101,8 +101,7 @@ export default {
         }).then((response) => {
           return response.data;
         }).then((data) => {
-            // window.location.href = data.data
-            this.$root.actionToNative('gotoOuterSiteURL', '中医体质', data.data)
+            this.$root.actionToNative('gotoOuterSiteURL', '中医体质', data.data || '')
         }).catch(() => {
             console.log("请求出错");
         });
