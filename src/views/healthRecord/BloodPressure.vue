@@ -18,15 +18,16 @@
     </div>
     <div class="trendMap">
       <h2 class="lately_title">血压趋势</h2>
+      
+      <div class="report_btn">
+       <router-link :to="{name:'BloodPressureReport'}">查看报告</router-link>
+    </div>
       <line-chart v-if="flag" :items="items" :check-time="bloodPressureRecord.CheckTimeList" :last-time="bloodPressureRecord.LastTestTime" :y-min="min" :y-max="max" :y-interval="interval"/>
     </div>
     <div class="health_btn">
       <router-link :to="{name:'BloodPressureManual'}">手动输入</router-link>
       <router-link :to="{name:'BloodPressureManual'}">设备输入</router-link>
-    </div>
-    <!-- <div class="report_btn">
-       <router-link :to="{name:'BloodPressureReport'}">查看报告</router-link>
-    </div> -->
+    </div>    
   </div>
 </template>
 

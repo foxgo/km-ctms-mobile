@@ -16,14 +16,14 @@
     </div>
     <div class="trendMap">
       <h2 class="lately_title">血糖趋势</h2>
+      <div class="report_btn">
+        <router-link :to="{name:'BloodSugarReport'}">查看报告</router-link>
+      </div>
       <line-chart v-if="flag" :items="items" :check-time="bloodSugarRecord.CheckTimeList" :last-time="bloodSugarRecord.LastTestTime" :y-min="min" :y-max="max" :y-interval="interval"/>
     </div>
      <div class="health_btn">
       <router-link :to="{name:'BloodSugarManual'}">手动输入</router-link>
       <router-link :to="{name:'BloodSugarManual'}">设备输入</router-link>
-    </div>
-    <div class="report_btn">
-       <router-link :to="{name:'BloodSugarReport'}">查看报告</router-link>
     </div>
   </div>
 </template>

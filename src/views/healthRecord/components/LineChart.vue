@@ -104,6 +104,7 @@ export default {
     }
   },
   mounted() {
+    let that = this;
     // 初始化图表
     this.chartObj = this.$echarts.init(document.getElementById(this.elId))
     this.option = { // 创建图表配置数据
@@ -123,24 +124,6 @@ export default {
         left: 'right',
         top: 0,
         subtext: '可左右滑动查看'
-      }, 
-      {
-        text: '查看报告',
-        textStyle: {
-          color: '#008dff', // 颜色
-          align:'center',
-          fontWeight: 'bold', // 粗细
-          fontSize: 18, // 大小
-          width :'3.093333333333333rem',
-          height:'0.8rem',
-          borderColor: '#6bb0fe',
-          borderWidth:'1px',
-          borderRadius:'120px'
-        },
-        left: 'center',
-        top: 0,
-        link: "javascript: alert('a')",
-        target: "self"// 保证不会在新的窗口弹出
       }],
       tooltip: {
         trigger: 'axis',
