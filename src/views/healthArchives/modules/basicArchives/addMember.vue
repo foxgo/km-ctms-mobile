@@ -114,7 +114,7 @@ export default {
   },
   watch: {
     cardIDNumber(val) {
-      if(val != "" && val.length == 15 || val.length == 18){
+      if(!!val && val.length == 15 || val.length == 18){
         if(isCardNoStrict(val)) {
           var birthDate, gender
           // 解析身份证的生日与性别
@@ -146,7 +146,7 @@ export default {
     },
     phoneNumber(val) {
       const tmpVal = val + ''
-      if(tmpVal != "" && tmpVal.length >= 11){ 
+      if(!!tmpVal && tmpVal.length >= 11){ 
         if(isPhoneNo(tmpVal)) {
           // 检测家庭成员是否已经存在
           if(this.autoInputPhone && this.autoInputPhone === tmpVal) { return }
@@ -257,16 +257,16 @@ export default {
         IsFamilyMember: true // true表示新增
       };
 
-      console.log(JSON.stringify(upData))
-
       if (!upData.PersonNo) {
         createFamilyMember(upData)
         .then(function(response){
-            if (response.data.IsSuccess === true) {
-              Toast("新增家庭成员成功！");
-            }else{
-              Toast(response.data.ReturnMessage);
-            }
+            MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
+              that.allData = {}
+              that.$refs.marriageData.innerText = '请选择'
+              that.$refs.gender.innerText = '请选择'
+            }).catch(err => {
+              that.$router.back()
+            })
         }).catch(function(error){
           Toast(error.message);
         })
@@ -274,11 +274,13 @@ export default {
         MessageBox.confirm("身份证号一旦设置将不能再修改").then(action => {
           createFamilyMember(upData)
           .then(function(response){
-              if (response.data.IsSuccess === true) {
-                Toast("新增家庭成员成功！");
-              }else{
-                Toast(response.data.ReturnMessage);
-              }
+              MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
+                that.allData = {}
+                that.$refs.marriageData.innerText = '请选择'
+                that.$refs.gender.innerText = '请选择'
+              }).catch(err => {
+                that.$router.back()
+              })
           }).catch(function(error){
             Toast(error.message);
           })
