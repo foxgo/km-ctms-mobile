@@ -43,7 +43,6 @@ Vue.use(install)
 // Vue.config.productionTip = false
 
 // Token获取与保存
-setToken_H5('tempToken')
 import { setToken_H5, setToken_360App } from '@/utils/auth'
 // 解析URL传入的参数
 var reg1 = new RegExp('(^|&)' + 'token_H5' + '=([^&]*)(&|$)', 'i')
