@@ -1,0 +1,77 @@
+.care-for-family-section {
+    line-height: 1.5;
+    text-align: left;
+    font-size: px2rem(28);
+    color: $text-body-primary;
+    background: #f4f3f8;
+
+    .white-block {
+        background: #fff;
+    }
+
+    .form-con {
+        position: relative;
+        z-index: 3;
+    }
+
+    .gender-switch >  li {
+        float: left;
+        margin-right: px2rem(114);
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .switch-btn {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: px2rem(40);
+        border: 1px solid #b5b5b5;
+        border-radius: px2rem(70);
+        width: px2rem(140);
+        height: px2rem(70);
+        line-height: px2rem(70);
+        font-size: $font-size-medium;
+        color: #b5b5b5;
+        text-align: center;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &.active {
+            color: $text-primary-second;
+            border-color: $text-primary-second;
+        }
+    }
+
+    .field-row {
+        border-top: 1px solid #ebebeb;
+        padding: px2rem(34) 0;
+
+        .field-label {
+            float: left;
+            margin-right: px2rem(20);
+            margin-top: px2rem(10);
+            width: px2rem(90);
+            font-size: $font-size-medium;
+            text-align: right;
+        }
+
+        .field-con {
+            margin-left: px2rem(110);
+            padding-right: px2rem(40);
+            /*overflow: hidden;*/
+        }
+    }
+
+    .btn-con {
+        @include layout-absolute(auto 0 0 0);
+        padding: px2rem(40);
+        background: #f4f3f8;
+
+        .submit-btn {
+            margin-top: 200px;
+            width: 100%;
+        }
+    }
+}

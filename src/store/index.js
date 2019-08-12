@@ -4,6 +4,7 @@ import app from './modules/app'
 import permission from './modules/permission'
 import user from './modules/user'
 import dailyHealth from './modules/dailyHealth'
+import personInfo from './modules/personInfo'
 import getters from './getters'
 import dict from './modules/dict'
 
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
     permission,
     user,
     dailyHealth,
+    personInfo,
     dict
   },
   getters

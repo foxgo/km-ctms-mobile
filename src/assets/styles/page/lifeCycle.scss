@@ -1,0 +1,106 @@
+$life-cycle-h-pad: 30;
+
+.life-cycle-section {
+    text-align: left;
+    line-height: 1.5;
+    background: #f2f2f2;
+
+    .current-cycle {
+        margin-bottom: px2rem(20);
+        padding: px2rem(40) px2rem($life-cycle-h-pad) px2rem(30);
+        background: #fff;
+    }
+
+    .questions-wrap {
+        margin-bottom: px2rem(20);
+        padding: px2rem(30) px2rem($life-cycle-h-pad);
+        background: #fff;
+
+        .questions-list {
+            .questions-link {
+                display: inline-block;
+                vertical-align: top;
+                margin-top: px2rem(30);
+                margin-right: px2rem(20);
+                border: 1px solid #e0e0e0;
+                border-radius: px2rem(56);
+                padding: 0 px2rem(20);
+                height: px2rem(56);
+                line-height: px2rem(56);
+                cursor: pointer;
+
+                &:hover, &:active {
+                    border-color: $text-primary-second;
+                    color: #fff;
+                    background: $text-primary-second;
+                }
+            }
+        }
+    }
+
+    .care-btn {
+        @include layout-fixed(auto px2rem(20) 10% auto);
+        border: px2rem(10) solid rgba(0, 143, 233, 0.16);
+        border-radius: 100%;
+        padding-top: px2rem(10);
+        width: px2rem(142);
+        height: px2rem(142);
+        font-size: $font-size-medium;
+        color: $text-primary-second;
+        text-align: center;
+        background: #fff;
+        box-shadow: 0 0 10px 2px rgba(0, 143, 233, 0.16);// rgba(0, 64, 255, 0.4)
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+}
+
+.switch-tab-wrap {
+    background: #fff;
+
+    .switch-tab-header {
+        border-bottom: 1px solid #e0e0e0;
+
+        > li {
+            float: left;
+            position: relative;
+            width: 33.3%;
+            height: px2rem(90);
+            line-height: px2rem(90);
+            font-size: $font-size-medium;
+            color: $text-mute;
+            text-align: center;
+            cursor: pointer;
+
+            &.active {
+                color: $text-primary-second;
+
+                &:after {
+                    content: "";
+                    @include layout-absolute(auto 0 -1px 0);
+                    width: 100%;
+                    height: 2px;
+                    background: $text-primary-second;
+                }
+            }
+        }
+    }
+
+    .switch-tab-body {
+        padding: px2rem(40) px2rem($life-cycle-h-pad);
+        min-height: px2rem(100);
+        font-size: $font-size-base;
+        box-sizing: border-box;
+
+        > p:before {
+            display: inline-block;
+            vertical-align: middle;
+            content: "";
+            margin-right: 0.06667rem;
+            border-radius: 100%;
+            width: 0.16rem;
+            height: 0.16rem;
+            background: #16c5b7;
+        }
+    }
+}
