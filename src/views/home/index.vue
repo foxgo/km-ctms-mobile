@@ -7,7 +7,7 @@
       <mt-tab-item id="4">家庭成员</mt-tab-item>
     </mt-navbar>
 
-    <a class="km-header-bar" href="../../static/login_H5&360App.html" style="color:white;">登录</a>
+    <a class="km-header-bar" href="./static/login_H5&360App.html" style="color:white;">登录</a>
     <banner />
     <health-record />
     <health-one />
