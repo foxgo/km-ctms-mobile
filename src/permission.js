@@ -40,7 +40,21 @@ router.beforeEach((to, from, next) => {
       } else {
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
         if (hasPermission(store.getters.roles, to.meta.roles)) {
-          next()
+          //需要档案完整才可以访问
+          if(to.meta.needInfoComplete) {
+              rootVue.getPersonInfo().then((data) => {
+                  let result = rootVue.checkInfoIsComplete(data);
+                  let path = `/healthArchives/basicArchives?showWarningTip=true&redirect=${to.path}`;
+
+                  if(result) {
+                      next();
+                  } else {
+                      rootVue.$root.$router.replace(path);
+                  }
+              });
+          } else {
+              next()
+          }
         } else {
           next({ path: '/401', replace: true, query: { noGoBack: true }})
         }

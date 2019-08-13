@@ -1,5 +1,5 @@
 <template>
-    <div class="page-section care-for-family-section normal-page-box clearfix">
+    <div class="page-section care-for-family-section normal-page-box clearfix" v-if="loadComplete">
         <div class="white-block pad-lg font-size-large text-body-second">看看您的家人当前生命周期需要哪些 预防保健?</div>
 
         <form @submit.prevent="save" class="form-con">
@@ -69,7 +69,7 @@
     import genderMap from "@/map/h5-gender";
 
     let data = {
-        age: 20,
+        age: 1,
         isPregnant: false,
         week: 0,
         month: 0,
@@ -80,6 +80,7 @@
         data() {
             return {
                 genderMap,
+                loadComplete: false, //是否已加载
                 data: {
                     ...data
                 }
@@ -110,6 +111,11 @@
         },
         mounted() {
             this.$root.setPageTitle("关爱家人");
+
+            this.loadComplete = true;
+        },
+        beforeDestroy() {
+            this.loadComplete = false;
         },
         methods: {
             //性别切换

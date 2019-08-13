@@ -118,10 +118,16 @@ const data = {
                 lineWidth: 155
             },
             {
-                icon: "icon-people-thin",
-                name: "营养不足",
+                icon: "icon-people-fat",
+                name: "肥胖",
                 top: 570,
                 lineWidth: 110
+            },
+            {
+                icon: "icon-people-thin",
+                name: "营养不足",
+                top: 690,
+                lineWidth: 100
             }
         ]
     },
@@ -160,6 +166,19 @@ const data = {
                 lineWidth: 130
             },
             {
+                icon: "icon-people-kidney",
+                name: "肾结石",
+                top: 358,
+                lineTop: 15,
+                lineWidth: 130
+            },
+            {
+                icon: "icon-people-testis",
+                name: "睾丸癌",
+                top: 478,
+                lineWidth: 150
+            },
+            {
                 icon: "icon-people-prostate",
                 name: "前列腺癌",
                 top: 478,
@@ -168,6 +187,12 @@ const data = {
             {
                 icon: "icon-people-herpes",
                 name: "带状疱疹",
+                top: 658,
+                lineWidth: 80
+            },
+            {
+                icon: "icon-people-herpes",
+                name: "黑色素瘤",
                 top: 658,
                 lineWidth: 80
             },
@@ -198,13 +223,13 @@ const data = {
                 lineTop: 35,
                 lineWidth: 155
             },
-            /*{
-                icon: "icon-people-breast",
-                name: "乳腺癌",
-                top: 270,
-                lineTop: 18,
-                lineWidth: 115
-            },*/
+            {
+                icon: "icon-people-liver",
+                name: "脂肪肝",
+                top: 330,
+                lineTop: 30,
+                lineWidth: 155
+            },
             {
                 icon: "icon-people-stomach",
                 name: "胃癌",
@@ -227,8 +252,8 @@ const data = {
             {
                 icon: "icon-people-thin",
                 name: "营养不足",
-                top: 570,
-                lineWidth: 110
+                top: 690,
+                lineWidth: 70
             }
         ]
     }

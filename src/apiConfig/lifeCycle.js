@@ -4,6 +4,7 @@
 
 let api = {
     getLifeCycleSuggest: "/api/Suggest",
+    getIndexGroupDiseases: "/api/Suggest/GetIndexGroupDeseases",
     getDiseaseDetail: "/api/HealthBaike/GetDisDetail",
     getCommonDisease: "/api/HealthType/Get"
 };

@@ -92,6 +92,7 @@ export default {
     //获取信息完整度
     getInfoComplete() {
       let that = this;
+
       getHealthArchivesInfo(that.memberId)
       .then(response => { 
         

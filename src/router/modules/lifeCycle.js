@@ -8,7 +8,7 @@ import CommonDisease from "../../views/commonDisease";
 import CareForFamily from "../../views/careForFamily";
 
 let meta = {
-    //requireAuth: false
+    needInfoComplete: true
 };
 
 let routers = [
