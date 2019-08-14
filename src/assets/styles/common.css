@@ -37,6 +37,11 @@ input,textarea{ /* 去掉textarea,input的默认样式（IOS上的圆角及内�
   -webkit-appearance:none;
 }
 
+.lock {
+	overflow:hidden;
+	touch-action:none;
+}
+
 .submit-btn { /* 提交按钮 */
   width: 92%;
   height: 1.066666666666667rem;

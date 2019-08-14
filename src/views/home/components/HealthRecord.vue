@@ -46,11 +46,23 @@ export default {
     if(this.$store.state.user.name && this.$store.state.user.name !== 'Admin'){
       this.actionSheetData.name = this.$store.state.user.name
     }else{
-      // 获取当前用户的基础信息
-      getPersonInfo().then(response => {
-        // console.log(JSON.stringify(response))
-        const userData = response.data.Data
-        this.storeUserInfo(userData)
+      // 获取当前用户的基础信息 -- 360App接口，暂时可以不使用
+      // getPersonInfo().then(response => {
+      //   // console.log(JSON.stringify(response))
+      //   const userData = response.data.Data
+      //   this.storeUserInfo(userData)
+      // })
+
+      const that = this
+      // 获取切换后用户的信息，正式更换用户数据（包含了头像、生日）
+      getBasicHealthArchivesInfo().then(response => {
+        const data = response.data.ReturnData
+        // console.log(data)
+        if(data) {
+          that.storeUserInfo(data)
+        }
+      }).catch(error => {
+        Toast(error);
       })
     }
   },
@@ -115,16 +127,9 @@ export default {
           // 获取切换后用户的信息，正式更换用户数据（包含了头像、生日）
           getBasicHealthArchivesInfo().then(response => {
             const data = response.data.ReturnData
-            console.log(data)
-
+            // console.log(data)
             if(data) {
-              that.storeUserInfo({
-                'UserName' : data.Name,
-                'PhoneNumber' : member.phone,
-                'PhotoPath' : require('@/assets/images/home/profile.png'),
-                'Sex' : data.Gender,
-                'Birthday' : data.Birthdate,
-              })
+              that.storeUserInfo(data)
             }
           }).catch(error => {
             Toast(error);
@@ -139,15 +144,23 @@ export default {
     },
 
     storeUserInfo(userData) {
-      const name = userData.UserName
-      const phone = userData.PhoneNumber
-      const avatar = userData.PhotoPath
-      const gender = userData.Sex
-      const birthDate = userData.Birthday
       
+      // const name = userData.UserName
+      // const phone = userData.PhoneNumber
+      // const avatar = userData.PhotoPath || require('@/assets/images/home/profile.png')
+      // const gender = userData.Sex
+      // const birthDate = userData.Birthday
+      
+      const name = userData.Name
+      const phone = userData.Phone
+      const gender = userData.Gender
+      const birthDate = userData.Birthdate
+      const memberId = userData.PersonID
+
       // 保存当前用户的基础信息
+      this.$store.state.user.memberId = memberId
       this.$store.state.user.name = this.actionSheetData.name = name
-      this.$store.state.user.avatar = this.actionSheetData.avatarUrl = avatar
+      // this.$store.state.user.avatar = this.actionSheetData.avatarUrl = avatar
       this.$store.state.user.phone = phone
       this.$store.state.user.gender = gender
       this.$store.state.user.birthDate = birthDate

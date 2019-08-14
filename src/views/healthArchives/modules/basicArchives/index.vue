@@ -9,7 +9,7 @@
         <li class="clearfix" ref="cardID">
           <p>身份证</p>
           <div class="wb"></div>
-          <input type="text" maxlength="18" :readonly="'readonly'" v-model="allData.PersonNo"/>
+          <input type="text" maxlength="18" :readonly="cardIdEnableEdit ? false :'readonly'" v-model="allData.PersonNo"/>
         </li>
         <li class="clearfix">
           <p class="red_star"><span>*</span>性别</p>
@@ -55,7 +55,7 @@
 <script>
 import DatePicker from '@/components/DatePicker'
 import { Toast,DatetimePicker,Actionsheet,MessageBox } from 'mint-ui'
-import { isPhoneNo,isCardNo,isCardNoStrict,limitStringLength } from '@/utils/stringFilter.js'
+import { isPhoneNo,isCardNoStrict,limitStringLength } from '@/utils/stringFilter.js'
 import { dateFormat } from '@/utils/dateFilter.js'
 import { getBasicHealthArchivesInfo,postBasicHealthArchivesInfo } from '@/api/healthArchives'
 
@@ -68,6 +68,8 @@ export default {
 
       province_city_county_obj:{},  //接收省份信息
       allData: {},  //省份以外的全部信息
+
+      cardIdEnableEdit: false, //身份证是否可以编辑，成功设置过后不能再编辑
       
       genderActions: [
         { name: '男',indexValue:'1',method:this.selectGender },
@@ -137,12 +139,18 @@ export default {
         this.warningAnimation(this.$refs.realname)
         return;
       }
-      if(this.allData.Gender == null) {
+      if(this.allData.PersonNo != null && this.allData.PersonNo != "" ) {
+        if (!isCardNoStrict(this.allData.PersonNo)) {
+          Toast("请填写正确格式的身份证！");
+          return;
+        }
+      }
+      if(!this.allData.Gender) {
         Toast("请选择你的性别！");
         this.warningAnimation(this.$refs.gender)
         return;
       }
-      if(this.allData.Birthdate == null) {
+      if(!this.allData.Birthdate) {
         Toast("请选择你的出生日期！");
         this.warningAnimation(this.$refs.birthDate)
         return;
@@ -151,7 +159,7 @@ export default {
         Toast("身高范围：40-250 cm！");
         return;
       }
-      if(this.allData.Weight != null && this.allData.Weight != "" && this.allData.Weight > 220 || this.allData.Weight < 1) {
+      if(!!this.allData.Weight && (this.allData.Weight > 220 || this.allData.Weight < 1)) {
         Toast("体重范围：1-220 kg！");
         return;
       }
@@ -179,6 +187,9 @@ export default {
           if (response.data.IsSuccess === true) {
             Toast("保存成功！");
             let getData = response.data.ReturnData;
+            if (!!getData.PersonNo) {
+              that.cardIdEnableEdit = false
+            }
           }else{
             Toast(response.data.ReturnMessage);
           }
@@ -197,6 +208,8 @@ export default {
 
     // 处理性别、婚姻、身份证能否编辑这几个需要过滤的值
     handleGender_MarriageStatus_PersonNoEdit() {
+      //身份证能否编辑
+      this.cardIdEnableEdit = !this.allData.PersonNo
       //性别
       if(this.allData.Gender == 1) {
         this.$refs.gender.innerText = "男";

@@ -2,13 +2,13 @@
     <div class="member-list-box normal-page-box">
         <a class="km-header-bar" @click="addMember" style="color:white;">添加新成员</a>
         <ul>
-            <li class="list-item" v-for="(item, index) in dataList" data-type="0" :key="index">
+            <li class="list-item" v-for="(item, index) in dataList" data-type="0" :key="index" :class="{self: index===0}">
                 <!-- item 内容 -->
                 <div class="item-content-box" @touchstart.capture="touchStart" @touchmove.capture="touchMove" @touchend.capture="touchEnd" @click="itemClicked(item.MemberID)">
                     <div class="image-box"><img v-bind:src=defaultAvator></div>
                     <div class="label-box">
                         <p>{{item.Name}} <span>&nbsp;{{item.Age}}岁</span></p>
-                        <h6>默认</h6>
+                        <h6 v-if="item.PersonID === item.MemberID">默认</h6>
                     </div>
                     <div class="phonenum-box">{{item.Phone}}</div>
                 </div>
@@ -51,7 +51,7 @@ export default {
                 this.$root.hideLoading()
             }).catch(error => {
                 this.$root.hideLoading()
-                Toast('网络错误')
+                this.$toast('网络错误')
             })
         },
 
@@ -64,7 +64,7 @@ export default {
         //新增成员
         addMember() {
             if (this.dataList.length >= 10) {
-                Toast("家庭成员数量不能超过10人")
+                this.$toast("家庭成员数量不能超过10人")
                 return
             }
             this.$router.push('/healthArchives/addMember')
@@ -80,6 +80,9 @@ export default {
 
         // 滑动开始
         touchStart(e) {
+            
+            const parentElement = e.currentTarget.parentElement
+            if (parentElement.classList.contains('self')) return
             this.startX = e.touches[0].clientX
         },
         // 正在滑动
@@ -142,11 +145,14 @@ export default {
                     // 当前索引
                     const index = target.dataset.index
                     // 复位
-                    this.resetSlide
+                    this.resetSlide()
                     // 删除
                     this.dataList.splice(index,1)
                 })
-            }).catch(error => { });
+            }).catch(error => { 
+                // 复位
+                this.resetSlide()
+            });
             
         }
     },

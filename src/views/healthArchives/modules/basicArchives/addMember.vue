@@ -24,7 +24,7 @@
         <li class="clearfix" ref="birthDate">
           <p class="red_star"><span>*</span>出生年月</p>
           <div class="wb"><img src="@/assets/images/healthArchives/arrow.jpg" height="10" width="6"/></div>
-          <date-picker :settingTime="allData.Birthdate" :startDate="new Date('1930-01-01')" class="pc-box" @showTime="showTime"/>
+          <date-picker class="pc-box" :settingTime="allData.Birthdate" :startDate="new Date('1930-01-01')" @showTime="showTime"/>
         </li>
         <li class="clearfix">
           <p>居住地</p>
@@ -183,7 +183,7 @@ export default {
       this.allData.Birthdate = time
     },
     showAreaData(province_city_country_obj) { //选择居住地回调
-      console.log(JSON.stringify(province_city_country_obj))
+      // console.log(JSON.stringify(province_city_country_obj))
       this.province_city_county_obj = province_city_country_obj
     },
     selectGender(value){ //选择性别回调
@@ -214,12 +214,12 @@ export default {
           return;
         }
       }
-      if(this.allData.Gender == null) {
+      if(!this.allData.Gender) {
         Toast("请选择你的性别！");
         this.warningAnimation(this.$refs.gender)
         return;
       }
-      if(this.allData.Birthdate == null) {
+      if(!this.allData.Birthdate) {
         Toast("请选择你的出生日期！");
         this.warningAnimation(this.$refs.birthDate)
         return;
@@ -228,7 +228,7 @@ export default {
         Toast("身高范围：40-250 cm！");
         return;
       }
-      if(this.allData.Weight != null && this.allData.Weight != "" && this.allData.Weight > 220 || this.allData.Weight < 1) {
+      if(!!this.allData.Weight && (this.allData.Weight > 220 || this.allData.Weight < 1)) {
         Toast("体重范围：1-220 kg！");
         return;
       }
@@ -260,13 +260,14 @@ export default {
       if (!upData.PersonNo) {
         createFamilyMember(upData)
         .then(function(response){
-            MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
-              that.allData = {}
-              that.$refs.marriageData.innerText = '请选择'
-              that.$refs.gender.innerText = '请选择'
-            }).catch(err => {
+          Toast("保存成功")
+            // MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
+            //   that.allData = {}
+            //   that.$refs.marriageData.innerText = '请选择'
+            //   that.$refs.gender.innerText = '请选择'
+            // }).catch(err => {
               that.$router.back()
-            })
+            // })
         }).catch(function(error){
           Toast(error.message);
         })
@@ -274,13 +275,14 @@ export default {
         MessageBox.confirm("身份证号一旦设置将不能再修改").then(action => {
           createFamilyMember(upData)
           .then(function(response){
-              MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
-                that.allData = {}
-                that.$refs.marriageData.innerText = '请选择'
-                that.$refs.gender.innerText = '请选择'
-              }).catch(err => {
+            Toast("保存成功")
+              // MessageBox.confirm("新增家庭成员成功，是否继续添加？").then(action => {
+              //   that.allData = {}
+              //   that.$refs.marriageData.innerText = '请选择'
+              //   that.$refs.gender.innerText = '请选择'
+              // }).catch(err => {
                 that.$router.back()
-              })
+              // })
           }).catch(function(error){
             Toast(error.message);
           })

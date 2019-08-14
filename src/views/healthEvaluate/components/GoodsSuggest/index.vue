@@ -6,7 +6,7 @@
                 <h2>{{item.ProductName}}</h2>
                 <p class="mark">{{item.Remark}}</p>
                 <div class="price-box"><h6>{{item.Price ? '￥' + item.Price : ' ' }}&nbsp;&nbsp;<strike>{{item.originalcost ? '￥'+item.originalcost : ''}}</strike></h6></div>
-                <p class="sales">{{item.Specifications ? (item.Specifications + '已卖出' + item.Salesvolume + '件') : ''}}<span></span></p>
+                <p class="sales">{{item.Specifications ? (item.Specifications + '&nbsp;&nbsp; 已卖出' + item.Salesvolume + '件') : ''}}<span></span></p>
             </li>
         </ul>
     </div>
@@ -48,7 +48,7 @@ export default {
     //     ]
     methods:{
         gotoProductURL:function(item){
-            if (!!item) {
+            if (!!item && !!item.ShoppingMallProductID) {
                 this.$root.actionToNative('gotoShoppingMall', item.ProductName, item.ProductURl, {'gooID': item.ID})
             }
        }

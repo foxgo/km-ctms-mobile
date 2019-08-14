@@ -45,13 +45,12 @@ export default {
     },
     getUrl (i) {
       const url = this.itemArray[i].LinkAddress
-      const obj = {
-          'action': 'gotoShoppingMall',
-          'title': this.itemArray[i].CarouselTitle || '产品详情',
-          'gooID': this.itemArray[i].ID
+      const title = this.itemArray[i].CarouselTitle || '产品详情'
+      const ID = this.itemArray[i].ID
+  
+      if (!!ID) {
+          this.$root.actionToNative('gotoShoppingMall', title, url, {'gooID': ID})
       }
-      alert(JSON.stringify(obj))
-      // this.$router.push({path:'/htmlPanel', query:{url}})
     },
     change (i) {
       this.mark = i

@@ -1,9 +1,10 @@
 <template>
     <div class="picker-box">
         <div @click="showPicker"><span v-if="province_city_county_string">{{province_city_county_string}}</span><span v-else>请选择</span></div>
-        <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
+        <mt-popup v-model="popupVisible" :closeOnClickModal="false" position="bottom" class="mint-popup">
             <mt-picker
                 ref="picker"
+                lockScroll="true"
                 :slots="dataSource" 
                 @change="onValueChanged"
                 :visible-item-count="7"
@@ -11,7 +12,7 @@
                 :show-toolbar="true"
             >
                 <div class="picker-toolbar-title">
-                    <div class="usi-btn-cancel" @click="popupVisible = !popupVisible">取消</div>
+                    <div class="usi-btn-cancel" @click="handleCancel">取消</div>
                     <div class="usi-btn-sure" @click="handleConfirm">确定</div>
                 </div>
             </mt-picker>
@@ -100,14 +101,21 @@ export default {
     methods: {
         showPicker() {
           this.popupVisible = true
+          this.$root.forbidScroll()
         },
 
         // 确定
         handleConfirm() {
             this.province_city_county_string = this.province_city_county_obj.province.value + ' ' + this.province_city_county_obj.city.value + ' ' + this.province_city_county_obj.county.value
             // 把值传给父级
-            this.$emit('showAreaData', this.province_city_county_obj) 
+            this.$emit('showAreaData', this.province_city_county_obj)
             this.popupVisible = false
+            this.$root.enableScroll()
+        },
+
+        handleCancel() {
+            this.popupVisible = false
+            this.$root.enableScroll()
         },
 
         onValueChanged(picker,values) {
@@ -135,7 +143,6 @@ export default {
             if(!city) { return }
             let area = areaData[provinceIndex].l[cityIndex].l[areaIndex]
             if(!area) { return }
-            // console.log(JSON.stringify(area))
 
             this.province_city_county_obj = {
                 province: { value: values[0], id: province.id},

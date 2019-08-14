@@ -123,7 +123,28 @@ const globalMixin = {
                 'params': paramObj
             }
             alert(JSON.stringify(obj))
-        }
+        },
+
+        // 禁止事件
+        forbidEvent(e) {
+            e.preventDefault && e.preventDefault()
+            e.returnValue = false
+            e.stopPropagation && e.stopPropagation()
+            return false
+        },
+
+        // 禁止滑动事件
+        forbidScroll() {
+            document.querySelector('html').classList.add('lock')
+            window.addEventListener('mousewheel', this.forbidEvent)
+            window.addEventListener('touchmove', this.forbidEvent, { passive: false })
+        },
+
+        enableScroll() {
+            document.querySelector('html').classList.remove('lock')
+            window.removeEventListener('mousewheel', this.forbidEvent)
+            window.removeEventListener('touchmove', this.forbidEvent, { passive: false })
+        },
     }
 }
 
