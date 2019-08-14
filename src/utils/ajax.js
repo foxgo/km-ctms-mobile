@@ -2,10 +2,7 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
-import {MessageBox} from "mint-ui";
 import axios from "axios";
-
-import store from "@/store";
 import code from "../map/code";
 import apiTypeMap from "../apiRoot";
 
@@ -48,23 +45,7 @@ let utils = {
         this.vm.$root.hideLoading();
     },
     goLogin() {
-        /*return this.vm.$goto({
-            name: "login",
-            query: {
-                redirect: location.pathname
-            }
-        });*/
-
-        MessageBox.confirm("你已被登出，可以取消继续留在该页面，或者重新登录", "确定登出", {
-            confirmButtonText: "重新登录",
-            cancelButtonText: "取消",
-            type: "warning"
-        }).then(() => {
-            store.dispatch("FedLogOut").then(() => {
-                // 为了重新实例化vue-router对象 避免bug
-                location.reload();
-            });
-        });
+        this.vm.$utils.goLogin();
     },
     fail(error) {
         let message = "请求出错！";

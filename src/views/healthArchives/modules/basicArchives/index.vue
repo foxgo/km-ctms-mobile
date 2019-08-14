@@ -1,5 +1,7 @@
 <template>
     <div class="basic-file normal-page-box">
+      <div class="warning-tip clearfix" v-if="showWarningTip">请完善您的基础档案以获得精准评估结果</div>
+
       <ul>
         <li class="clearfix" ref="realname">
           <p class="red_star"><span>*</span>真实姓名</p>
@@ -84,6 +86,11 @@ export default {
       ],
       marriedSheetVisible: false,
     }
+  },
+  computed: {
+      showWarningTip() {
+          return this.$route.query.showWarningTip;
+      }
   },
   mounted() {
     
@@ -190,6 +197,11 @@ export default {
             if (!!getData.PersonNo) {
               that.cardIdEnableEdit = false
             }
+
+            let redirect = that.$route.query.redirect;
+            if(that.showWarningTip && redirect) {
+                that.$router.replace(redirect);
+            }
           }else{
             Toast(response.data.ReturnMessage);
           }
@@ -242,6 +254,13 @@ export default {
   width: 100%;
   max-width: 10rem;
   background-color: #fff;
+}
+
+.basic-file .warning-tip {
+  line-height: 1.2rem;
+  font-size: 0.4rem;
+  color: #aaa;
+  background: #f7f7f7;
 }
 .basic-file ul {
   width: 92%;

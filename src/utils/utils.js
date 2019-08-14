@@ -2,6 +2,9 @@
  * Created by huangyh(黄永号) on 2019/07/03.
  */
 
+import {MessageBox} from "mint-ui";
+import store from "@/store";
+
 import api from "../apiConfig";
 import notTokenApi from "../apiConfig/not-token-api";
 import sentTokenApi from "../apiConfig/sent-token-api";
@@ -297,6 +300,19 @@ let utils = {
 
         return key;
     },
+    //去登录
+    goLogin() {
+        MessageBox.confirm("你已被登出，可以取消继续留在该页面，或者重新登录", "确定登出", {
+            confirmButtonText: "重新登录",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(() => {
+            store.dispatch("FedLogOut").then(() => {
+                // 为了重新实例化vue-router对象 避免bug
+                location.reload();
+            });
+        });
+    },
     //根据年龄获取时期
     getPeriod({age = 0, month, week, gender}) {
         let pregnantPeriod = this.getPregnantPeriod(week);
@@ -315,8 +331,8 @@ let utils = {
             week = parseInt(week);
         }
 
-        if(age < 3 && typeof month !== "undefined") {
-            let totalMonth = age * 12 + month;
+        if(age < 3 || typeof month !== "undefined") {
+            let totalMonth = age * 12 + (month || 0);
 
             if(totalMonth < 36) {
                 age = totalMonth;
@@ -387,6 +403,16 @@ let utils = {
         }
 
         return str;
+    },
+    //档案是否完善
+    checkInfoIsComplete(data) {
+        let result = false;
+
+        if(data.Phone && data.Name && data.Birthdate && (data.Gender || data.Gender == 0)) {
+            result = true;
+        }
+
+        return result;
     }
 };
 

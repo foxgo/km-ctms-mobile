@@ -58,7 +58,7 @@ if (paramStr) {
   setToken_360App(token_360App)
 }
 
-new Vue({
+window.rootVue = new Vue({
   el: '#app',
   router,
   store,

@@ -87,7 +87,17 @@ export default {
         // window.location.href = "static/selfBodyCheck"
       } else if(index === 3) {
           //呀！您还处于幼儿期，请预防...、...等常见疾病
-          this.$router.push({ path: pageRoutes[index] });
+          let callback = (period, dataItems) => {
+              let array = dataItems.map(n => n.Name);
+              let message = `呀！您还处于${period}，请预防${array.join('、')}等常见疾病`;
+
+              this.$MessageBox({
+                  title: '提示',
+                  message,
+                  confirmButtonText: "我知道了"
+              });
+          };
+          this.$root.getCommonDisease(callback);
       } else if(index === 4) {
         const postData ={
           "name" : this.$store.state.user.name,

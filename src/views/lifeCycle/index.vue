@@ -28,6 +28,8 @@
                             <div class="switch-tab-body">
                                 <p class="mrg-b" v-html="data.PhysicalExamination"></p>
 
+                                <p class="mrg-b" v-for="item in indexGroupDiseases" v-html="item.IndexGroupName"></p>
+
                                 <div class="clearfix">
                                     <a class="font-size-medium text-primary-second" href="javascript:" @click="gotoDoctorOnline">#健康咨询#</a>
                                 </div>
@@ -74,6 +76,7 @@
                 loadComplete: false, //是否已加载
                 currentTabIndex: 0, // 当前标签
                 pageData: {},
+                indexGroupDiseases: [],
                 data: null
             }
         },
@@ -186,14 +189,34 @@
 
                 this.$goto(router);
             },
+            //获取全生命周期管理建议体检建议增加专项检查项目
+            getIndexGroupDiseases(json) {
+                let array = json.HealthProblemItems.map(n => n.HealthTypeCode);
+
+                this.$ajax({
+                    type: "get",
+                    request: {
+                        name: "getIndexGroupDiseases"
+                    },
+                    data: {
+                        healthTypeCode: array.join()
+                    }
+                }).then((res) => {
+                    this.indexGroupDiseases = res.ReturnData;
+                }).finally(() => {
+                    this.loadComplete = true;
+
+                    this.$nextTick(() => {
+                        this.createSwiper();
+                    });
+                });
+            },
             //请求数据
             fetch(json) {
                 let data = {
                     age: json.Age,
                     gender: json.Gender
                 };
-
-                let period = [];
 
                 if(typeof this.age !== "undefined") {
                     data.age = this.age;
@@ -214,9 +237,9 @@
                 let result = this.$utils.getPeriod(data);
                 data = result.data;
 
-                //app 和 h5 男女的数据不一样， 男为1, 其他为 设为女值0
+                //男为1, 其他为 设为女值2
                 if(this.$utils.getMapKey(genderMap, data.gender) !== "male") {
-                    //这里有BUG，孕期的时候女的必须要传gender=0才有有数据
+                    //这里孕期的时候女的必须要传gender=0才有有数据
                     if(result.pageData.pregnantPeriod) {
                         result.data.gender = 0;
                     } else {
@@ -225,35 +248,17 @@
                 }
 
                 this.pageData = result.pageData;
-                ////
-               /* data = {
-                    age: 38,
-                    gender: 0,
-                    period: "孕晚期"
-                };*/
-
-               /* data = {
-                    age: 25,
-                    gender: 2,
-                    period: "幼儿期"
-                };*/
-
-                //data.period = "孕早期";
 
                 this.$ajax({
                     type: "get",
                     request: {
                         name: "getLifeCycleSuggest"
                     },
-                    data: data || result.data //result.data data
+                    data: result.data
                 }).then((res) => {
                     this.data = res.ReturnData;
-                }).finally(() => {
-                    this.loadComplete = true;
 
-                    this.$nextTick(() => {
-                        this.createSwiper();
-                    });
+                    this.getIndexGroupDiseases(this.data);
                 });
             }
         }
